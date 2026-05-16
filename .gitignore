@@ -1,0 +1,5 @@
+node_modules/
+relionimmo/public/uploads/
+*.log
+desktop.ini
+*.lnk

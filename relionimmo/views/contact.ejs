@@ -1,0 +1,54 @@
+<%- include('partials/head', { title: 'Contact', bodyClass: 'contact-page', description: "Contactez l'agence immobiliere de Kelibia." }) %>
+<%- include('partials/navbar', { page }) %>
+
+<main class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Contact</div>
+        <h1 style="font-size: clamp(40px, 6vw, 74px);">Un contact direct pour les residences et les villas a Kelibia</h1>
+        <p class="subtitle">Simple et clair. Demandez des informations sur un bien et l'agence pourra vous repondre rapidement.</p>
+      </div>
+    </div>
+
+    <div class="contact-layout">
+      <section class="contact-card">
+        <div class="eyebrow">Coordonnees</div>
+        <h2 style="font-size: clamp(34px, 4vw, 56px); margin-top: 16px;">Rylion Immobilière</h2>
+
+        <div class="contact-list">
+          <div class="contact-point">
+            <strong>Bureau</strong>
+            <span>Kelibia, Tunisie<br>Visites a Mansoura et au centre-ville sur rendez-vous</span>
+          </div>
+          <div class="contact-point">
+            <strong>Telephone</strong>
+            <span>+216 50 366 111</span>
+          </div>
+          <div class="contact-point">
+            <strong>Email</strong>
+            <span>contact@kelibia-signature.tn</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-card">
+        <div class="eyebrow">Message</div>
+        <h2 style="font-size: clamp(34px, 4vw, 56px); margin-top: 16px;">Dites-nous ce que vous souhaitez visiter</h2>
+
+        <% if (submitted) { %>
+          <div class="alert" style="margin-top: 20px;">Votre message a ete envoye. L'agence peut maintenant vous recontacter directement.</div>
+        <% } %>
+
+        <form action="/contact-request" method="POST" class="contact-form">
+          <input class="field" type="text" name="name" placeholder="Nom complet" required>
+          <input class="field" type="text" name="phone" placeholder="Numero de telephone" required>
+          <textarea class="field" name="message" placeholder="Exemple : je cherche une residence front de mer ou une villa dans un quartier calme." required></textarea>
+          <button type="submit" class="button button--primary">Envoyer le message</button>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

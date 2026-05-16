@@ -1,0 +1,3540 @@
+[
+  {
+    "id": "residence-1",
+    "ref": "",
+    "title": "Residence 1",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 134400,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Kelibia Est",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775724726539-304496-649264592-122121035205157293-2124013851378601020-n.jpg",
+    "images": [
+      "/uploads/1775724726539-304496-649264592-122121035205157293-2124013851378601020-n.jpg",
+      "/uploads/1775724726541-131460-649631369-122121035151157293-6320241654834818632-n.jpg",
+      "/uploads/1775724726547-239499-650064486-122121035163157293-1611820824484319797-n.jpg",
+      "/uploads/1775724726551-107379-649184179-122121035217157293-5489169560772564965-n.jpg",
+      "/uploads/1775724726555-798141-648985685-122121035109157293-7776920303013005756-n.jpg",
+      "/uploads/1775724726558-576712-648462958-122121035121157293-5348445487781756083-n.jpg",
+      "/uploads/1775724726559-10535-649124099-122121035091157293-5314204428003584924-n.jpg",
+      "/uploads/1775724726561-448279-649821101-122121035097157293-998096814044615227-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.85791657589075,11.08268618346435",
+    "mapLat": "36.857917",
+    "mapLng": "11.082686",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion ImmobiliÃ¨re"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T08:52:06.569Z",
+    "pricePerSquareMeter": 1600,
+    "apartmentCount": 8,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 3,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 84,
+          "price": 134400
+        },
+        {
+          "type": "S+1",
+          "surface": 91,
+          "price": 145600
+        },
+        {
+          "type": "S+1",
+          "surface": 98,
+          "price": 156800
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 124,
+          "price": 198400
+        },
+        {
+          "type": "S+2",
+          "surface": 129,
+          "price": 206400
+        },
+        {
+          "type": "S+2",
+          "surface": 134,
+          "price": 214400
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 175,
+          "price": 280000
+        },
+        {
+          "type": "S+3",
+          "surface": 184,
+          "price": 294400
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 134400,
+      "S+2": 198400,
+      "S+3": 280000
+    },
+    "startingPrice": 134400,
+    "surfaceRange": "84-184 m2"
+  },
+  {
+    "id": "residence-2",
+    "ref": "",
+    "title": "Residence 2",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 139200,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Hammam El Ghezaz",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775725467635-824150-649637212-122120972697157293-7561557896363696468-n.jpg",
+    "images": [
+      "/uploads/1775725467635-824150-649637212-122120972697157293-7561557896363696468-n.jpg",
+      "/uploads/1775725467636-415113-649073184-122120973201157293-2208887398986240133-n.jpg",
+      "/uploads/1775725467637-651095-649179597-122120972997157293-4666742356425230038-n.jpg",
+      "/uploads/1775725467644-480767-648878121-122120973189157293-4259786229044878015-n.jpg",
+      "/uploads/1775725467646-642970-648848981-122120973009157293-5683095975938744073-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.880852,11.122348",
+    "mapLat": "36.880852",
+    "mapLng": "11.122348",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:04:27.651Z",
+    "apartmentCount": 9,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 87,
+          "price": 139200
+        },
+        {
+          "type": "S+1",
+          "surface": 94,
+          "price": 150400
+        },
+        {
+          "type": "S+1",
+          "surface": 101,
+          "price": 161600
+        },
+        {
+          "type": "S+1",
+          "surface": 108,
+          "price": 172800
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 126,
+          "price": 201600
+        },
+        {
+          "type": "S+2",
+          "surface": 131,
+          "price": 209600
+        },
+        {
+          "type": "S+2",
+          "surface": 136,
+          "price": 217600
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 176,
+          "price": 281600
+        },
+        {
+          "type": "S+3",
+          "surface": 185,
+          "price": 296000
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 139200,
+      "S+2": 201600,
+      "S+3": 281600
+    },
+    "startingPrice": 139200,
+    "surfaceRange": "87-185 m2"
+  },
+  {
+    "id": "residence-3",
+    "ref": "",
+    "title": "Residence 3",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 144000,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia La Blanche",
+    "city": "Kelibia Est",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775726084271-264150-613152755-122111013879157293-6796328327314135050-n.jpg",
+    "images": [
+      "/uploads/1775726084271-264150-613152755-122111013879157293-6796328327314135050-n.jpg",
+      "/uploads/1775726084272-714135-613402376-122111014011157293-4833497023252814224-n.jpg",
+      "/uploads/1775726084273-379417-613420589-122111013909157293-7787238979542629030-n.jpg",
+      "/uploads/1775726084275-374823-613467140-122111013819157293-8059843558082845704-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.85359316276057,11.12417039058102",
+    "mapLat": "36.853593",
+    "mapLng": "11.124170",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:14:44.280Z",
+    "apartmentCount": 10,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 90,
+          "price": 144000
+        },
+        {
+          "type": "S+1",
+          "surface": 97,
+          "price": 155200
+        },
+        {
+          "type": "S+1",
+          "surface": 104,
+          "price": 166400
+        },
+        {
+          "type": "S+1",
+          "surface": 111,
+          "price": 177600
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 128,
+          "price": 204800
+        },
+        {
+          "type": "S+2",
+          "surface": 133,
+          "price": 212800
+        },
+        {
+          "type": "S+2",
+          "surface": 138,
+          "price": 220800
+        },
+        {
+          "type": "S+2",
+          "surface": 143,
+          "price": 228800
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 177,
+          "price": 283200
+        },
+        {
+          "type": "S+3",
+          "surface": 186,
+          "price": 297600
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 144000,
+      "S+2": 204800,
+      "S+3": 283200
+    },
+    "startingPrice": 144000,
+    "surfaceRange": "90-186 m2"
+  },
+  {
+    "id": "residence-4",
+    "ref": "",
+    "title": "Residence 4",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 128000,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Dar Allouch",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775726184611-475571-613102370-122110825821157293-9118186096959180540-n.jpg",
+    "images": [
+      "/uploads/1775726184611-475571-613102370-122110825821157293-9118186096959180540-n.jpg",
+      "/uploads/1775726184613-271214-613146633-122110825953157293-5430192019931055522-n.jpg",
+      "/uploads/1775726184616-192907-613460963-122110826013157293-6054494272760044590-n.jpg",
+      "/uploads/1775726184620-833941-613528983-122110825899157293-5402444775189067177-n.jpg",
+      "/uploads/1775726184623-89443-612896160-122110825989157293-6712719641098446034-n.jpg",
+      "/uploads/1775726184626-368838-612870647-122110825857157293-7923249399997246817-n.jpg",
+      "/uploads/1775726184629-469249-613712374-122110825665157293-2500211751440625492-n.jpg",
+      "/uploads/1775726184633-449926-613655838-122110825557157293-7073345383022957381-n.jpg",
+      "/uploads/1775726184635-495542-612912827-122110825707157293-2167123064526825821-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.98343451672559,11.063767564140182",
+    "mapLat": "36.983435",
+    "mapLng": "11.063768",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:16:24.638Z",
+    "apartmentCount": 11,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 5,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 80,
+          "price": 128000
+        },
+        {
+          "type": "S+1",
+          "surface": 93,
+          "price": 148800
+        },
+        {
+          "type": "S+1",
+          "surface": 100,
+          "price": 160000
+        },
+        {
+          "type": "S+1",
+          "surface": 107,
+          "price": 171200
+        },
+        {
+          "type": "S+1",
+          "surface": 114,
+          "price": 182400
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 130,
+          "price": 208000
+        },
+        {
+          "type": "S+2",
+          "surface": 135,
+          "price": 216000
+        },
+        {
+          "type": "S+2",
+          "surface": 140,
+          "price": 224000
+        },
+        {
+          "type": "S+2",
+          "surface": 145,
+          "price": 232000
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 178,
+          "price": 284800
+        },
+        {
+          "type": "S+3",
+          "surface": 187,
+          "price": 299200
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 128000,
+      "S+2": 208000,
+      "S+3": 284800
+    },
+    "startingPrice": 128000,
+    "surfaceRange": "80-187 m2"
+  },
+  {
+    "id": "residence-5",
+    "ref": "",
+    "title": "Residence 5",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 132800,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Avenue La Mansoura",
+    "city": "Kelibia",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775726259359-671248-612014850-122110454091157293-3650028374490778826-n.jpg",
+    "images": [
+      "/uploads/1775726259359-671248-612014850-122110454091157293-3650028374490778826-n.jpg",
+      "/uploads/1775726259361-355173-612420145-122110454043157293-3330551472650811640-n.jpg",
+      "/uploads/1775726259365-578809-611856263-122110453989157293-3921746832772573895-n.jpg",
+      "/uploads/1775726259370-91839-612144088-122110453869157293-2725109863337470212-n.jpg",
+      "/uploads/1775726259373-599964-612038434-122110453809157293-9184576951979089090-n.jpg",
+      "/uploads/1775726259378-285029-612221522-122110453761157293-7866228980146543734-n.jpg",
+      "/uploads/1775726259384-625873-612149006-122110453707157293-6149675013343670930-n.jpg",
+      "/uploads/1775726259387-495285-612318957-122110453659157293-2762098241418878117-n.jpg",
+      "/uploads/1775726259389-4817-612067086-122110453587157293-3076032767815518497-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.85455321598914,11.128165566699872",
+    "mapLat": "36.854553",
+    "mapLng": "11.128166",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:17:39.402Z",
+    "apartmentCount": 12,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 6,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 83,
+          "price": 132800
+        },
+        {
+          "type": "S+1",
+          "surface": 90,
+          "price": 144000
+        },
+        {
+          "type": "S+1",
+          "surface": 96,
+          "price": 153600
+        },
+        {
+          "type": "S+1",
+          "surface": 103,
+          "price": 164800
+        },
+        {
+          "type": "S+1",
+          "surface": 110,
+          "price": 176000
+        },
+        {
+          "type": "S+1",
+          "surface": 117,
+          "price": 187200
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 132,
+          "price": 211200
+        },
+        {
+          "type": "S+2",
+          "surface": 137,
+          "price": 219200
+        },
+        {
+          "type": "S+2",
+          "surface": 142,
+          "price": 227200
+        },
+        {
+          "type": "S+2",
+          "surface": 147,
+          "price": 235200
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 179,
+          "price": 286400
+        },
+        {
+          "type": "S+3",
+          "surface": 188,
+          "price": 300800
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 132800,
+      "S+2": 211200,
+      "S+3": 286400
+    },
+    "startingPrice": 132800,
+    "surfaceRange": "83-188 m2"
+  },
+  {
+    "id": "residence-6",
+    "ref": "",
+    "title": "Residence 6",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 158400,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Hammam El Ghezaz",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775726371966-807433-603798999-122106603645157293-3365262706524028189-n.jpg",
+    "images": [
+      "/uploads/1775726371966-807433-603798999-122106603645157293-3365262706524028189-n.jpg",
+      "/uploads/1775726371968-213577-603877723-122106603597157293-2760263205310289526-n.jpg",
+      "/uploads/1775726371969-241827-603857656-122106603675157293-3411204572415877976-n.jpg",
+      "/uploads/1775726371973-668806-603810913-122106603501157293-643635427933609887-n.jpg",
+      "/uploads/1775726371975-466668-604761183-122106603393157293-4114860363740781708-n.jpg",
+      "/uploads/1775726371976-434500-604835719-122106603339157293-706009501266629364-n.jpg",
+      "/uploads/1775726371977-789109-603823957-122106603273157293-9201054221709817923-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.879109758261905,11.121175529565956",
+    "mapLat": "36.879110",
+    "mapLng": "11.121176",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:19:31.980Z",
+    "apartmentCount": 8,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 3,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 99,
+          "price": 158400
+        },
+        {
+          "type": "S+1",
+          "surface": 106,
+          "price": 169600
+        },
+        {
+          "type": "S+1",
+          "surface": 113,
+          "price": 180800
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 134,
+          "price": 214400
+        },
+        {
+          "type": "S+2",
+          "surface": 139,
+          "price": 222400
+        },
+        {
+          "type": "S+2",
+          "surface": 144,
+          "price": 230400
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 180,
+          "price": 288000
+        },
+        {
+          "type": "S+3",
+          "surface": 189,
+          "price": 302400
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 158400,
+      "S+2": 214400,
+      "S+3": 288000
+    },
+    "startingPrice": 158400,
+    "surfaceRange": "99-189 m2"
+  },
+  {
+    "id": "residence-7",
+    "ref": "",
+    "title": "Residence 7",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 131200,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775726592803-141034-660310114-1318312873515610-5241960075758241893-n.jpg",
+    "images": [
+      "/uploads/1775726592803-141034-660310114-1318312873515610-5241960075758241893-n.jpg",
+      "/uploads/1775726592804-530984-658980049-1318312843515613-6713264467337875992-n.jpg",
+      "/uploads/1775726592805-432320-660388845-1318312963515601-3459611587759055782-n.jpg",
+      "/uploads/1775726592808-881789-658861136-1318312900182274-6417320547875995352-n.jpg",
+      "/uploads/1775726592810-926753-662664092-1318312876848943-6781095870453869975-n.jpg",
+      "/uploads/1775726592812-62927-658854705-1318312936848937-7807658085066704547-n.jpg",
+      "/uploads/1775726592815-805875-658623345-1318312930182271-7298959324856842115-n.jpg",
+      "/uploads/1775726592817-136978-660161593-1318312790182285-1395741468992878830-n.jpg",
+      "/uploads/1775726592818-682546-657654415-1318312823515615-8033840473789216619-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.83909505406954,11.112887020464735",
+    "mapLat": "36.839095",
+    "mapLng": "11.112887",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:23:12.821Z",
+    "apartmentCount": 9,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 82,
+          "price": 131200
+        },
+        {
+          "type": "S+1",
+          "surface": 102,
+          "price": 163200
+        },
+        {
+          "type": "S+1",
+          "surface": 109,
+          "price": 174400
+        },
+        {
+          "type": "S+1",
+          "surface": 116,
+          "price": 185600
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 136,
+          "price": 217600
+        },
+        {
+          "type": "S+2",
+          "surface": 141,
+          "price": 225600
+        },
+        {
+          "type": "S+2",
+          "surface": 146,
+          "price": 233600
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 181,
+          "price": 289600
+        },
+        {
+          "type": "S+3",
+          "surface": 190,
+          "price": 304000
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 131200,
+      "S+2": 217600,
+      "S+3": 289600
+    },
+    "startingPrice": 131200,
+    "surfaceRange": "82-190 m2"
+  },
+  {
+    "id": "residence-8",
+    "ref": "",
+    "title": "Residence 8",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 136000,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "El Haouaria Est",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775726755075-606069-627123297-1274595957887302-4169664656362671659-n.jpg",
+    "images": [
+      "/uploads/1775726755075-606069-627123297-1274595957887302-4169664656362671659-n.jpg",
+      "/uploads/1775726755077-618860-627631090-1274590414554523-4760814802537398168-n.jpg",
+      "/uploads/1775726755079-73078-626372618-1274596027887295-7446003253857482515-n.jpg",
+      "/uploads/1775726755082-233955-626734643-1274595964553968-1875544234192299631-n.jpg",
+      "/uploads/1775726755086-503942-626018548-1274596264553938-4766949223158838053-n.jpg",
+      "/uploads/1775726755088-464397-626741255-1274596284553936-5433219170912537581-n.jpg",
+      "/uploads/1775726755092-966752-626138575-1274596117887286-8975634300192624427-n.jpg",
+      "/uploads/1775726755095-156668-627178571-1274595924553972-7307419590667631153-n.jpg",
+      "/uploads/1775726755097-135056-660310114-1318312873515610-5241960075758241893-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=37.038116594453044,11.056467415877291",
+    "mapLat": "37.038117",
+    "mapLng": "11.056467",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:25:55.100Z",
+    "apartmentCount": 10,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 85,
+          "price": 136000
+        },
+        {
+          "type": "S+1",
+          "surface": 105,
+          "price": 168000
+        },
+        {
+          "type": "S+1",
+          "surface": 112,
+          "price": 179200
+        },
+        {
+          "type": "S+1",
+          "surface": 119,
+          "price": 190400
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 124,
+          "price": 198400
+        },
+        {
+          "type": "S+2",
+          "surface": 138,
+          "price": 220800
+        },
+        {
+          "type": "S+2",
+          "surface": 143,
+          "price": 228800
+        },
+        {
+          "type": "S+2",
+          "surface": 148,
+          "price": 236800
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 170,
+          "price": 272000
+        },
+        {
+          "type": "S+3",
+          "surface": 182,
+          "price": 291200
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 136000,
+      "S+2": 198400,
+      "S+3": 272000
+    },
+    "startingPrice": 136000,
+    "surfaceRange": "85-182 m2"
+  },
+  {
+    "id": "residence-9",
+    "ref": "",
+    "title": "Residence 9",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 129600,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Rue Ibn Hazm",
+    "city": "Kelibia",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775726957826-535355-543432057-1155297126483853-9190619488228085173-n.jpg",
+    "images": [
+      "/uploads/1775726957826-535355-543432057-1155297126483853-9190619488228085173-n.jpg",
+      "/uploads/1775726957827-977940-542758287-1155298379817061-7651169136627132269-n.jpg",
+      "/uploads/1775726957831-614892-540688539-1155297746483791-211850701747404508-n.jpg",
+      "/uploads/1775726957836-744855-544486369-1155297829817116-4883903488300699414-n.jpg",
+      "/uploads/1775726957838-931947-540750248-1155297866483779-8497169063909361989-n.jpg",
+      "/uploads/1775726957841-130006-541525613-1155298333150399-3678978947258374224-n.jpg",
+      "/uploads/1775726957844-637222-542755712-1155298289817070-8108284139603325843-n.jpg",
+      "/uploads/1775726957847-524119-543457864-1155298083150424-5102827840507467578-n.jpg",
+      "/uploads/1775726957849-679765-541897828-1155298006483765-2362694530727777800-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.85442723997959,11.09259799730596",
+    "mapLat": "36.854427",
+    "mapLng": "11.092598",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:29:17.853Z",
+    "apartmentCount": 11,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 5,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 81,
+          "price": 129600
+        },
+        {
+          "type": "S+1",
+          "surface": 88,
+          "price": 140800
+        },
+        {
+          "type": "S+1",
+          "surface": 95,
+          "price": 152000
+        },
+        {
+          "type": "S+1",
+          "surface": 108,
+          "price": 172800
+        },
+        {
+          "type": "S+1",
+          "surface": 115,
+          "price": 184000
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 121,
+          "price": 193600
+        },
+        {
+          "type": "S+2",
+          "surface": 126,
+          "price": 201600
+        },
+        {
+          "type": "S+2",
+          "surface": 140,
+          "price": 224000
+        },
+        {
+          "type": "S+2",
+          "surface": 145,
+          "price": 232000
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 171,
+          "price": 273600
+        },
+        {
+          "type": "S+3",
+          "surface": 183,
+          "price": 292800
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 129600,
+      "S+2": 193600,
+      "S+3": 273600
+    },
+    "startingPrice": 129600,
+    "surfaceRange": "81-183 m2"
+  },
+  {
+    "id": "residence-10",
+    "ref": "",
+    "title": "Residence 10",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 134400,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Ezzahra",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775727122595-466329-515058473-1107954801218086-7402481020940122382-n.jpg",
+    "images": [
+      "/uploads/1775727122595-466329-515058473-1107954801218086-7402481020940122382-n.jpg",
+      "/uploads/1775727122598-277593-515585083-1107953781218188-8779322402631808364-n.jpg",
+      "/uploads/1775727122600-632849-515295454-1107954744551425-4871381151173753175-n.jpg",
+      "/uploads/1775727122607-523103-515439639-1107954657884767-1306609327387655222-n.jpg",
+      "/uploads/1775727122610-6425-514329254-1107954834551416-8372125230097152014-n.jpg",
+      "/uploads/1775727122613-251244-515502629-1107953844551515-8335602809149804976-n.jpg",
+      "/uploads/1775727122615-740675-515439059-1107954934551406-3392201943762015038-n.jpg",
+      "/uploads/1775727122619-395394-515436225-1107954731218093-5851009464558907396-n.jpg",
+      "/uploads/1775727122623-789901-515435994-1107954681218098-7071597460959788065-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.90151614348862,11.103261278816102",
+    "mapLat": "36.901516",
+    "mapLng": "11.103261",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:32:02.628Z",
+    "apartmentCount": 12,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 6,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 84,
+          "price": 134400
+        },
+        {
+          "type": "S+1",
+          "surface": 91,
+          "price": 145600
+        },
+        {
+          "type": "S+1",
+          "surface": 98,
+          "price": 156800
+        },
+        {
+          "type": "S+1",
+          "surface": 105,
+          "price": 168000
+        },
+        {
+          "type": "S+1",
+          "surface": 111,
+          "price": 177600
+        },
+        {
+          "type": "S+1",
+          "surface": 118,
+          "price": 188800
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 123,
+          "price": 196800
+        },
+        {
+          "type": "S+2",
+          "surface": 128,
+          "price": 204800
+        },
+        {
+          "type": "S+2",
+          "surface": 142,
+          "price": 227200
+        },
+        {
+          "type": "S+2",
+          "surface": 147,
+          "price": 235200
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 172,
+          "price": 275200
+        },
+        {
+          "type": "S+3",
+          "surface": 184,
+          "price": 294400
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 134400,
+      "S+2": 196800,
+      "S+3": 275200
+    },
+    "startingPrice": 134400,
+    "surfaceRange": "84-184 m2"
+  },
+  {
+    "id": "residence-11",
+    "ref": "",
+    "title": "Residence 11",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 128000,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Sidi Jamel Eddine",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775727334536-228824-504952441-1088151313198435-2536693718215947581-n.jpg",
+    "images": [
+      "/uploads/1775727334519-505088-504900755-1088151286531771-6507908059543479859-n.jpg",
+      "/uploads/1775727334521-585904-504892051-1088151339865099-2635951726191106593-n.jpg",
+      "/uploads/1775727334523-279594-504852460-1088151246531775-7728964589588954214-n.jpg",
+      "/uploads/1775727334527-630356-505082917-1088151183198448-6464765937842990836-n.jpg",
+      "/uploads/1775727334529-371460-504917055-1088151166531783-2774356505798097109-n.jpg",
+      "/uploads/1775727334533-238854-504928687-1088151216531778-7898125592852310877-n.jpg",
+      "/uploads/1775727334536-228824-504952441-1088151313198435-2536693718215947581-n.jpg",
+      "/uploads/1775727334540-719443-504858488-1088151326531767-5712543994589269386-n.jpg",
+      "/uploads/1775727334543-577461-505385898-1088151366531763-6582806320648398723-n.jpg",
+      "/uploads/1775727362356-462627-504611013-1088151109865122-7095254464056153700-n.jpg",
+      "/uploads/1775727362358-985612-504858488-1088151326531767-5712543994589269386-n.jpg",
+      "/uploads/1775727362360-77499-505192950-1088151103198456-8830487996210520150-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.795306,11.029239",
+    "mapLat": "36.795306",
+    "mapLng": "11.029239",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:35:34.549Z",
+    "apartmentCount": 8,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 3,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 80,
+          "price": 128000
+        },
+        {
+          "type": "S+1",
+          "surface": 87,
+          "price": 139200
+        },
+        {
+          "type": "S+1",
+          "surface": 114,
+          "price": 182400
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 125,
+          "price": 200000
+        },
+        {
+          "type": "S+2",
+          "surface": 144,
+          "price": 230400
+        },
+        {
+          "type": "S+2",
+          "surface": 149,
+          "price": 238400
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 173,
+          "price": 276800
+        },
+        {
+          "type": "S+3",
+          "surface": 185,
+          "price": 296000
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 128000,
+      "S+2": 200000,
+      "S+3": 276800
+    },
+    "startingPrice": 128000,
+    "surfaceRange": "80-185 m2"
+  },
+  {
+    "id": "residence-12",
+    "ref": "",
+    "title": "Residence 12",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 132800,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Avenue La Mansoura",
+    "city": "Kelibia",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775727483198-374653-481496649-1017398866940347-5679881480559575370-n.jpg",
+    "images": [
+      "/uploads/1775727483198-374653-481496649-1017398866940347-5679881480559575370-n.jpg",
+      "/uploads/1775727483200-817991-481279028-1017398886940345-446176474738039800-n.jpg",
+      "/uploads/1775727483202-885604-481205086-1017398793607021-6221571952081665123-n.jpg",
+      "/uploads/1775727483203-73528-481159913-1017398820273685-4766936500662616771-n.jpg",
+      "/uploads/1775727483217-743433-481470997-1017398860273681-4060691772863367680-n.jpg",
+      "/uploads/1775727483219-942546-481701213-1017399176940316-129529349761532480-n.jpg",
+      "/uploads/1775727483222-324465-480694639-1017398993607001-5454113476907945549-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.85667858819595,11.12720615739307",
+    "mapLat": "36.856679",
+    "mapLng": "11.127206",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:38:03.225Z",
+    "apartmentCount": 9,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 83,
+          "price": 132800
+        },
+        {
+          "type": "S+1",
+          "surface": 90,
+          "price": 144000
+        },
+        {
+          "type": "S+1",
+          "surface": 97,
+          "price": 155200
+        },
+        {
+          "type": "S+1",
+          "surface": 117,
+          "price": 187200
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 122,
+          "price": 195200
+        },
+        {
+          "type": "S+2",
+          "surface": 127,
+          "price": 203200
+        },
+        {
+          "type": "S+2",
+          "surface": 146,
+          "price": 233600
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 174,
+          "price": 278400
+        },
+        {
+          "type": "S+3",
+          "surface": 186,
+          "price": 297600
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 132800,
+      "S+2": 195200,
+      "S+3": 278400
+    },
+    "startingPrice": 132800,
+    "surfaceRange": "83-186 m2"
+  },
+  {
+    "id": "residence-13",
+    "ref": "",
+    "title": "Residence 13",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 137600,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Hammam El Ghezaz",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775727610832-107741-481075759-1017395993607301-3874615677209034428-n.jpg",
+    "images": [
+      "/uploads/1775727610816-677220-480966934-1017396206940613-7411477576349545425-n.jpg",
+      "/uploads/1775727610818-780510-481072578-1017396216940612-1235682959807981519-n.jpg",
+      "/uploads/1775727610821-849069-482005429-1017396136940620-379728474589967243-n.jpg",
+      "/uploads/1775727610823-765039-481457479-1017396036940630-7113950462168748555-n.jpg",
+      "/uploads/1775727610827-783081-480711303-1017396013607299-9097415322304892553-n.jpg",
+      "/uploads/1775727610829-838685-481158782-1017396053607295-2995146290913635282-n.jpg",
+      "/uploads/1775727610830-420592-480703225-1017396046940629-5985037132246829518-n.jpg",
+      "/uploads/1775727610832-107741-481075759-1017395993607301-3874615677209034428-n.jpg",
+      "/uploads/1775727610834-99478-481496649-1017398866940347-5679881480559575370-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.86831,11.126717",
+    "mapLat": "36.868310",
+    "mapLng": "11.126717",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:40:10.840Z",
+    "apartmentCount": 10,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 86,
+          "price": 137600
+        },
+        {
+          "type": "S+1",
+          "surface": 93,
+          "price": 148800
+        },
+        {
+          "type": "S+1",
+          "surface": 100,
+          "price": 160000
+        },
+        {
+          "type": "S+1",
+          "surface": 120,
+          "price": 192000
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 124,
+          "price": 198400
+        },
+        {
+          "type": "S+2",
+          "surface": 129,
+          "price": 206400
+        },
+        {
+          "type": "S+2",
+          "surface": 134,
+          "price": 214400
+        },
+        {
+          "type": "S+2",
+          "surface": 148,
+          "price": 236800
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 175,
+          "price": 280000
+        },
+        {
+          "type": "S+3",
+          "surface": 187,
+          "price": 299200
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 137600,
+      "S+2": 198400,
+      "S+3": 280000
+    },
+    "startingPrice": 137600,
+    "surfaceRange": "86-187 m2"
+  },
+  {
+    "id": "residence-14",
+    "ref": "",
+    "title": "Residence 14",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 131200,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775727823156-292614-607189733-122108017143157293-5962507055788157999-n.jpg",
+    "images": [
+      "/uploads/1775727823156-292614-607189733-122108017143157293-5962507055788157999-n.jpg",
+      "/uploads/1775727823158-375579-605574444-122108016993157293-7966317780104994478-n.jpg",
+      "/uploads/1775727823160-217274-606031197-122108016957157293-8291898493499100686-n.jpg",
+      "/uploads/1775727823161-469734-605541020-122108016921157293-4480963121742854917-n.jpg",
+      "/uploads/1775727823164-26159-605687594-122108016891157293-8224907472714386244-n.jpg",
+      "/uploads/1775727823165-354814-605734374-122108016795157293-1389933893766639735-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.839098,11.101808",
+    "mapLat": "36.839098",
+    "mapLng": "11.101808",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:43:43.172Z",
+    "apartmentCount": 11,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 5,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 82,
+          "price": 131200
+        },
+        {
+          "type": "S+1",
+          "surface": 89,
+          "price": 142400
+        },
+        {
+          "type": "S+1",
+          "surface": 96,
+          "price": 153600
+        },
+        {
+          "type": "S+1",
+          "surface": 103,
+          "price": 164800
+        },
+        {
+          "type": "S+1",
+          "surface": 110,
+          "price": 176000
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 121,
+          "price": 193600
+        },
+        {
+          "type": "S+2",
+          "surface": 126,
+          "price": 201600
+        },
+        {
+          "type": "S+2",
+          "surface": 131,
+          "price": 209600
+        },
+        {
+          "type": "S+2",
+          "surface": 136,
+          "price": 217600
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 176,
+          "price": 281600
+        },
+        {
+          "type": "S+3",
+          "surface": 188,
+          "price": 300800
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 131200,
+      "S+2": 193600,
+      "S+3": 281600
+    },
+    "startingPrice": 131200,
+    "surfaceRange": "82-188 m2"
+  },
+  {
+    "id": "residence-15",
+    "ref": "",
+    "title": "Residence 15",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 136000,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Hammam El Ghezaz",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775727985396-531582-605630889-122107245369157293-8225566062097629912-n.jpg",
+    "images": [
+      "/uploads/1775727985396-531582-605630889-122107245369157293-8225566062097629912-n.jpg",
+      "/uploads/1775727985400-68409-605595727-122107245243157293-3163925894246735601-n.jpg",
+      "/uploads/1775727985403-391825-604804779-122107245195157293-218137488419967122-n.jpg",
+      "/uploads/1775727985406-425701-604939787-122107245075157293-6111393806031716688-n.jpg",
+      "/uploads/1775727985410-131609-605574903-122107245021157293-3067987851629058412-n.jpg",
+      "/uploads/1775727985412-156063-605421006-122107244883157293-8022066733653560556-n.jpg",
+      "/uploads/1775727985414-634215-605140585-122107244811157293-4410983554744794350-n.jpg",
+      "/uploads/1775727985417-322445-605131602-122107244745157293-2877664013421709434-n.jpg",
+      "/uploads/1775727985420-864367-604876928-122107244685157293-6539604176924629625-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.87366063545118,11.103581019464379",
+    "mapLat": "36.873661",
+    "mapLng": "11.103581",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:46:25.424Z",
+    "apartmentCount": 12,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 6,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 85,
+          "price": 136000
+        },
+        {
+          "type": "S+1",
+          "surface": 92,
+          "price": 147200
+        },
+        {
+          "type": "S+1",
+          "surface": 99,
+          "price": 158400
+        },
+        {
+          "type": "S+1",
+          "surface": 106,
+          "price": 169600
+        },
+        {
+          "type": "S+1",
+          "surface": 113,
+          "price": 180800
+        },
+        {
+          "type": "S+1",
+          "surface": 120,
+          "price": 192000
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 123,
+          "price": 196800
+        },
+        {
+          "type": "S+2",
+          "surface": 128,
+          "price": 204800
+        },
+        {
+          "type": "S+2",
+          "surface": 133,
+          "price": 212800
+        },
+        {
+          "type": "S+2",
+          "surface": 138,
+          "price": 220800
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 177,
+          "price": 283200
+        },
+        {
+          "type": "S+3",
+          "surface": 189,
+          "price": 302400
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 136000,
+      "S+2": 196800,
+      "S+3": 283200
+    },
+    "startingPrice": 136000,
+    "surfaceRange": "85-189 m2"
+  },
+  {
+    "id": "residence-16",
+    "ref": "",
+    "title": "Residence 16",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 140800,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Ain Grinz",
+    "city": "Kelibia Ouest",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775728147322-5964-598857318-122105390163157293-1621062005952450545-n.jpg",
+    "images": [
+      "/uploads/1775728147322-5964-598857318-122105390163157293-1621062005952450545-n.jpg",
+      "/uploads/1775728147324-780171-599588680-122105391267157293-5225390911306827578-n.jpg",
+      "/uploads/1775728147326-732433-600213261-122105390127157293-3866541649965144548-n.jpg",
+      "/uploads/1775728147329-992819-600873876-122105391303157293-5548036629133965606-n.jpg",
+      "/uploads/1775728147333-869365-597711414-122105392119157293-7621087231269126595-n.jpg",
+      "/uploads/1775728147334-315844-597859611-122105390151157293-9172256854973027410-n.jpg",
+      "/uploads/1775728147335-201352-600079974-122105391153157293-2788050466567449046-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.82052637016552,11.07124723737412",
+    "mapLat": "36.820526",
+    "mapLng": "11.071247",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:49:07.338Z",
+    "apartmentCount": 8,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 3,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 88,
+          "price": 140800
+        },
+        {
+          "type": "S+1",
+          "surface": 95,
+          "price": 152000
+        },
+        {
+          "type": "S+1",
+          "surface": 102,
+          "price": 163200
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 125,
+          "price": 200000
+        },
+        {
+          "type": "S+2",
+          "surface": 130,
+          "price": 208000
+        },
+        {
+          "type": "S+2",
+          "surface": 135,
+          "price": 216000
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 178,
+          "price": 284800
+        },
+        {
+          "type": "S+3",
+          "surface": 190,
+          "price": 304000
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 140800,
+      "S+2": 200000,
+      "S+3": 284800
+    },
+    "startingPrice": 140800,
+    "surfaceRange": "88-190 m2"
+  },
+  {
+    "id": "residence-17",
+    "ref": "",
+    "title": "Residence 17",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 145600,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "El Haouaria Est",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775728535118-381069-668555255-122201288876349191-905509722995362664-n.jpg",
+    "images": [
+      "/uploads/1775728535118-381069-668555255-122201288876349191-905509722995362664-n.jpg",
+      "/uploads/1775728535120-733846-668540396-122201288954349191-2799847625662258703-n.jpg",
+      "/uploads/1775728535125-599815-668984190-122201288930349191-5052233655582093961-n.jpg",
+      "/uploads/1775728535128-212283-669593077-122201288840349191-9035393578952088283-n.jpg",
+      "/uploads/1775728535132-634113-667866502-122201288942349191-4520969153946609961-n.jpg",
+      "/uploads/1775728535134-436100-668202550-122201288888349191-5308150087583001540-n.jpg",
+      "/uploads/1775728535137-436149-667854199-122201288918349191-308337355736227385-n.jpg",
+      "/uploads/1775728535141-930977-668217417-122201288858349191-8289904842730451748-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=37.030099102521945,11.062239518102482",
+    "mapLat": "37.030099",
+    "mapLng": "11.062240",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T09:55:35.146Z",
+    "apartmentCount": 9,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 3,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 91,
+          "price": 145600
+        },
+        {
+          "type": "S+1",
+          "surface": 98,
+          "price": 156800
+        },
+        {
+          "type": "S+1",
+          "surface": 105,
+          "price": 168000
+        },
+        {
+          "type": "S+1",
+          "surface": 112,
+          "price": 179200
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 127,
+          "price": 203200
+        },
+        {
+          "type": "S+2",
+          "surface": 132,
+          "price": 211200
+        },
+        {
+          "type": "S+2",
+          "surface": 137,
+          "price": 219200
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 170,
+          "price": 272000
+        },
+        {
+          "type": "S+3",
+          "surface": 179,
+          "price": 286400
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 145600,
+      "S+2": 203200,
+      "S+3": 272000
+    },
+    "startingPrice": 145600,
+    "surfaceRange": "91-179 m2"
+  },
+  {
+    "id": "residence-18",
+    "ref": "",
+    "title": "Residence 18",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 150400,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Avenue La Mansoura",
+    "city": "Kelibia",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775728813628-158517-3a23186f-64c8-4622-97f4-d5c19843eb53.jpg",
+    "images": [
+      "/uploads/1775728813628-158517-3a23186f-64c8-4622-97f4-d5c19843eb53.jpg",
+      "/uploads/1775728813629-64396-1763014c-c09b-4e25-b18f-696aa6c4dfb8.jpg",
+      "/uploads/1775728813632-485172-7a1bbd2e-8750-4f51-a96a-e4db1943febe.jpg",
+      "/uploads/1775728813633-713825-de75ea5e-8d09-486e-942a-b5be2ec1afe0.jpg",
+      "/uploads/1775728813637-392152-5b21b745-1dba-469b-aaf1-cd1d4de5393a.jpg",
+      "/uploads/1775728813639-302533-5bdd80b4-6b52-41de-b1f7-69e586b644f1.jpg",
+      "/uploads/1775728813642-400319-26605531-d42a-4ad0-bcd6-200a23bbbef6.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.8443162644197,11.120968286784223",
+    "mapLat": "36.844316",
+    "mapLng": "11.120968",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T10:00:13.645Z",
+    "apartmentCount": 10,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 4,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 94,
+          "price": 150400
+        },
+        {
+          "type": "S+1",
+          "surface": 101,
+          "price": 161600
+        },
+        {
+          "type": "S+1",
+          "surface": 108,
+          "price": 172800
+        },
+        {
+          "type": "S+1",
+          "surface": 115,
+          "price": 184000
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 129,
+          "price": 206400
+        },
+        {
+          "type": "S+2",
+          "surface": 134,
+          "price": 214400
+        },
+        {
+          "type": "S+2",
+          "surface": 139,
+          "price": 222400
+        },
+        {
+          "type": "S+2",
+          "surface": 144,
+          "price": 230400
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 171,
+          "price": 273600
+        },
+        {
+          "type": "S+3",
+          "surface": 180,
+          "price": 288000
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 150400,
+      "S+2": 206400,
+      "S+3": 273600
+    },
+    "startingPrice": 150400,
+    "surfaceRange": "94-180 m2"
+  },
+  {
+    "id": "residence-19",
+    "ref": "",
+    "title": "Residence 19",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 134400,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Taieb Mhiri",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775728932652-640793-631bbb8f-82a6-4645-b1e9-acf70b2f11ad.jpg",
+    "images": [
+      "/uploads/1775728932652-640793-631bbb8f-82a6-4645-b1e9-acf70b2f11ad.jpg",
+      "/uploads/1775728932654-7218-0234d8b8-47e7-478c-81d1-a45098636879.jpg",
+      "/uploads/1775728932657-744629-390de4df-0998-4e52-b479-b90af4ef7825.jpg",
+      "/uploads/1775728932660-450327-af70bdb2-a1a7-480d-be25-fec9e3744bef.jpg",
+      "/uploads/1775728932662-432387-caaefa53-5244-4c43-a239-5cf7c2aa0445.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.77092769385702,11.00592342882456",
+    "mapLat": "36.770928",
+    "mapLng": "11.005923",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T10:02:12.669Z",
+    "apartmentCount": 11,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 5,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 84,
+          "price": 134400
+        },
+        {
+          "type": "S+1",
+          "surface": 97,
+          "price": 155200
+        },
+        {
+          "type": "S+1",
+          "surface": 104,
+          "price": 166400
+        },
+        {
+          "type": "S+1",
+          "surface": 111,
+          "price": 177600
+        },
+        {
+          "type": "S+1",
+          "surface": 118,
+          "price": 188800
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 131,
+          "price": 209600
+        },
+        {
+          "type": "S+2",
+          "surface": 136,
+          "price": 217600
+        },
+        {
+          "type": "S+2",
+          "surface": 141,
+          "price": 225600
+        },
+        {
+          "type": "S+2",
+          "surface": 146,
+          "price": 233600
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 172,
+          "price": 275200
+        },
+        {
+          "type": "S+3",
+          "surface": 181,
+          "price": 289600
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 134400,
+      "S+2": 209600,
+      "S+3": 275200
+    },
+    "startingPrice": 134400,
+    "surfaceRange": "84-181 m2"
+  },
+  {
+    "id": "residence-20",
+    "ref": "",
+    "title": "Residence 20",
+    "headline": "Residence avec plusieurs types d appartements disponibles.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 128000,
+    "paymentTerm": "",
+    "type": "Residence",
+    "address": "Kelibia",
+    "city": "Dar Allouch",
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 0,
+    "yearBuilt": 0,
+    "lotSize": 0,
+    "zone": "Kelibia",
+    "thumbnail": "/uploads/1775729180959-140256-515437654-4034510810199920-3681377551130363561-n.jpg",
+    "images": [
+      "/uploads/1775729180959-140256-515437654-4034510810199920-3681377551130363561-n.jpg",
+      "/uploads/1775729180962-858214-517017113-4034510943533240-1074103172540191579-n.jpg",
+      "/uploads/1775729180967-326882-517306172-4034510836866584-3382335462354587967-n.jpg",
+      "/uploads/1775729180971-197305-515438631-4034511053533229-2208330753568707119-n.jpg",
+      "/uploads/1775729180973-759680-515436423-4034511140199887-2913126432283047097-n.jpg",
+      "/uploads/1775729180976-528951-516388805-4034511073533227-8079693827785390996-n.jpg",
+      "/uploads/1775729180979-16786-516442537-4034510873533247-5907323766745124341-n.jpg",
+      "/uploads/1775729180984-360928-515851983-4034510820199919-7819438773674759397-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.9437548507354,11.088479363996559",
+    "mapLat": "36.943755",
+    "mapLng": "11.088479",
+    "amenities": [
+      "Ascenseur",
+      "Parking",
+      "Acces securise"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-04-09T10:06:20.988Z",
+    "apartmentCount": 12,
+    "pricePerSquareMeter": 1600,
+    "availableTypes": [
+      "S+1",
+      "S+2",
+      "S+3"
+    ],
+    "distribution": {
+      "S+1": 6,
+      "S+2": 4,
+      "S+3": 2
+    },
+    "units": {
+      "S+1": [
+        {
+          "type": "S+1",
+          "surface": 80,
+          "price": 128000
+        },
+        {
+          "type": "S+1",
+          "surface": 87,
+          "price": 139200
+        },
+        {
+          "type": "S+1",
+          "surface": 94,
+          "price": 150400
+        },
+        {
+          "type": "S+1",
+          "surface": 100,
+          "price": 160000
+        },
+        {
+          "type": "S+1",
+          "surface": 107,
+          "price": 171200
+        },
+        {
+          "type": "S+1",
+          "surface": 114,
+          "price": 182400
+        }
+      ],
+      "S+2": [
+        {
+          "type": "S+2",
+          "surface": 133,
+          "price": 212800
+        },
+        {
+          "type": "S+2",
+          "surface": 138,
+          "price": 220800
+        },
+        {
+          "type": "S+2",
+          "surface": 143,
+          "price": 228800
+        },
+        {
+          "type": "S+2",
+          "surface": 148,
+          "price": 236800
+        }
+      ],
+      "S+3": [
+        {
+          "type": "S+3",
+          "surface": 173,
+          "price": 276800
+        },
+        {
+          "type": "S+3",
+          "surface": 182,
+          "price": 291200
+        }
+      ]
+    },
+    "unitPrices": {
+      "S+1": 128000,
+      "S+2": 212800,
+      "S+3": 276800
+    },
+    "startingPrice": 128000,
+    "surfaceRange": "80-182 m2"
+  },
+  {
+    "id": "villa-dune-01",
+    "ref": "KV-7001",
+    "title": "Villa 1",
+    "headline": "Modern villa iavec piscine",
+    "listingType": "sale",
+    "status": [
+      "A louer"
+    ],
+    "price": 1260000,
+    "paymentTerm": "NÃ©gociable",
+    "type": "Villa",
+    "address": "Avenue de la Plage, Mansoura Beach, Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 420,
+    "yearBuilt": 2014,
+    "lotSize": 295,
+    "zone": "Beachfront",
+    "thumbnail": "/uploads/1775465009061-169679-657599271-122123313939157293-776048091464638-n.jpg",
+    "images": [
+      "/uploads/1775464987085-478933-658343409-122123315073157293-2216340397479343558-n.jpg",
+      "/uploads/1775464987096-249506-657485663-122123314563157293-3157256193629080270-n.jpg",
+      "/uploads/1775465009042-503909-656198610-122123314491157293-1401338799885650184-n.jpg",
+      "/uploads/1775465009058-960909-657079359-122123314047157293-3686169223745998582-n.jpg",
+      "/uploads/1775465009061-169679-657599271-122123313939157293-776048091464638-n.jpg",
+      "/uploads/1775465009068-834431-656689784-122123313831157293-3484953829484460873-n.jpg",
+      "/uploads/1775465009078-76011-657326153-122123313783157293-3584229587583264108-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.8488097,11.1096179",
+    "mapLat": "36.848810",
+    "mapLng": "11.109618",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "Wifi",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-01-31T23:00:00.000Z"
+  },
+  {
+    "id": "villa-cap-02",
+    "ref": "KV-7002",
+    "title": "Villa 2",
+    "headline": "Modern villa in Kelibia,Fatha",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 1770000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue du Fort, Mansoura Beach, Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 6,
+    "bathrooms": 4,
+    "area": 590,
+    "yearBuilt": 2015,
+    "lotSize": 304,
+    "zone": "Beachfront",
+    "thumbnail": "/uploads/1775465721147-621948-658224848-122124587487157293-5598748039183672790-n.jpg",
+    "images": [
+      "/uploads/1775465721147-621948-658224848-122124587487157293-5598748039183672790-n.jpg",
+      "/uploads/1775465721153-943829-657487584-122124587523157293-5044936716673694680-n.jpg",
+      "/uploads/1775465721162-704155-658585914-122124587073157293-9023747109773996400-n.jpg",
+      "/uploads/1775465721169-953542-658347836-122124587283157293-8127328300256649960-n.jpg",
+      "/uploads/1775465721175-547178-658970568-122124587157157293-628163563843263910-n.jpg",
+      "/uploads/1775465721199-235358-658434072-122124587031157293-9127870397865640832-n.jpg",
+      "/uploads/1775465721215-469168-658424409-122124586749157293-655585974689329030-n.jpg",
+      "/uploads/1775465721220-11543-657566687-122124586647157293-6410783025814878244-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.837262,11.100647",
+    "mapLat": "36.837262",
+    "mapLng": "11.100647",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-01T23:00:00.000Z"
+  },
+  {
+    "id": "villa-horizon-03",
+    "ref": "KV-7003",
+    "title": "Villa 3",
+    "headline": "Modern villa in Kelibia.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 1296000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Avenue Habib Bourguiba, Mansoura Beach, Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "area": 720,
+    "yearBuilt": 2016,
+    "lotSize": 313,
+    "zone": "Beachfront",
+    "thumbnail": "/uploads/1775551902736-184044-657604576-122123321145157293-948255360623187028-n-1.jpg",
+    "images": [
+      "/uploads/1775551902736-184044-657604576-122123321145157293-948255360623187028-n-1.jpg",
+      "/uploads/1775551902744-318769-656743232-122123321703157293-3680117432972278612-n.jpg",
+      "/uploads/1775551902752-57472-655881892-122123321481157293-3474278299179294113-n.jpg",
+      "/uploads/1775551902755-293817-657461625-122123321421157293-1216791207483401499-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.8484,11.1182",
+    "mapLat": "36.848400",
+    "mapLng": "11.118200",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-02T23:00:00.000Z"
+  },
+  {
+    "id": "villa-lagune-04",
+    "ref": "KV-7004",
+    "title": "Villa 4",
+    "headline": "Villa de luxe Menzel Tmim",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 3960000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "MENZEL TMIM, Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 6,
+    "bathrooms": 2,
+    "area": 1980,
+    "yearBuilt": 2017,
+    "lotSize": 322,
+    "zone": "Beachfront",
+    "thumbnail": "/uploads/1775553540562-384172-660288323-122125211931157293-484083211908019863-n.jpg",
+    "images": [
+      "/uploads/1775553540562-384172-660288323-122125211931157293-484083211908019863-n.jpg",
+      "/uploads/1775553540575-10440-662835492-122125211793157293-5165988839367613626-n.jpg",
+      "/uploads/1775553669619-427579-659896685-122125212915157293-7226012660186733778-n.jpg",
+      "/uploads/1775553669621-801622-662125960-122125212807157293-708967193492691410-n.jpg",
+      "/uploads/1775553669626-53507-662323256-122125212735157293-3606967358402151822-n.jpg",
+      "/uploads/1775553669632-345743-660453510-122125212675157293-7489330986248374098-n.jpg",
+      "/uploads/1775553669635-233852-661281429-122125212609157293-9045453872364789969-n.jpg",
+      "/uploads/1775553669639-319098-660817691-122125212567157293-2293268614956798103-n.jpg",
+      "/uploads/1775553669642-114866-661133844-122125212417157293-3466615430578278887-n.jpg",
+      "/uploads/1775553669645-840443-659771131-122125212375157293-1198824667825641713-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.8496,11.1193",
+    "mapLat": "36.849600",
+    "mapLng": "11.119300",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-03T23:00:00.000Z"
+  },
+  {
+    "id": "villa-saphir-05",
+    "ref": "KV-7005",
+    "title": "Villa 5",
+    "headline": "Villa Hay Merdes",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 420000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "93 Avenue des Martyrs",
+    "city": "Kelibia",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 210,
+    "yearBuilt": 2018,
+    "lotSize": 331,
+    "zone": "Beachfront",
+    "thumbnail": "/uploads/1775555754506-152958-638339087-122118232317157293-8841151415413155897-n.jpg",
+    "images": [
+      "/uploads/1775555754506-152958-638339087-122118232317157293-8841151415413155897-n.jpg",
+      "/uploads/1775555754539-964396-638188628-122118232197157293-2901836762499349622-n.jpg",
+      "/uploads/1775555754555-333359-639909109-122118231939157293-4955312615224595333-n.jpg",
+      "/uploads/1775555754580-42121-638354949-122118231885157293-6314850348064285821-n.jpg",
+      "/uploads/1775555754611-958915-638458885-122118231753157293-8743072636917814912-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.839463,11.104227",
+    "mapLat": "36.839463",
+    "mapLng": "11.104227",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-04T23:00:00.000Z"
+  },
+  {
+    "id": "villa-corail-06",
+    "ref": "KV-7006",
+    "title": "Villa 6",
+    "headline": "Modern villa in Kelibia.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 405000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Ù†Ù‡Ø¬ Ø§Ù„Ù…Ù‚Ø·Ø¹",
+    "city": "Kelibia",
+    "bedrooms": 3,
+    "bathrooms": 1,
+    "area": 270,
+    "yearBuilt": 2019,
+    "lotSize": 340,
+    "zone": "Beachfront",
+    "thumbnail": "/uploads/1775555856046-672261-608180950-122108979903157293-7546570736999449315-n.jpg",
+    "images": [
+      "/uploads/1775555856046-672261-608180950-122108979903157293-7546570736999449315-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.85106369214707,11.09659095557163",
+    "mapLat": "36.851064",
+    "mapLng": "11.096591",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-05T23:00:00.000Z"
+  },
+  {
+    "id": "villa-nacre-07",
+    "ref": "KV-7007",
+    "title": "Villa 7",
+    "headline": "Villa driss",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 487500,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue du Fort, Mansoura Beach, Kelibia",
+    "city": "Hammam El Ghezaz",
+    "bedrooms": 2,
+    "bathrooms": 3,
+    "area": 195,
+    "yearBuilt": 2020,
+    "lotSize": 349,
+    "zone": "Beachfront",
+    "thumbnail": "/uploads/1775557050564-572365-660464832-1320269386653292-161941837522884974-n.jpg",
+    "images": [
+      "/uploads/1775557050564-572365-660464832-1320269386653292-161941837522884974-n.jpg",
+      "/uploads/1775557050565-457597-658930592-1320269413319956-5026020272084911577-n.jpg",
+      "/uploads/1775557050567-385857-660969915-1320269519986612-855938442654203771-n.jpg",
+      "/uploads/1775557050573-75740-663175108-1320269576653273-3327720869287429426-n.jpg",
+      "/uploads/1775557050575-469528-659222592-1320269609986603-3383515206354628617-n.jpg",
+      "/uploads/1775557050578-999933-660429340-1320269463319951-8817648216501156271-n.jpg",
+      "/uploads/1775557050582-980347-660406364-1320269549986609-273901360535870974-n-monpc.jpg",
+      "/uploads/1775557050584-596674-660406364-1320269549986609-273901360535870974-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.870845,11.110148",
+    "mapLat": "36.870845",
+    "mapLng": "11.110148",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-06T23:00:00.000Z"
+  },
+  {
+    "id": "villa-panorama-08",
+    "ref": "KV-7008",
+    "title": "Villa 8",
+    "headline": "Modern villa in Kelibia.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 534000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Ain Grinz",
+    "city": "Kelibia Ouest",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 267,
+    "yearBuilt": 2021,
+    "lotSize": 358,
+    "zone": "City Center",
+    "thumbnail": "/uploads/1775557188842-138945-625111532-1275375567809341-883316724268565603-n-2.jpg",
+    "images": [
+      "/uploads/1775557188842-138945-625111532-1275375567809341-883316724268565603-n-2.jpg",
+      "/uploads/1775557511822-341325-626055301-1275375741142657-5858290629820401949-n-1.jpg",
+      "/uploads/1775557511824-588783-628496817-1275375737809324-2899178450276081121-n.jpg",
+      "/uploads/1775557511826-410716-625763603-1275375757809322-5339502423994234087-n-1.jpg",
+      "/uploads/1775557511830-195065-627017756-1275375674475997-1450028488109924455-n-1.jpg",
+      "/uploads/1775557511832-439582-625404415-1275375637809334-3097602887707156475-n-1.jpg",
+      "/uploads/1775557511833-647802-625465148-1275375657809332-6627981979186526331-n.jpg",
+      "/uploads/1775557511836-137994-626875200-1275375781142653-8702223050772768006-n-1.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.825444,11.077279",
+    "mapLat": "36.825444",
+    "mapLng": "11.077279",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-07T23:00:00.000Z"
+  },
+  {
+    "id": "villa-mistral-09",
+    "ref": "KV-7009",
+    "title": "Villa 9",
+    "headline": "Villa Chartage.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 715000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue des Jasmins, Kelibia Centre, Kelibia",
+    "city": "Dar Allouch",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 286,
+    "yearBuilt": 2022,
+    "lotSize": 367,
+    "zone": "City Center",
+    "thumbnail": "/uploads/1775557614577-608450-519089725-1123544596325773-4315270991306594380-n.jpg",
+    "images": [
+      "/uploads/1775557571073-68472-523226527-1123545072992392-6191232990515764826-n.jpg",
+      "/uploads/1775557571076-703101-522723223-1123544722992427-884158123301186-n.jpg",
+      "/uploads/1775557571082-961280-523343321-1123544816325751-7612392392643188656-n.jpg",
+      "/uploads/1775557571085-290291-523104805-1123544289659137-2522602229290175834-n.jpg",
+      "/uploads/1775557571092-399170-519063817-1123544796325753-5759634996939556376-n.jpg",
+      "/uploads/1775557571094-108145-522721826-1123545119659054-6634499313718729859-n.jpg",
+      "/uploads/1775557614577-608450-519089725-1123544596325773-4315270991306594380-n.jpg",
+      "/uploads/1775557614583-509446-522925710-1123544172992482-6762996140765435819-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.959096,11.093667",
+    "mapLat": "36.959096",
+    "mapLng": "11.093667",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-08T23:00:00.000Z"
+  },
+  {
+    "id": "villa-rivage-10",
+    "ref": "KV-7010",
+    "title": "Villa 10",
+    "headline": "Villa Zoubida",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 480000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue des Oliviers, Kelibia Centre, Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 3,
+    "bathrooms": 1,
+    "area": 240,
+    "yearBuilt": 2023,
+    "lotSize": 376,
+    "zone": "City Center",
+    "thumbnail": "/uploads/1775557816675-319503-514101398-1102752891738277-4415493339708107374-n.jpg",
+    "images": [
+      "/uploads/1775557816675-319503-514101398-1102752891738277-4415493339708107374-n.jpg",
+      "/uploads/1775557816676-187772-512707400-1102752341738332-495103994835076012-n.jpg",
+      "/uploads/1775557816678-744084-513906784-1102752755071624-7249016615009984203-n.jpg",
+      "/uploads/1775557816679-1457-514210285-1102752721738294-5707898685777676590-n.jpg",
+      "/uploads/1775557816684-452493-513894307-1102752825071617-4675038828662211796-n.jpg",
+      "/uploads/1775557816687-320376-514168076-1102752791738287-7725640819223054104-n.jpg",
+      "/uploads/1775557816688-908557-512651558-1102754185071481-5062122261359901694-n.jpg",
+      "/uploads/1775557816697-893196-511275204-1102754301738136-5862075223026270899-n.jpg",
+      "/uploads/1775557816702-463294-510978333-1102753885071511-6616924272704263074-n.jpg",
+      "/uploads/1775557816704-196067-510586753-1102754005071499-423257932609118398-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.846415,11.107825",
+    "mapLat": "36.846415",
+    "mapLng": "11.107825",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-09T23:00:00.000Z"
+  },
+  {
+    "id": "villa-dune-11",
+    "ref": "KV-7011",
+    "title": "Villa 11",
+    "headline": "Villa Ennasim",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 787500,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Avenue de la Plage, Kelibia Centre, Kelibia",
+    "city": "Ezzahra",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "area": 315,
+    "yearBuilt": 2014,
+    "lotSize": 295,
+    "zone": "City Center",
+    "thumbnail": "/uploads/1775557949053-955424-510469049-1099761822037384-668819372326464553-n.jpg",
+    "images": [
+      "/uploads/1775557949053-955424-510469049-1099761822037384-668819372326464553-n.jpg",
+      "/uploads/1775557949054-649997-510647322-1099761792037387-3132400473879264595-n.jpg",
+      "/uploads/1775557949055-882264-511599511-1099761755370724-6607302406639098530-n.jpg",
+      "/uploads/1775557949057-38394-512571534-1099761725370727-3736921570353646572-n.jpg",
+      "/uploads/1775557949059-875402-511268883-1099763132037253-7572704345320595574-n.jpg",
+      "/uploads/1775557949063-145182-509798332-1099762968703936-6585951114362540744-n.jpg",
+      "/uploads/1775557949073-485633-509441527-1099762738703959-5340865404516122765-n.jpg",
+      "/uploads/1775557949078-720843-509438923-1099763165370583-5754791247578090076-n.jpg",
+      "/uploads/1775557949080-424649-509925237-1099764198703813-9079336706752494136-n.jpg",
+      "/uploads/1775557949082-203926-509899911-1099763965370503-7131992065342412555-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.901997,11.105594",
+    "mapLat": "36.901997",
+    "mapLng": "11.105594",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-10T23:00:00.000Z"
+  },
+  {
+    "id": "villa-cap-12",
+    "ref": "KV-7012",
+    "title": "Villa 12",
+    "headline": "Modern villa in Kelibia.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 1037000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue du Fort, Kelibia Centre, Kelibia",
+    "city": "Kerkouene",
+    "bedrooms": 3,
+    "bathrooms": 1,
+    "area": 415,
+    "yearBuilt": 2015,
+    "lotSize": 304,
+    "zone": "City Center",
+    "thumbnail": "/uploads/1775637610705-601277-508827377-1096877068992526-7649855263778037429-n.jpg",
+    "images": [
+      "/uploads/1775637610705-601277-508827377-1096877068992526-7649855263778037429-n.jpg",
+      "/uploads/1775637610713-539818-508754419-1096877268992506-8858821683801288120-n.jpg",
+      "/uploads/1775637610716-283587-509357310-1096877185659181-8154527308977460998-n.jpg",
+      "/uploads/1775637610720-193547-509431061-1096877365659163-861054140607178116-n.jpg",
+      "/uploads/1775637610723-325444-509357566-1096877155659184-8106231930315366461-n.jpg",
+      "/uploads/1775637610730-451599-508688427-1096877335659166-5400304293302228358-n.jpg",
+      "/uploads/1775637610733-912234-509230589-1096877302325836-5000562301733404921-n.jpg",
+      "/uploads/1775637610734-826817-508089564-1096877905659109-4648848109198460953-n.jpg",
+      "/uploads/1775637610738-138010-508741878-1096877225659177-2532039449200419607-n.jpg",
+      "/uploads/1775637610741-604348-508600686-1096877845659115-6911637369819822581-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.954199513106424,11.089806405346645",
+    "mapLat": "36.954200",
+    "mapLng": "11.089806",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-11T23:00:00.000Z"
+  },
+  {
+    "id": "villa-horizon-13",
+    "ref": "KV-7013",
+    "title": "Villa 13",
+    "headline": "Villa de luxe Horizon",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 913000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue de Annaba",
+    "city": "Kelibia",
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "area": 203,
+    "yearBuilt": 2016,
+    "lotSize": 313,
+    "zone": "City Center",
+    "thumbnail": "/uploads/1775637789572-727789-477618598-1005875501426017-8007553950604633285-n.jpg",
+    "images": [
+      "/uploads/1775637789572-727789-477618598-1005875501426017-8007553950604633285-n.jpg",
+      "/uploads/1775637789577-745111-476644189-1005875468092687-5289255983648437312-n.jpg",
+      "/uploads/1775637789581-957053-476641900-1005875108092723-5807899092834033410-n.jpg",
+      "/uploads/1775637789585-482892-476638218-1005875424759358-8177210483212401100-n.jpg",
+      "/uploads/1775637789588-993793-476643385-1005875051426062-6238891344072944999-n.jpg",
+      "/uploads/1775637789593-770269-477983925-1005875448092689-4132916590256005266-n.jpg",
+      "/uploads/1775637789598-764577-476641694-1005875454759355-8394011269979294630-n.jpg",
+      "/uploads/1775637789601-982279-479630022-1005875228092711-1557960928605639933-n.jpg",
+      "/uploads/1775637813950-705300-477739826-1005875521426015-5475012837184375176-n.jpg",
+      "/uploads/1775637813952-588078-478052467-1005875094759391-4618789063608954791-n.jpg",
+      "/uploads/1775637813956-430618-477182106-1005875411426026-7875395110772760187-n.jpg",
+      "/uploads/1775637813961-870503-477996742-1005875161426051-2536818253856046073-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.83286,11.093838",
+    "mapLat": "36.832860",
+    "mapLng": "11.093838",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-12T23:00:00.000Z"
+  },
+  {
+    "id": "villa-lagune-14",
+    "ref": "KV-7014",
+    "title": "Villa 14",
+    "headline": "Modern villa in Kelibia.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 394000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue des Jasmins, Kelibia Centre, Kelibia",
+    "city": "Kelibia Ouest",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "area": 197,
+    "yearBuilt": 2017,
+    "lotSize": 322,
+    "zone": "City Center",
+    "thumbnail": "/uploads/1775638038219-608921-477131921-1004908298189404-4597508918998425999-n.jpg",
+    "images": [
+      "/uploads/1775637998654-402556-476609595-1004908324856068-4221193589542735561-n.jpg",
+      "/uploads/1775637998655-567894-518276045-1112300970783469-3392255662302433734-n.jpg",
+      "/uploads/1775637998661-154878-515440871-1112299764116923-7674234429878052660-n.jpg",
+      "/uploads/1775637998666-472981-518279663-1112300897450143-3099619896892646223-n.jpg",
+      "/uploads/1775637998670-524998-518280163-1112300944116805-1660524762317706321-n.jpg",
+      "/uploads/1775637998673-614784-518270706-1112299497450283-3417938871015019301-n.jpg",
+      "/uploads/1775637998677-478618-518272544-1112300247450208-1804902008432048006-n.jpg",
+      "/uploads/1775637998680-709240-518271186-1112300870783479-8008721121139442371-n.jpg",
+      "/uploads/1775638038219-608921-477131921-1004908298189404-4597508918998425999-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.82852478495801,11.081482688170645",
+    "mapLat": "36.828525",
+    "mapLng": "11.081483",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-13T23:00:00.000Z"
+  },
+  {
+    "id": "villa-saphir-15",
+    "ref": "KV-7015",
+    "title": "Villa 15",
+    "headline": "Dar El Hout",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 1287000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue des Oliviers, Sidi Mansour, Kelibia",
+    "city": "Dar Allouch",
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "area": 515,
+    "yearBuilt": 2018,
+    "lotSize": 331,
+    "zone": "Quiet Areas",
+    "thumbnail": "/uploads/1775638390675-919819-508449719-1095676125779287-1081167771370610068-n.jpg",
+    "images": [
+      "/uploads/1775638351551-33957-508746110-1095676209112612-2146634746263170299-n.jpg",
+      "/uploads/1775638351553-831187-508127611-1095678665779033-7957616867191814520-n.jpg",
+      "/uploads/1775638351556-331007-508288255-1095678379112395-7842041210284790389-n.jpg",
+      "/uploads/1775638351559-91181-507070504-1095679425778957-5669565090824223103-n.jpg",
+      "/uploads/1775638351562-630437-506735165-1095679259112307-8487951581943174526-n.jpg",
+      "/uploads/1775638351566-717321-508052279-1095679509112282-965695282819209161-n.jpg",
+      "/uploads/1775638351570-254713-509290482-1095679609112272-8939366757283520910-n.jpg",
+      "/uploads/1775638351573-22494-508044470-1095679285778971-6817698847568260070-n.jpg",
+      "/uploads/1775638351575-689959-508131839-1095679679112265-2696620328564115637-n.jpg",
+      "/uploads/1775638351577-587660-508288147-1095678959112337-2360008161933434968-n.jpg",
+      "/uploads/1775638390675-919819-508449719-1095676125779287-1081167771370610068-n.jpg",
+      "/uploads/1775638390676-934526-508123214-1095679039112329-7671977058474275074-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.965035,11.089805",
+    "mapLat": "36.965035",
+    "mapLng": "11.089805",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "PISCINE"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-14T23:00:00.000Z"
+  },
+  {
+    "id": "villa-corail-16",
+    "ref": "KV-7016",
+    "title": "Villa 16",
+    "headline": "VILLA FERDI",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 1525000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Avenue de la Plage, Sidi Mansour, Kelibia",
+    "city": "Kerkouene",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "area": 610,
+    "yearBuilt": 2019,
+    "lotSize": 340,
+    "zone": "Quiet Areas",
+    "thumbnail": "/uploads/1775638585492-630264-481044307-1017384676941766-7785608305782267698-n-1.jpg",
+    "images": [
+      "/uploads/1775638585492-630264-481044307-1017384676941766-7785608305782267698-n-1.jpg",
+      "/uploads/1775638585495-89688-481217789-1017384690275098-7846023849366425390-n-1.jpg",
+      "/uploads/1775638585501-627495-481265582-1017384253608475-4586644932896707249-n-1.jpg",
+      "/uploads/1775638585508-849612-481899990-1017384256941808-7368487414312270553-n.jpg",
+      "/uploads/1775638585511-623449-481011254-1017384680275099-1101687638251165059-n.jpg",
+      "/uploads/1775638585513-666102-481122930-1017384683608432-4986694670456842049-n.jpg",
+      "/uploads/1775638585516-677398-481308085-1017384716941762-5052950092585730299-n.jpg",
+      "/uploads/1775638585519-666410-481201886-1017384713608429-1457170434629676930-n.jpg",
+      "/uploads/1775638585521-811193-481252530-1017384726941761-7926089561689892580-n.jpg",
+      "/uploads/1775638585532-510277-481906870-1017384630275104-2892799661254378659-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.965322,11.083202",
+    "mapLat": "36.965322",
+    "mapLng": "11.083202",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-15T23:00:00.000Z"
+  },
+  {
+    "id": "villa-nacre-17",
+    "ref": "KV-7017",
+    "title": "Villa 17",
+    "headline": "Villa haouaria",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 597000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue du Fort, Sidi Mansour,haouaria",
+    "city": "El Haouaira Nord",
+    "bedrooms": 4,
+    "bathrooms": 2,
+    "area": 239,
+    "yearBuilt": 2020,
+    "lotSize": 349,
+    "zone": "Quiet Areas",
+    "thumbnail": "/uploads/1775639147142-878492-611279552-1443548651113548-6497073047313170000-n.jpg",
+    "images": [
+      "/uploads/1775639147141-588092-613674111-1443548221113591-7752705653505607218-n.jpg",
+      "/uploads/1775639147142-878492-611279552-1443548651113548-6497073047313170000-n.jpg",
+      "/uploads/1775639147147-611476-611738776-1443548604446886-8751230223289910360-n.jpg",
+      "/uploads/1775639147153-614128-612724313-1443548534446893-1303009239594567656-n.jpg",
+      "/uploads/1775639147155-354649-611854359-1443548494446897-7082666593206055935-n.jpg",
+      "/uploads/1775639147157-244328-612328447-1443548424446904-6267222808500541428-n.jpg",
+      "/uploads/1775639147158-387858-614156134-1443548381113575-6669953148613957073-n.jpg",
+      "/uploads/1775639147161-75252-612654896-1443548301113583-8018280072166280360-n.jpg",
+      "/uploads/1775639147164-894699-612203912-1443548164446930-4223608521395414256-n.jpg",
+      "/uploads/1775639147167-270268-611638225-1443548094446937-1636189182011192012-n.jpg",
+      "/uploads/1775639189324-166136-613437095-1443548034446943-4327261001010820616-n.jpg",
+      "/uploads/1775639189327-400664-612214144-1443547997780280-9203912159258501795-n.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=37.06382577109118,11.028336440224866",
+    "mapLat": "37.063826",
+    "mapLng": "11.028336",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-16T23:00:00.000Z"
+  },
+  {
+    "id": "villa-panorama-18",
+    "ref": "KV-7018",
+    "title": "Villa 18",
+    "headline": "Villa Maldive",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 1005000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Avenue Habib Bourguiba, Sidi Mansour, Kelibia",
+    "city": "Dar Allouch",
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "area": 335,
+    "yearBuilt": 2021,
+    "lotSize": 358,
+    "zone": "Quiet Areas",
+    "thumbnail": "/uploads/1775639583705-572976-whatsapp-image-2026-04-06-at-1-40-55-pm-2.jpeg",
+    "images": [
+      "/uploads/1775639583690-299465-whatsapp-image-2026-04-06-at-1-40-51-pm-2.jpeg",
+      "/uploads/1775639583694-959473-whatsapp-image-2026-04-06-at-1-40-51-pm-1.jpeg",
+      "/uploads/1775639583697-186041-whatsapp-image-2026-04-06-at-1-40-51-pm.jpeg",
+      "/uploads/1775639583698-790571-whatsapp-image-2026-04-06-at-1-40-57-pm.jpeg",
+      "/uploads/1775639583702-804131-whatsapp-image-2026-04-06-at-1-40-56-pm-1.jpeg",
+      "/uploads/1775639583703-564559-whatsapp-image-2026-04-06-at-1-40-56-pm.jpeg",
+      "/uploads/1775639583705-572976-whatsapp-image-2026-04-06-at-1-40-55-pm-2.jpeg",
+      "/uploads/1775639583708-837795-whatsapp-image-2026-04-06-at-1-40-55-pm-1.jpeg",
+      "/uploads/1775639583709-155730-whatsapp-image-2026-04-06-at-1-40-55-pm.jpeg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.9857931774295,11.073153727938221",
+    "mapLat": "36.985793",
+    "mapLng": "11.073154",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "PISCINE"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-17T23:00:00.000Z"
+  },
+  {
+    "id": "villa-mistral-19",
+    "ref": "KV-7019",
+    "title": "Villa 19",
+    "headline": "Modern villa in Kelibia.",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 837000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue des Jasmins, Sidi Mansour, Kelibia",
+    "city": "Kelibia",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 279,
+    "yearBuilt": 2022,
+    "lotSize": 367,
+    "zone": "Quiet Areas",
+    "thumbnail": "/uploads/1775640835145-351261-1d788e1e-d07a-453a-b6ee-3e2266cc0fbd.jpg",
+    "images": [
+      "/uploads/1775640811684-784679-a6e40b48-595f-47d2-a2dc-d926785ef8e7.jpg",
+      "/uploads/1775640811684-216031-f1862083-eb41-472c-931a-469a4ce08194.jpg",
+      "/uploads/1775640811687-973769-f87bf687-524f-471f-a06e-c1373a540afe.jpg",
+      "/uploads/1775640811692-545554-23e98bc2-83dd-414d-9d93-79a520d877e4.jpg",
+      "/uploads/1775640811693-544806-af722178-20f1-4827-8dee-35577ab1edcd.jpg",
+      "/uploads/1775640811694-962852-a54958d5-2865-4b95-bef0-474d2e52419a.jpg",
+      "/uploads/1775640811695-635120-37784dff-ff9b-41e2-a68e-0d33a2460b4c.jpg",
+      "/uploads/1775640811696-72177-b12d38ed-08ba-4e27-ba2a-00a22e4db64f-1.jpg",
+      "/uploads/1775640835142-466147-b12d38ed-08ba-4e27-ba2a-00a22e4db64f.jpg",
+      "/uploads/1775640835145-351261-1d788e1e-d07a-453a-b6ee-3e2266cc0fbd.jpg",
+      "/uploads/1775640835148-917472-384cb61b-8ea3-4fd0-9bd7-fe1af9e630eb.jpg",
+      "/uploads/1775640835150-537730-09406a07-27f0-4893-8a11-a6a644b08574.jpg",
+      "/uploads/1775640835155-72363-b69b9f90-ecbd-468e-830b-50e0d0ec31a6.jpg",
+      "/uploads/1775640835159-581-4e7217eb-389b-4ebc-b763-f04a9e68ee63.jpg",
+      "/uploads/1775640835160-879593-89d82ca5-5c50-4a61-add3-a42661f80336.jpg",
+      "/uploads/1775640835162-371256-a112e29e-7a4e-4b24-8631-bfb4db7c1ed5.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.838519,11.120269",
+    "mapLat": "36.838519",
+    "mapLng": "11.120269",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-18T23:00:00.000Z"
+  },
+  {
+    "id": "villa-rivage-20",
+    "ref": "KV-7020",
+    "title": "Villa 20",
+    "headline": "Villa Buggati .",
+    "listingType": "sale",
+    "status": [
+      "for-sale"
+    ],
+    "price": 3600000,
+    "paymentTerm": "",
+    "type": "Villa",
+    "address": "Rue des Oliviers, Sidi Mansour, Kelibia",
+    "city": "Hammam El Ghezaz",
+    "bedrooms": 6,
+    "bathrooms": 2,
+    "area": 1200,
+    "yearBuilt": 2023,
+    "lotSize": 376,
+    "zone": "Quiet Areas",
+    "thumbnail": "/uploads/1775641574049-357916-d3b60919-171f-4a45-8974-f0b655170315.jpg",
+    "images": [
+      "/uploads/1775641574049-357916-d3b60919-171f-4a45-8974-f0b655170315.jpg",
+      "/uploads/1775641574051-318113-83d2c3f3-f6c0-4b62-9ee6-497c0199bf87.jpg",
+      "/uploads/1775641574055-182527-bb8c9985-5497-4c38-add2-fb75e81725c6.jpg",
+      "/uploads/1775641574057-116671-2ac76ab9-c985-4bfc-aa67-01a2051a1f56.jpg",
+      "/uploads/1775641574059-372348-f91f6d2a-f4e8-4800-9da4-4d82f5021ff5.jpg",
+      "/uploads/1775641574060-292175-0e328034-104c-4c30-b90d-b74c16a70cf5.jpg",
+      "/uploads/1775641574061-436007-2136bb3e-b217-4247-bed8-8380095200a9.jpg",
+      "/uploads/1775641574063-814591-4d96e7ed-8a86-49ef-8363-502d1b919a0f.jpg",
+      "/uploads/1775641613350-356752-4ed30f04-3f1b-4cfc-900a-4703959281ba.jpg",
+      "/uploads/1775641613352-483091-5f8dafe4-6888-4591-b6cd-35f06fceabfe.jpg",
+      "/uploads/1775641613355-745169-97f26f7f-63f7-4207-ba5b-c117b0ea8820.jpg",
+      "/uploads/1775641613358-219771-420324c5-6061-4650-b2a2-3b4a0304966a.jpg",
+      "/uploads/1775641613368-639671-4eecb93c-1a49-4a44-8c0a-c46b89ed7861.jpg",
+      "/uploads/1775641613369-983479-b7a4735d-af19-43be-8a4f-cef17e9fed4a.jpg",
+      "/uploads/1775641613371-448528-406fbdd5-928e-435a-aedb-5bfc5f690961.jpg",
+      "/uploads/1775641613374-497022-ae69004a-65bd-4166-8056-92fd48adf227.jpg"
+    ],
+    "googleMapsUrl": "https://www.google.com/maps?q=36.884187,11.121557",
+    "mapLat": "36.884187",
+    "mapLng": "11.121557",
+    "amenities": [
+      "Garden",
+      "Terrace",
+      "Parking",
+      "piscine"
+    ],
+    "agent": {
+      "name": "Rylion Team",
+      "phone": "+216 50 366 111",
+      "email": "contact@rylion-immo.tn",
+      "avatar": "/assets/img/real-estate/agent-2.webp",
+      "company": "Rylion Immobilière"
+    },
+    "priceNote": "",
+    "createdAt": "2026-02-19T23:00:00.000Z"
+  }
+]

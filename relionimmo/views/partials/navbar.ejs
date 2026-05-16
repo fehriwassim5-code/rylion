@@ -1,0 +1,19 @@
+<header class="site-header">
+  <div class="container site-header__row">
+    <a href="/" class="brand">
+      <span class="brand__mark">K</span>
+      <span class="brand__text">
+        <small>Agence Kelibia</small>
+        <strong>Rylion Immobilière</strong>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="/" class="<%= page === 'home' ? 'is-active' : '' %>">Accueil</a>
+      <a href="/properties?page=1" class="<%= page === 'properties' ? 'is-active' : '' %>">Biens</a>
+      <a href="/statistiques" class="<%= page === 'statistics' ? 'is-active' : '' %>">Statistiques</a>
+      <a href="/investir-kelibia" class="<%= page === 'invest' ? 'is-active' : '' %>">Investir</a>
+      <a href="/contact" class="<%= page === 'contact' ? 'is-active' : '' %>">Contact</a>
+    </nav>
+  </div>
+</header>

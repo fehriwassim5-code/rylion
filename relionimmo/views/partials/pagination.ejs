@@ -1,0 +1,21 @@
+<% if (pagination && pagination.totalPages > 1) { %>
+  <% const suffix = querySuffix ? `${querySuffix}&` : ''; %>
+  <div class="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <p class="text-sm text-brand-ink/60">Page <span class="font-semibold text-brand-ink"><%= pagination.currentPage %></span> of <span class="font-semibold text-brand-ink"><%= pagination.totalPages %></span></p>
+    <div class="flex flex-wrap gap-2">
+      <% if (pagination.hasPrev) { %>
+        <a href="<%= basePath %>?<%= suffix %>page=<%= pagination.currentPage - 1 %>" class="rounded-full border border-brand-ink/10 bg-white px-4 py-2 text-sm font-semibold text-brand-ink transition hover:-translate-y-0.5">Previous</a>
+      <% } %>
+      <% for (let i = 1; i <= pagination.totalPages; i += 1) { %>
+        <% if (i === pagination.currentPage) { %>
+          <span class="rounded-full bg-brand-ink px-4 py-2 text-sm font-semibold text-white"><%= i %></span>
+        <% } else { %>
+          <a href="<%= basePath %>?<%= suffix %>page=<%= i %>" class="rounded-full border border-brand-ink/10 bg-white px-4 py-2 text-sm font-semibold text-brand-ink transition hover:-translate-y-0.5"><%= i %></a>
+        <% } %>
+      <% } %>
+      <% if (pagination.hasNext) { %>
+        <a href="<%= basePath %>?<%= suffix %>page=<%= pagination.currentPage + 1 %>" class="rounded-full border border-brand-ink/10 bg-white px-4 py-2 text-sm font-semibold text-brand-ink transition hover:-translate-y-0.5">Next</a>
+      <% } %>
+    </div>
+  </div>
+<% } %>

@@ -1,0 +1,266 @@
+<%- include('partials/head', { title: 'Biens', bodyClass: 'properties-page', description: 'Parcourez les biens disponibles a Kelibia.' }) %>
+<%- include('partials/navbar', { page }) %>
+
+<main class="section">
+  <% const fallbackImage = '/assets/img/real-estate/property-exterior-3.webp'; %>
+  <% function displayLocation(property) { return [property.address, property.city].filter(Boolean).join(', ') || property.location || property.locationShort || 'Kelibia'; } %>
+  <% function displayPrice(property) { const amount = `${formatNumber(property.price || property.startingPrice || 0)} TND`; return property.listingType === 'rent' && property.paymentTerm ? `${amount}/${property.paymentTerm}` : amount; } %>
+  <div class="container">
+    <div class="section-head" style="align-items: end; gap: 24px;">
+      <div>
+        <div class="eyebrow">Catalogue</div>
+        <h1 style="font-size: clamp(40px, 6vw, 72px);">Trouvez un bien par adresse ou quartier</h1>
+        <p class="subtitle">Recherchez instantanement par adresse, ville, titre ou reference sans recharger la page.</p>
+      </div>
+
+      <div class="panel" style="width: min(100%, 420px);">
+        <label for="propertyAddressSearch" style="display: block; font-weight: 600; margin-bottom: 10px;">Recherche d'adresse</label>
+        <input
+          id="propertyAddressSearch"
+          type="search"
+          value="<%= searchQuery || '' %>"
+          placeholder="Ex: Mansoura, Avenue de la Plage, KV-7001"
+          style="width: 100%; border: 1px solid rgba(15, 23, 42, 0.12); border-radius: 18px; padding: 14px 16px; font-size: 15px;"
+        >
+        <p style="margin: 12px 0 0; color: var(--muted); line-height: 1.6;">
+          <strong id="propertyCount"><%= totalProperties %></strong> bien(s) correspondent a votre recherche.
+        </p>
+      </div>
+    </div>
+
+    <section class="listing-layout" id="propertyResults">
+      <% properties.forEach(function(property, index) { %>
+        <% const sizeClass = index % 6 === 0 ? 'property-card--large' : index % 3 === 0 ? 'property-card--medium' : 'property-card--regular'; %>
+        <article class="property-card <%= sizeClass %>">
+          <a href="/property/<%= property.id %>">
+            <div class="property-card__media">
+              <img src="<%= property.thumbnail || fallbackImage %>" alt="<%= property.title %>">
+            </div>
+            <div class="property-card__body">
+              <div class="property-card__price">
+                <strong class="property-card__villa-price"><%= displayPrice(property) %></strong>
+                <span><%= property.type || (property.listingType === 'rent' ? 'Location' : 'Vente') %></span>
+              </div>
+
+              <h2 class="property-card__title"><%= property.title %></h2>
+              <div class="property-card__location"><%= displayLocation(property) %></div>
+
+              <div class="pill-row">
+                <span class="meta-pill"><%= property.listingType === 'rent' ? 'A louer' : 'A vendre' %></span>
+                <% if (property.ref) { %>
+                  <span class="meta-pill">REF <%= property.ref %></span>
+                <% } %>
+              </div>
+              <div class="property-card__meta">
+                <% if (property.type === 'Residence' && property.availableTypes && property.availableTypes.length) { %>
+                  <div><%= property.apartmentCount || 0 %> appartements</div>
+                  <div><%= property.availableTypes.join(' / ') %> · <%= property.surfaceRange || `${formatNumber(property.area || property.surface || 0)} m2` %></div>
+                <% } else { %>
+                  <div><%= property.bedrooms || 0 %> ch · <%= property.bathrooms || 0 %> sdb</div>
+                  <div><%= formatNumber(property.area || property.surface || 0) %> m2</div>
+                <% } %>
+              </div>
+            </div>
+          </a>
+        </article>
+      <% }) %>
+    </section>
+
+    <div id="propertyEmptyState" style="margin-top: 28px; padding: 28px; border: 1px dashed rgba(15, 23, 42, 0.18); border-radius: 24px; text-align: center; color: var(--muted); display: <%= properties.length ? 'none' : 'block' %>;">
+      Aucun bien ne correspond a cette adresse pour le moment.
+    </div>
+
+    <nav class="pagination" id="propertyPagination" aria-label="Pagination">
+      <% for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) { %>
+        <% if (pageNumber === currentPage) { %>
+          <span class="is-current"><%= pageNumber %></span>
+        <% } else { %>
+          <a href="/properties?page=<%= pageNumber %><%= searchQuery ? '&search=' + encodeURIComponent(searchQuery) : '' %>"><%= pageNumber %></a>
+        <% } %>
+      <% } %>
+    </nav>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
+
+<script>
+  (function () {
+    const allProperties = <%- JSON.stringify(allProperties || []) %>;
+    const pageSize = <%= pageSize || 12 %>;
+    const searchInput = document.getElementById('propertyAddressSearch');
+    const resultsContainer = document.getElementById('propertyResults');
+    const paginationContainer = document.getElementById('propertyPagination');
+    const emptyState = document.getElementById('propertyEmptyState');
+    const countNode = document.getElementById('propertyCount');
+    const fallbackImage = '<%= fallbackImage %>';
+
+    if (!searchInput || !resultsContainer || !paginationContainer || !countNode) {
+      return;
+    }
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatPrice(property) {
+      const amount = new Intl.NumberFormat('fr-FR').format(Number(property.price || property.startingPrice || 0)) + ' TND';
+      return property.listingType === 'rent' && property.paymentTerm ? amount + '/' + property.paymentTerm : amount;
+    }
+
+    function formatLocation(property) {
+      return [property.address, property.city].filter(Boolean).join(', ')
+        || property.location
+        || property.locationShort
+        || 'Kelibia';
+    }
+
+    function formatArea(property) {
+      if (property.type === 'Residence' && property.surfaceRange) {
+        return property.surfaceRange;
+      }
+      return new Intl.NumberFormat('fr-FR').format(Number(property.area || property.surface || 0));
+    }
+
+    function getFilteredProperties(query) {
+      const normalizedQuery = String(query || '').trim().toLowerCase();
+      if (!normalizedQuery) {
+        return allProperties.slice();
+      }
+
+      return allProperties.filter((property) => {
+        const haystack = [
+          property.title,
+          property.address,
+          property.city,
+          property.ref,
+          property.zone,
+          property.location,
+          property.locationShort
+        ]
+          .filter(Boolean)
+          .join(' ')
+          .toLowerCase();
+
+        return haystack.includes(normalizedQuery);
+      });
+    }
+
+    function formatMeta(property) {
+      if (property.type === 'Residence' && Array.isArray(property.availableTypes) && property.availableTypes.length) {
+        return {
+          primary: String(property.apartmentCount || 0) + ' appartements',
+          secondary: property.availableTypes.join(' / ') + ' · ' + formatArea(property)
+        };
+      }
+
+      return {
+        primary: String(property.bedrooms || 0) + ' ch · ' + String(property.bathrooms || 0) + ' sdb',
+        secondary: formatArea(property) + ' m2'
+      };
+    }
+
+    function buildCard(property, index) {
+      const sizeClass = index % 6 === 0
+        ? 'property-card--large'
+        : index % 3 === 0
+          ? 'property-card--medium'
+          : 'property-card--regular';
+      const refPill = property.ref ? '<span class="meta-pill">REF ' + escapeHtml(property.ref) + '</span>' : '';
+      const meta = formatMeta(property);
+
+      return [
+        '<article class="property-card ' + sizeClass + '">',
+        '  <a href="/property/' + encodeURIComponent(property.id) + '">',
+        '    <div class="property-card__media">',
+        '      <img src="' + escapeHtml(property.thumbnail || fallbackImage) + '" alt="' + escapeHtml(property.title) + '">',
+        '    </div>',
+        '    <div class="property-card__body">',
+        '      <div class="property-card__price">',
+        '        <strong class="property-card__villa-price">' + escapeHtml(formatPrice(property)) + '</strong>',
+        '        <span>' + escapeHtml(property.type || (property.listingType === 'rent' ? 'Location' : 'Vente')) + '</span>',
+        '      </div>',
+        '      <h2 class="property-card__title">' + escapeHtml(property.title) + '</h2>',
+        '      <div class="property-card__location">' + escapeHtml(formatLocation(property)) + '</div>',
+        '      <div class="pill-row">',
+        '        <span class="meta-pill">' + escapeHtml(property.listingType === 'rent' ? 'A louer' : 'A vendre') + '</span>',
+                 refPill,
+        '      </div>',
+        '      <div class="property-card__meta">',
+        '        <div>' + escapeHtml(meta.primary) + '</div>',
+        '        <div>' + escapeHtml(meta.secondary) + '</div>',
+        '      </div>',
+        '    </div>',
+        '  </a>',
+        '</article>'
+      ].join('');
+    }
+
+    function renderPagination(totalPages, currentPage, search) {
+      paginationContainer.innerHTML = '';
+      if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+        return;
+      }
+
+      paginationContainer.style.display = '';
+      for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
+        if (pageNumber === currentPage) {
+          const current = document.createElement('span');
+          current.className = 'is-current';
+          current.textContent = String(pageNumber);
+          paginationContainer.appendChild(current);
+          continue;
+        }
+
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = String(pageNumber);
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          applyState(pageNumber, search);
+        });
+        paginationContainer.appendChild(link);
+      }
+    }
+
+    function applyState(page, search) {
+      const filtered = getFilteredProperties(search);
+      const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+      const currentPage = Math.min(Math.max(Number(page) || 1, 1), totalPages);
+      const start = (currentPage - 1) * pageSize;
+      const visible = filtered.slice(start, start + pageSize);
+
+      resultsContainer.innerHTML = visible.map((property, index) => buildCard(property, index)).join('');
+      countNode.textContent = String(filtered.length);
+      if (emptyState) {
+        emptyState.style.display = visible.length > 0 ? 'none' : 'block';
+      }
+      renderPagination(totalPages, currentPage, search);
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('page', String(currentPage));
+      if (search) {
+        url.searchParams.set('search', search);
+      } else {
+        url.searchParams.delete('search');
+      }
+      window.history.replaceState({}, '', url.toString());
+    }
+
+    let debounceTimer = null;
+    searchInput.addEventListener('input', () => {
+      window.clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => applyState(1, searchInput.value.trim()), 120);
+    });
+
+    const initialSearch = searchInput.value.trim();
+    const initialPage = Number(new URL(window.location.href).searchParams.get('page') || '<%= currentPage %>') || 1;
+    applyState(initialPage, initialSearch);
+  })();
+</script>

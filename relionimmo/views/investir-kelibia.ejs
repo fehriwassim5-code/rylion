@@ -1,0 +1,686 @@
+<%- include('partials/head', { title: 'Investir', bodyClass: 'invest-page', description: 'Analyse individuelle des biens immobiliers a Kelibia.' }) %>
+<%- include('partials/navbar', { page }) %>
+
+<main class="section">
+  <% const entries = Array.isArray(analysisEntries) ? analysisEntries : []; %>
+  <% const fallbackImage = '/assets/img/real-estate/property-exterior-3.webp'; %>
+  <% const apartmentEntries = entries.filter((item) => item.type === 'Appartement'); %>
+  <% const villaEntries = entries.filter((item) => item.type === 'Villa'); %>
+  <% const groupedResidences = apartmentEntries.reduce((acc, item) => {
+       const key = item.sourceId || item.id;
+       if (!acc[key]) {
+         acc[key] = {
+           id: key,
+           title: item.parentTitle || item.title,
+           address: item.address || '',
+           city: item.city || '',
+           zone: item.zone || '',
+           thumbnail: item.thumbnail || '',
+           items: []
+         };
+       }
+       acc[key].items.push(item);
+       return acc;
+     }, {}); %>
+  <% const residences = Object.values(groupedResidences)
+       .map((group) => {
+         const avgROI = group.items.length ? group.items.reduce((sum, item) => sum + (item.roi || 0), 0) / group.items.length : 0;
+         const avgAnnual = group.items.length ? group.items.reduce((sum, item) => sum + (item.revenuAnnuel || 0), 0) / group.items.length : 0;
+         const avgSummer = group.items.length ? group.items.reduce((sum, item) => sum + (item.revenuEte || 0), 0) / group.items.length : 0;
+         const startingPrice = group.items.length ? Math.min(...group.items.map((item) => Number(item.prix || 0))) : 0;
+         const uniqueTypes = Object.values(group.items.reduce((typeAcc, item) => {
+           const typeKey = item.categorie || item.id;
+           if (!typeAcc[typeKey]) {
+             typeAcc[typeKey] = item;
+           }
+           return typeAcc;
+         }, {}))
+           .sort((left, right) => String(left.categorie || '').localeCompare(String(right.categorie || ''), 'fr', { numeric: true, sensitivity: 'base' }))
+           .map((item) => {
+             const comparaison = avgROI ? (((item.roi || 0) - avgROI) / avgROI) * 100 : 0;
+             const projectionRate = Math.min(Math.max((item.roi || 0) * 0.35, 4), 28);
+             const priceProjection = Number(item.prix || 0) * (1 + (projectionRate / 100) * 3);
+             return {
+               ...item,
+               comparisonToAverage: comparaison,
+               priceProjection
+             };
+           });
+         return {
+           ...group,
+           avgROI,
+           avgAnnual,
+           avgSummer,
+           startingPrice,
+           items: group.items.sort((left, right) => (right.roi || 0) - (left.roi || 0)),
+           uniqueTypes
+         };
+       })
+       .sort((left, right) => left.title.localeCompare(right.title, 'fr', { numeric: true, sensitivity: 'base' })); %>
+  <% const villasWithMetrics = villaEntries.map((item) => {
+       const avgROI = villaEntries.length ? villaEntries.reduce((sum, entry) => sum + (entry.roi || 0), 0) / villaEntries.length : 0;
+       const comparaison = avgROI ? (((item.roi || 0) - avgROI) / avgROI) * 100 : 0;
+       const projectionRate = Math.min(Math.max((item.roi || 0) * 0.35, 4), 28);
+       const priceProjection = Number(item.prix || 0) * (1 + (projectionRate / 100) * 3);
+       return {
+         ...item,
+         comparisonToAverage: comparaison,
+         priceProjection
+       };
+     }).sort((left, right) => {
+       const leftMatch = String(left.title || '').match(/(\d+)/);
+       const rightMatch = String(right.title || '').match(/(\d+)/);
+       const leftNumber = leftMatch ? Number(leftMatch[1]) : 999;
+       const rightNumber = rightMatch ? Number(rightMatch[1]) : 999;
+       if (leftNumber !== rightNumber) {
+         return leftNumber - rightNumber;
+       }
+       return String(left.title || '').localeCompare(String(right.title || ''), 'fr', { numeric: true, sensitivity: 'base' });
+     }); %>
+
+  <div class="container">
+    <style>
+      .investment-section {
+        margin-top: 18px;
+      }
+      .investment-dashboard {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+        gap: 20px;
+        align-items: start;
+      }
+      .dashboard-selector-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .dashboard-selector {
+        width: 100%;
+        border: 1px solid rgba(18, 53, 74, 0.12);
+        border-radius: 26px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,241,232,0.84));
+        box-shadow: 0 16px 38px rgba(11, 35, 49, 0.08);
+        padding: 0;
+        text-align: left;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+      }
+      .dashboard-selector:hover,
+      .dashboard-selector.is-active {
+        transform: translateY(-3px);
+        border-color: rgba(18, 53, 74, 0.28);
+        box-shadow: 0 24px 46px rgba(11, 35, 49, 0.14);
+      }
+      .dashboard-selector.is-active {
+        outline: 2px solid rgba(255, 154, 60, 0.28);
+      }
+      .dashboard-selector__body {
+        padding: 18px;
+      }
+      .dashboard-selector__location {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .dashboard-mini-chart {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+        align-items: end;
+      }
+      .dashboard-mini-bar {
+        display: grid;
+        gap: 8px;
+      }
+      .dashboard-mini-bar__label {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(18, 53, 74, 0.7);
+      }
+      .dashboard-mini-bar__track {
+        height: 108px;
+        border-radius: 18px;
+        background: rgba(18, 53, 74, 0.08);
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+      }
+      .dashboard-mini-bar__fill {
+        width: 100%;
+        min-height: 10px;
+        border-radius: 18px;
+      }
+      .dashboard-mini-bar__value {
+        font-weight: 700;
+        color: var(--navy-deep);
+        font-size: 14px;
+      }
+      .dashboard-panel {
+        position: sticky;
+        top: 108px;
+        padding: 24px;
+        border-radius: 30px;
+        background: linear-gradient(160deg, rgba(11,35,49,0.98), rgba(18,53,74,0.94));
+        color: var(--white);
+        box-shadow: 0 28px 54px rgba(11, 35, 49, 0.2);
+      }
+      .dashboard-panel .eyebrow {
+        color: rgba(255, 244, 224, 0.92);
+      }
+      .dashboard-panel .eyebrow::before {
+        background: rgba(255, 244, 224, 0.28);
+      }
+      .dashboard-panel__title {
+        font-size: clamp(30px, 3vw, 44px);
+        color: var(--white);
+        margin-top: 10px;
+      }
+      .dashboard-panel__subtitle {
+        margin-top: 10px;
+        color: rgba(255,253,248,0.78);
+        line-height: 1.7;
+      }
+      .dashboard-bars {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .dashboard-bars__item {
+        padding: 16px;
+        border-radius: 22px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      .dashboard-bars__visual {
+        height: 144px;
+        margin-top: 10px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.08);
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+      }
+      .dashboard-bars__fill {
+        width: 100%;
+        min-height: 14px;
+        border-radius: 18px;
+      }
+      .dashboard-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .dashboard-metric {
+        padding: 16px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .dashboard-metric span {
+        display: block;
+        color: rgba(255,253,248,0.7);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .dashboard-metric strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 26px;
+        color: var(--white);
+      }
+      .dashboard-panel__footer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 18px;
+      }
+      .dashboard-comparison {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.1);
+        color: var(--white);
+        font-weight: 700;
+      }
+      .dashboard-comparison.is-positive {
+        background: rgba(81, 207, 102, 0.16);
+        color: #d9fbe2;
+      }
+      .dashboard-comparison.is-negative {
+        background: rgba(255, 107, 44, 0.16);
+        color: #ffe2d0;
+      }
+      .dashboard-empty {
+        padding: 30px;
+        border-radius: 26px;
+        background: rgba(18, 53, 74, 0.05);
+        border: 1px dashed rgba(18, 53, 74, 0.15);
+        color: var(--muted);
+      }
+      @media (max-width: 1180px) {
+        .investment-dashboard,
+        .dashboard-selector-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 860px) {
+        .investment-dashboard {
+          grid-template-columns: 1fr;
+        }
+        .dashboard-panel {
+          position: static;
+        }
+      }
+      @media (max-width: 720px) {
+        .dashboard-selector-grid,
+        .dashboard-metrics,
+        .dashboard-bars,
+        .stats-bar {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <section class="investment-section">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Residences</div>
+          <h1 style="font-size: clamp(40px, 5vw, 62px);">Chaque bien avec son dashboard</h1>
+          <p class="subtitle">Clique sur un bien pour voir son revenu ete, revenu annuel, ROI, projection de prix et comparaison avec la moyenne.</p>
+        </div>
+      </div>
+
+      <% if (!residences.length) { %>
+        <div class="dashboard-empty">Aucune residence disponible pour l'analyse.</div>
+      <% } %>
+
+      <div style="display: grid; gap: 24px;">
+        <% residences.forEach(function(residence, residenceIndex) { %>
+          <% const residenceChartMax = Math.max(...residence.uniqueTypes.map((item) => Math.max(item.revenuEte || 0, item.revenuAnnuel || 0)), 1); %>
+          <% const initialResidenceItem = residence.uniqueTypes[0] || null; %>
+          <section class="panel js-dashboard-scope" style="padding: 24px;">
+            <div class="section-head" style="margin-bottom: 18px; align-items: center;">
+              <div>
+                <div class="eyebrow"><%= residence.title %></div>
+                <h2 style="font-size: clamp(30px, 3.2vw, 46px);"><%= residence.title %></h2>
+                <p class="subtitle" style="margin-top: 8px;">
+                  <%= [residence.address, residence.city, residence.zone].filter(Boolean).join(', ') || 'Kelibia' %>
+                </p>
+              </div>
+              <div class="stats-bar" style="margin: 0; grid-template-columns: repeat(3, minmax(160px, 1fr)); width: min(100%, 680px);">
+                <article class="stat-card">
+                  <strong><%= formatCurrency(residence.startingPrice || 0) %></strong>
+                  <span>prix de depart</span>
+                </article>
+                <article class="stat-card">
+                  <strong><%= formatCurrency(residence.avgAnnual || 0) %></strong>
+                  <span>revenu annuel moyen</span>
+                </article>
+                <article class="stat-card">
+                  <strong><%= (residence.avgROI || 0).toFixed(2) %>%</strong>
+                  <span>ROI moyen</span>
+                </article>
+              </div>
+            </div>
+
+            <% if (!residence.uniqueTypes.length) { %>
+              <div class="dashboard-empty">Aucun lot disponible dans cette residence.</div>
+            <% } else { %>
+              <div class="investment-dashboard">
+                <div class="dashboard-selector-grid">
+                  <% residence.uniqueTypes.forEach(function(item, itemIndex) { %>
+                    <% const summerHeight = Math.max(((item.revenuEte || 0) / residenceChartMax) * 100, 10); %>
+                    <% const annualHeight = Math.max(((item.revenuAnnuel || 0) / residenceChartMax) * 100, 10); %>
+                    <button
+                      type="button"
+                      class="dashboard-selector js-dashboard-trigger<%= itemIndex === 0 ? ' is-active' : '' %>"
+                      data-index="<%= itemIndex %>">
+                      <div class="property-card__media" style="height: 220px;">
+                        <img src="<%= item.thumbnail || fallbackImage %>" alt="<%= item.title %>">
+                      </div>
+                      <div class="dashboard-selector__body">
+                        <div class="property-card__price">
+                          <strong class="property-card__villa-price"><%= formatCurrency(item.prix || 0) %></strong>
+                          <span><%= item.categorie || 'Appartement' %></span>
+                        </div>
+                        <h3 class="property-card__title" style="font-size: clamp(24px, 2.2vw, 30px);"><%= item.categorie || item.title %></h3>
+                        <div class="dashboard-selector__location"><%= [item.address, item.city, item.zone].filter(Boolean).join(', ') || 'Kelibia' %></div>
+                        <div class="pill-row" style="margin-top: 12px;">
+                          <span class="meta-pill"><%= item.prochePlage ? 'Proche plage' : 'Zone standard' %></span>
+                          <span class="meta-pill"><%= (item.roi || 0).toFixed(2) %>% ROI</span>
+                        </div>
+                        <div class="dashboard-mini-chart">
+                          <div class="dashboard-mini-bar">
+                            <span class="dashboard-mini-bar__label">Ete</span>
+                            <div class="dashboard-mini-bar__track">
+                              <div class="dashboard-mini-bar__fill" style="height: <%= summerHeight %>%; background: linear-gradient(180deg, #ffcb7d, #ff9a3c);"></div>
+                            </div>
+                            <span class="dashboard-mini-bar__value"><%= formatCurrency(item.revenuEte || 0) %></span>
+                          </div>
+                          <div class="dashboard-mini-bar">
+                            <span class="dashboard-mini-bar__label">Annuel</span>
+                            <div class="dashboard-mini-bar__track">
+                              <div class="dashboard-mini-bar__fill" style="height: <%= annualHeight %>%; background: linear-gradient(180deg, #5d9ad6, #145374);"></div>
+                            </div>
+                            <span class="dashboard-mini-bar__value"><%= formatCurrency(item.revenuAnnuel || 0) %></span>
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  <% }) %>
+                </div>
+
+                <aside class="dashboard-panel js-dashboard-panel">
+                  <div class="eyebrow">Dashboard</div>
+                  <h3 class="dashboard-panel__title js-panel-title"><%= initialResidenceItem ? (initialResidenceItem.categorie || initialResidenceItem.title) : 'Selectionner un bien' %></h3>
+                  <p class="dashboard-panel__subtitle js-panel-subtitle"><%= initialResidenceItem ? ([initialResidenceItem.address, initialResidenceItem.city, initialResidenceItem.zone].filter(Boolean).join(', ') || 'Kelibia') : '' %></p>
+
+                  <div class="dashboard-bars">
+                    <article class="dashboard-bars__item">
+                      <span>Revenu ete</span>
+                      <strong class="js-panel-summer"><%= initialResidenceItem ? formatCurrency(initialResidenceItem.revenuEte || 0) : '-' %></strong>
+                      <div class="dashboard-bars__visual">
+                        <div class="dashboard-bars__fill js-panel-summer-bar" style="height: <%= initialResidenceItem ? Math.max(((initialResidenceItem.revenuEte || 0) / residenceChartMax) * 100, 10) : 10 %>%; background: linear-gradient(180deg, #ffcb7d, #ff9a3c);"></div>
+                      </div>
+                    </article>
+                    <article class="dashboard-bars__item">
+                      <span>Revenu annuel</span>
+                      <strong class="js-panel-annual"><%= initialResidenceItem ? formatCurrency(initialResidenceItem.revenuAnnuel || 0) : '-' %></strong>
+                      <div class="dashboard-bars__visual">
+                        <div class="dashboard-bars__fill js-panel-annual-bar" style="height: <%= initialResidenceItem ? Math.max(((initialResidenceItem.revenuAnnuel || 0) / residenceChartMax) * 100, 10) : 10 %>%; background: linear-gradient(180deg, #5d9ad6, #145374);"></div>
+                      </div>
+                    </article>
+                  </div>
+
+                  <div class="dashboard-metrics">
+                    <article class="dashboard-metric">
+                      <span>ROI</span>
+                      <strong class="js-panel-roi"><%= initialResidenceItem ? `${(initialResidenceItem.roi || 0).toFixed(2)}%` : '-' %></strong>
+                    </article>
+                    <article class="dashboard-metric">
+                      <span>Projection prix 3 ans</span>
+                      <strong class="js-panel-projection"><%= initialResidenceItem ? formatCurrency(initialResidenceItem.priceProjection || 0) : '-' %></strong>
+                    </article>
+                    <article class="dashboard-metric">
+                      <span>Prix actuel</span>
+                      <strong class="js-panel-price"><%= initialResidenceItem ? formatCurrency(initialResidenceItem.prix || 0) : '-' %></strong>
+                    </article>
+                    <article class="dashboard-metric">
+                      <span>Base / nuit</span>
+                      <strong class="js-panel-night"><%= initialResidenceItem ? formatCurrency(initialResidenceItem.prixNuit || 0) : '-' %></strong>
+                    </article>
+                  </div>
+
+                  <div class="dashboard-panel__footer">
+                    <div class="dashboard-comparison js-panel-comparison <%= initialResidenceItem && (initialResidenceItem.comparisonToAverage || 0) >= 0 ? 'is-positive' : 'is-negative' %>">
+                      <%= initialResidenceItem ? `${(initialResidenceItem.comparisonToAverage || 0) >= 0 ? '+' : ''}${(initialResidenceItem.comparisonToAverage || 0).toFixed(1)}% vs moyenne residence` : '-' %>
+                    </div>
+                    <% if (initialResidenceItem) { %>
+                      <a href="<%= initialResidenceItem.detailHref %>" class="button button--primary js-panel-link">Voir le bien</a>
+                    <% } else { %>
+                      <a href="#" class="button button--primary js-panel-link hidden">Voir le bien</a>
+                    <% } %>
+                  </div>
+                </aside>
+              </div>
+
+              <script type="application/json" class="js-dashboard-data"><%- JSON.stringify({
+                averageLabel: 'moyenne residence',
+                chartMax: residenceChartMax,
+                items: residence.uniqueTypes.map((item) => ({
+                  title: item.categorie || item.title,
+                  subtitle: [item.address, item.city, item.zone].filter(Boolean).join(', ') || 'Kelibia',
+                  revenuEte: Number(item.revenuEte || 0),
+                  revenuAnnuel: Number(item.revenuAnnuel || 0),
+                  roi: Number(item.roi || 0),
+                  priceProjection: Number(item.priceProjection || 0),
+                  price: Number(item.prix || 0),
+                  nightlyRate: Number(item.prixNuit || 0),
+                  comparisonToAverage: Number(item.comparisonToAverage || 0),
+                  detailHref: item.detailHref || '#'
+                }))
+              }) %></script>
+            <% } %>
+          </section>
+        <% }) %>
+      </div>
+    </section>
+
+    <section class="investment-section" style="margin-top: 34px;">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Villas</div>
+          <h2 style="font-size: clamp(36px, 4vw, 56px);">Villas organisees une par une</h2>
+          <p class="subtitle">Chaque villa de 1 a 20 a maintenant son propre bloc dashboard, clair et separe.</p>
+        </div>
+      </div>
+
+      <% if (!villasWithMetrics.length) { %>
+        <div class="dashboard-empty">Aucune villa disponible pour l'analyse.</div>
+      <% } else { %>
+        <div style="display: grid; gap: 24px;">
+          <% villasWithMetrics.forEach(function(item) { %>
+            <% const villaChartMax = Math.max(item.revenuEte || 0, item.revenuAnnuel || 0, 1); %>
+            <% const summerHeight = Math.max(((item.revenuEte || 0) / villaChartMax) * 100, 10); %>
+            <% const annualHeight = Math.max(((item.revenuAnnuel || 0) / villaChartMax) * 100, 10); %>
+            <section class="panel" style="padding: 24px;">
+              <div class="section-head" style="margin-bottom: 18px; align-items: center;">
+                <div>
+                  <div class="eyebrow"><%= item.title %></div>
+                  <h3 style="font-size: clamp(30px, 3vw, 44px);"><%= item.title %></h3>
+                  <p class="subtitle" style="margin-top: 8px;"><%= [item.address, item.city, item.zone].filter(Boolean).join(', ') || 'Kelibia' %></p>
+                </div>
+                <div class="stats-bar" style="margin: 0; grid-template-columns: repeat(3, minmax(160px, 1fr)); width: min(100%, 680px);">
+                  <article class="stat-card">
+                    <strong><%= formatCurrency(item.prix || 0) %></strong>
+                    <span>prix actuel</span>
+                  </article>
+                  <article class="stat-card">
+                    <strong><%= formatCurrency(item.revenuAnnuel || 0) %></strong>
+                    <span>revenu annuel</span>
+                  </article>
+                  <article class="stat-card">
+                    <strong><%= (item.roi || 0).toFixed(2) %>%</strong>
+                    <span>ROI</span>
+                  </article>
+                </div>
+              </div>
+
+              <div class="investment-dashboard">
+                <article class="dashboard-selector is-active" style="cursor: default;">
+                  <div class="property-card__media" style="height: 240px;">
+                    <img src="<%= item.thumbnail || fallbackImage %>" alt="<%= item.title %>">
+                  </div>
+                  <div class="dashboard-selector__body">
+                    <div class="property-card__price">
+                      <strong class="property-card__villa-price"><%= formatCurrency(item.prix || 0) %></strong>
+                      <span>Villa</span>
+                    </div>
+                    <h4 class="property-card__title" style="font-size: clamp(24px, 2.2vw, 30px);"><%= item.title %></h4>
+                    <div class="dashboard-selector__location"><%= [item.address, item.city, item.zone].filter(Boolean).join(', ') || 'Kelibia' %></div>
+                    <div class="pill-row" style="margin-top: 12px;">
+                      <span class="meta-pill"><%= item.chambres || 0 %> chambres</span>
+                      <span class="meta-pill"><%= item.piscine ? 'Piscine' : 'Sans piscine' %></span>
+                      <span class="meta-pill"><%= (item.roi || 0).toFixed(2) %>% ROI</span>
+                    </div>
+                    <div class="dashboard-mini-chart">
+                      <div class="dashboard-mini-bar">
+                        <span class="dashboard-mini-bar__label">Ete</span>
+                        <div class="dashboard-mini-bar__track">
+                          <div class="dashboard-mini-bar__fill" style="height: <%= summerHeight %>%; background: linear-gradient(180deg, #ffcb7d, #ff9a3c);"></div>
+                        </div>
+                        <span class="dashboard-mini-bar__value"><%= formatCurrency(item.revenuEte || 0) %></span>
+                      </div>
+                      <div class="dashboard-mini-bar">
+                        <span class="dashboard-mini-bar__label">Annuel</span>
+                        <div class="dashboard-mini-bar__track">
+                          <div class="dashboard-mini-bar__fill" style="height: <%= annualHeight %>%; background: linear-gradient(180deg, #5d9ad6, #145374);"></div>
+                        </div>
+                        <span class="dashboard-mini-bar__value"><%= formatCurrency(item.revenuAnnuel || 0) %></span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <aside class="dashboard-panel" style="position: static;">
+                  <div class="eyebrow">Dashboard</div>
+                  <h3 class="dashboard-panel__title"><%= item.title %></h3>
+                  <p class="dashboard-panel__subtitle"><%= [item.address, item.city, item.zone].filter(Boolean).join(', ') || 'Kelibia' %></p>
+
+                  <div class="dashboard-bars">
+                    <article class="dashboard-bars__item">
+                      <span>Revenu ete</span>
+                      <strong><%= formatCurrency(item.revenuEte || 0) %></strong>
+                      <div class="dashboard-bars__visual">
+                        <div class="dashboard-bars__fill" style="height: <%= summerHeight %>%; background: linear-gradient(180deg, #ffcb7d, #ff9a3c);"></div>
+                      </div>
+                    </article>
+                    <article class="dashboard-bars__item">
+                      <span>Revenu annuel</span>
+                      <strong><%= formatCurrency(item.revenuAnnuel || 0) %></strong>
+                      <div class="dashboard-bars__visual">
+                        <div class="dashboard-bars__fill" style="height: <%= annualHeight %>%; background: linear-gradient(180deg, #5d9ad6, #145374);"></div>
+                      </div>
+                    </article>
+                  </div>
+
+                  <div class="dashboard-metrics">
+                    <article class="dashboard-metric">
+                      <span>ROI</span>
+                      <strong><%= (item.roi || 0).toFixed(2) %>%</strong>
+                    </article>
+                    <article class="dashboard-metric">
+                      <span>Projection prix 3 ans</span>
+                      <strong><%= formatCurrency(item.priceProjection || 0) %></strong>
+                    </article>
+                    <article class="dashboard-metric">
+                      <span>Comparaison moyenne</span>
+                      <strong><%= `${(item.comparisonToAverage || 0) >= 0 ? '+' : ''}${(item.comparisonToAverage || 0).toFixed(1)}%` %></strong>
+                    </article>
+                    <article class="dashboard-metric">
+                      <span>Base / nuit</span>
+                      <strong><%= formatCurrency(item.prixNuit || 0) %></strong>
+                    </article>
+                  </div>
+
+                  <div class="dashboard-panel__footer">
+                    <div class="dashboard-comparison <%= (item.comparisonToAverage || 0) >= 0 ? 'is-positive' : 'is-negative' %>">
+                      <%= `${(item.comparisonToAverage || 0) >= 0 ? '+' : ''}${(item.comparisonToAverage || 0).toFixed(1)}% vs moyenne villas` %>
+                    </div>
+                    <a href="<%= item.detailHref %>" class="button button--primary">Voir le bien</a>
+                  </div>
+                </aside>
+              </div>
+            </section>
+          <% }) %>
+        </div>
+      <% } %>
+    </section>
+  </div>
+</main>
+
+<script>
+  (function () {
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('fr-TN', {
+        style: 'currency',
+        currency: 'TND',
+        maximumFractionDigits: 0
+      }).format(Number(value || 0));
+    }
+
+    function formatPercent(value) {
+      return Number(value || 0).toFixed(2) + '%';
+    }
+
+    function comparisonLabel(value, averageLabel) {
+      const amount = Number(value || 0);
+      const sign = amount >= 0 ? '+' : '';
+      return sign + amount.toFixed(1) + '% vs ' + averageLabel;
+    }
+
+    document.querySelectorAll('.js-dashboard-scope').forEach(function (scope) {
+      const dataNode = scope.querySelector('.js-dashboard-data');
+      const triggers = Array.from(scope.querySelectorAll('.js-dashboard-trigger'));
+      const panel = scope.querySelector('.js-dashboard-panel');
+
+      if (!dataNode || !panel || !triggers.length) {
+        return;
+      }
+
+      const payload = JSON.parse(dataNode.textContent || '{}');
+      const items = Array.isArray(payload.items) ? payload.items : [];
+      const chartMax = Number(payload.chartMax || 1) || 1;
+      const averageLabel = payload.averageLabel || 'moyenne';
+
+      const titleNode = panel.querySelector('.js-panel-title');
+      const subtitleNode = panel.querySelector('.js-panel-subtitle');
+      const summerNode = panel.querySelector('.js-panel-summer');
+      const annualNode = panel.querySelector('.js-panel-annual');
+      const roiNode = panel.querySelector('.js-panel-roi');
+      const projectionNode = panel.querySelector('.js-panel-projection');
+      const priceNode = panel.querySelector('.js-panel-price');
+      const nightNode = panel.querySelector('.js-panel-night');
+      const comparisonNode = panel.querySelector('.js-panel-comparison');
+      const linkNode = panel.querySelector('.js-panel-link');
+      const summerBarNode = panel.querySelector('.js-panel-summer-bar');
+      const annualBarNode = panel.querySelector('.js-panel-annual-bar');
+
+      function updatePanel(index) {
+        const item = items[index];
+        if (!item) {
+          return;
+        }
+
+        triggers.forEach(function (trigger, triggerIndex) {
+          trigger.classList.toggle('is-active', triggerIndex === index);
+        });
+
+        titleNode.textContent = item.title || 'Bien';
+        subtitleNode.textContent = item.subtitle || 'Kelibia';
+        summerNode.textContent = formatCurrency(item.revenuEte);
+        annualNode.textContent = formatCurrency(item.revenuAnnuel);
+        roiNode.textContent = formatPercent(item.roi);
+        projectionNode.textContent = formatCurrency(item.priceProjection);
+        priceNode.textContent = formatCurrency(item.price);
+        nightNode.textContent = formatCurrency(item.nightlyRate);
+
+        const comparison = Number(item.comparisonToAverage || 0);
+        comparisonNode.textContent = comparisonLabel(comparison, averageLabel);
+        comparisonNode.classList.toggle('is-positive', comparison >= 0);
+        comparisonNode.classList.toggle('is-negative', comparison < 0);
+
+        if (linkNode) {
+          linkNode.href = item.detailHref || '#';
+          linkNode.classList.toggle('hidden', !item.detailHref);
+        }
+
+        if (summerBarNode) {
+          summerBarNode.style.height = Math.max((Number(item.revenuEte || 0) / chartMax) * 100, 10) + '%';
+        }
+        if (annualBarNode) {
+          annualBarNode.style.height = Math.max((Number(item.revenuAnnuel || 0) / chartMax) * 100, 10) + '%';
+        }
+      }
+
+      triggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+          updatePanel(Number(trigger.dataset.index || 0));
+        });
+      });
+
+      updatePanel(0);
+    });
+  })();
+</script>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,79 @@
+<%- include('partials/head', { title: 'Ventes', bodyClass: 'properties-page' }) %>
+<%- include('partials/navbar', { page: 'sale', properties }) %>
+
+<main class="bg-gradient-to-b from-white via-brand-sand to-white text-brand-ink min-h-screen">
+  <% const fallbackImage = '/assets/img/real-estate/property-exterior-3.webp'; %>
+
+  <section class="py-10 bg-gradient-to-r from-white via-brand-sand to-white border-b border-brand-ink/5">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-brand-ink/50">Rylion Immobilière</p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-brand-ink">Biens en vente</h1>
+        <p class="text-brand-ink/70">Toutes nos opportunites a la vente, soigneusement selectionnees par nos conseillers.</p>
+      </div>
+      <div class="text-sm text-brand-ink/70 flex flex-col items-start md:items-end">
+        <span class="font-semibold text-brand-ink"><%= total %> biens en vente</span>
+        <span>Prets pour une visite ? Parlons de votre projet.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <% if (properties.length) { %>
+        <div class="grid md:grid-cols-3 gap-6">
+          <% properties.forEach(function(property){ const status = (property.status || [])[0]; const meta = statusMeta[status] || { className: 'info', label: status || 'Listing' }; %>
+            <article class="rounded-2xl overflow-hidden bg-white border border-brand-ink/10 shadow hover:-translate-y-1 transition">
+              <div class="relative">
+                <img src="<%= property.thumbnail || fallbackImage %>" alt="<%= property.title %>" class="w-full h-48 object-cover">
+                <div class="absolute top-3 left-3 flex flex-wrap gap-1">
+                  <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-brand-gold text-brand-ink"><%= meta.label %></span>
+                  <% if (property.listingType) { %>
+                    <span class="px-3 py-1 rounded-full text-[11px] font-semibold bg-brand-sand text-brand-ink/80"><%= property.listingType === 'rent' ? 'A louer' : 'A vendre' %></span>
+                  <% } %>
+                </div>
+                <div class="absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs bg-white/90 text-brand-ink shadow"><%= formatPrice(property) %></div>
+              </div>
+            <div class="p-4 space-y-2">
+              <h3 class="text-lg font-semibold text-brand-ink"><a href="/property/<%= property.id %>"><%= property.title %></a></h3>
+              <p class="text-xs text-brand-ink/60 m-0">REF: <%= property.ref || property.id %></p>
+              <p class="text-sm text-brand-ink/70 flex items-center gap-2 m-0"><i class="bi bi-geo-alt"></i><%= property.city || property.address || '' %></p>
+                <% const desc = (property.headline || property.priceNote || '').trim(); %>
+                <p class="text-sm text-brand-ink/70 m-0"><%= desc.length > 140 ? desc.slice(0, 140) + '...' : desc %></p>
+                <div class="flex items-center gap-3 text-sm text-brand-ink/80 flex-wrap">
+                  <% if (property.type === 'Residence' && property.availableTypes && property.availableTypes.length) { %>
+                    <span class="flex items-center gap-1"><i class="bi bi-building"></i> <%= property.apartmentCount || 0 %> appartements</span>
+                    <span class="flex items-center gap-1"><i class="bi bi-diagram-3"></i> <%= property.availableTypes.join(' / ') %></span>
+                    <span class="flex items-center gap-1"><i class="bi bi-rulers"></i> <%= property.surfaceRange || `${formatNumber(property.area || property.surface || 0)} m2` %></span>
+                  <% } else { %>
+                    <span class="flex items-center gap-1"><i class="bi bi-house"></i> <%= property.bedrooms %> ch</span>
+                    <span class="flex items-center gap-1"><i class="bi bi-droplet"></i> <%= property.bathrooms %> sdb</span>
+                    <span class="flex items-center gap-1"><i class="bi bi-rulers"></i> <%= formatNumber(property.area) %> m2</span>
+                  <% } %>
+                </div>
+                <div class="flex items-center justify-between pt-2">
+                  <div class="flex items-center gap-2 text-sm text-brand-ink/70">
+                    <img src="<%= property.agent?.avatar || '/assets/img/real-estate/agent-1.webp' %>" class="h-8 w-8 rounded-full object-cover" alt="Agent">
+                    <div>
+                      <p class="m-0 text-brand-ink text-sm"><%= property.agent?.name || 'Equipe interne' %></p>
+                      <p class="m-0 text-xs text-brand-ink/70"><%= property.agent?.company || 'Rylion Immobilière' %></p>
+                    </div>
+                  </div>
+                  <a href="/property/<%= property.id %>" class="tw-btn-ghost text-xs">Details</a>
+                </div>
+              </div>
+            </article>
+          <% }); %>
+        </div>
+
+        <%- include('partials/pagination', { pagination, basePath: '/ventes' }) %>
+      <% } else { %>
+        <div class="bg-white border border-brand-ink/10 rounded-2xl shadow p-6 text-brand-ink/70 text-center">
+          Aucune offre de vente disponible pour le moment.
+        </div>
+      <% } %>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

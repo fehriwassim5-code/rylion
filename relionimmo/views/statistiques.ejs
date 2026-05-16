@@ -1,0 +1,1649 @@
+<%- include('partials/head', { title: 'Statistiques', bodyClass: 'statistics-page', description: 'Dashboard global immobilier pour comparer tous les biens et identifier le meilleur investissement.' }) %>
+<%- include('partials/navbar', { page }) %>
+
+<style>
+  .statistics-page .stats-wrap {
+    width: min(1360px, calc(100% - 28px));
+    margin: 0 auto;
+    padding: 24px 0 72px;
+  }
+  .statistics-page .stats-shell {
+    display: grid;
+    gap: 18px;
+  }
+  .statistics-page .stats-card,
+  .statistics-page .stats-state {
+    position: relative;
+    overflow: hidden;
+    border-radius: 26px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 18px 42px rgba(28, 50, 77, 0.08);
+  }
+  .statistics-page .stats-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b7a, #ffb454, #5b8def);
+  }
+  .statistics-page .stats-board {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) 320px;
+    gap: 18px;
+  }
+  .statistics-page .stats-board-main,
+  .statistics-page .stats-board-side,
+  .statistics-page .stats-card {
+    padding: 24px;
+  }
+  .statistics-page .stats-board-header,
+  .statistics-page .stats-card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .statistics-page .stats-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    color: #ff6b7a;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .statistics-page .stats-kicker::before {
+    content: "";
+    width: 32px;
+    height: 1px;
+    background: rgba(255, 107, 122, 0.42);
+  }
+  .statistics-page .stats-board-main h1,
+  .statistics-page .stats-card h3,
+  .statistics-page .stats-side-title {
+    margin: 0;
+    color: #21344a;
+  }
+  .statistics-page .stats-board-main h1 {
+    font-size: clamp(32px, 5vw, 58px);
+    line-height: 0.96;
+  }
+  .statistics-page .stats-board-copy,
+  .statistics-page .stats-card p,
+  .statistics-page .stats-side-copy,
+  .statistics-page .stats-table th,
+  .statistics-page .stats-table td {
+    color: #748293;
+    line-height: 1.7;
+  }
+  .statistics-page .stats-board-copy {
+    margin: 14px 0 0;
+    max-width: 760px;
+  }
+  .statistics-page .stats-mini-badge {
+    padding: 12px 16px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(91, 141, 239, 0.12), rgba(255, 180, 84, 0.12));
+    color: #3d5a7a;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .statistics-page .stats-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .statistics-page .stats-kpi {
+    padding: 18px 18px 16px;
+    border-radius: 22px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background:
+      radial-gradient(circle at top right, rgba(255, 180, 84, 0.1), transparent 30%),
+      linear-gradient(180deg, #ffffff, #fbfcff);
+    cursor: pointer;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
+  .statistics-page .stats-kpi:hover {
+    transform: translateY(-3px);
+    border-color: rgba(91, 141, 239, 0.26);
+    box-shadow: 0 18px 34px rgba(28, 50, 77, 0.12);
+  }
+  .statistics-page .stats-kpi-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .statistics-page .stats-kpi span {
+    display: block;
+    color: #8a96a5;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .statistics-page .stats-kpi-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .statistics-page .stats-kpi-indicator--up {
+    background: rgba(16, 185, 129, 0.12);
+    color: #0f766e;
+  }
+  .statistics-page .stats-kpi-indicator--down {
+    background: rgba(255, 107, 122, 0.12);
+    color: #e11d48;
+  }
+  .statistics-page .stats-kpi-indicator--neutral {
+    background: rgba(91, 141, 239, 0.12);
+    color: #3b82f6;
+  }
+  .statistics-page .stats-kpi strong {
+    display: block;
+    margin-top: 12px;
+    color: #22354b;
+    font-size: clamp(24px, 2vw, 34px);
+    font-family: "Cormorant Garamond", serif;
+    line-height: 0.98;
+  }
+  .statistics-page .stats-kpi p {
+    margin: 10px 0 0;
+    font-size: 13px;
+  }
+  .statistics-page .stats-kpi-chart {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(35, 60, 92, 0.08);
+  }
+  .statistics-page .stats-kpi-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .statistics-page .stats-kpi-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+    color: #7c8898;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .statistics-page .stats-board-side {
+    display: grid;
+    gap: 16px;
+    align-content: start;
+  }
+  .statistics-page .stats-side-panel {
+    padding: 18px;
+    border-radius: 22px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background:
+      radial-gradient(circle at top left, rgba(255, 107, 122, 0.08), transparent 28%),
+      linear-gradient(180deg, #ffffff, #fafcff);
+  }
+  .statistics-page .stats-side-panel strong {
+    display: block;
+    margin-top: 10px;
+    color: #22354b;
+    font-size: clamp(24px, 2vw, 34px);
+    font-family: "Cormorant Garamond", serif;
+    line-height: 0.98;
+  }
+  .statistics-page .stats-side-points {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .statistics-page .stats-side-point {
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(91, 141, 239, 0.08);
+    color: #314861;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+  .statistics-page .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .statistics-page .stats-card--wide {
+    grid-column: 1 / -1;
+  }
+  .statistics-page .stats-card h3 {
+    font-size: clamp(26px, 2.8vw, 38px);
+  }
+  .statistics-page .stats-card__head {
+    margin-bottom: 14px;
+  }
+  .statistics-page .stats-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .statistics-page .stats-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #7a8898;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .statistics-page .stats-legend i {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    display: inline-block;
+  }
+  .statistics-page .stats-chart {
+    position: relative;
+    min-height: 320px;
+  }
+  .statistics-page .stats-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .statistics-page .stats-tooltip {
+    position: absolute;
+    z-index: 10;
+    min-width: 150px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(28, 43, 61, 0.96);
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.5;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.16s ease;
+  }
+  .statistics-page .stats-insights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .statistics-page .stats-insight {
+    padding: 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background: linear-gradient(180deg, #ffffff, #fbfcff);
+  }
+  .statistics-page .stats-insight span {
+    display: block;
+    margin-bottom: 10px;
+    color: #ff6b7a;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .statistics-page .stats-insight p {
+    margin: 0;
+    color: #2b4159;
+  }
+  .statistics-page .stats-table-wrap {
+    overflow: auto;
+    border-radius: 22px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background: rgba(255, 255, 255, 0.72);
+  }
+  .statistics-page .stats-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+  }
+  .statistics-page .stats-table th,
+  .statistics-page .stats-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid rgba(35, 60, 92, 0.08);
+    vertical-align: top;
+  }
+  .statistics-page .stats-table th {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #7d8998;
+  }
+  .statistics-page .stats-table td strong {
+    color: #22354b;
+  }
+  .statistics-page .stats-state {
+    padding: 28px;
+    text-align: center;
+    font-weight: 700;
+    color: #748293;
+  }
+  .statistics-page .stats-state--error {
+    color: #8b1e3f;
+  }
+  .statistics-page .stats-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    background: rgba(24, 36, 52, 0.58);
+    backdrop-filter: blur(10px);
+  }
+  .statistics-page .stats-modal.is-open {
+    display: flex;
+  }
+  .statistics-page .stats-modal-panel {
+    width: min(980px, 100%);
+    max-height: calc(100vh - 44px);
+    overflow: auto;
+    border-radius: 28px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 24px 64px rgba(18, 31, 46, 0.2);
+  }
+  .statistics-page .stats-modal-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 24px 24px 12px;
+  }
+  .statistics-page .stats-modal-head h3 {
+    margin: 0;
+    color: #21344a;
+    font-size: clamp(28px, 3vw, 42px);
+  }
+  .statistics-page .stats-modal-head p {
+    margin: 10px 0 0;
+    color: #6f8093;
+    line-height: 1.7;
+  }
+  .statistics-page .stats-modal-close {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(91, 141, 239, 0.1);
+    color: #30588b;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .statistics-page .stats-modal-body {
+    padding: 0 24px 24px;
+    display: grid;
+    gap: 18px;
+  }
+  .statistics-page .stats-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .statistics-page .stats-detail-card {
+    padding: 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background: linear-gradient(180deg, #ffffff, #fbfcff);
+  }
+  .statistics-page .stats-detail-card span {
+    display: block;
+    color: #8a96a5;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .statistics-page .stats-detail-card strong {
+    display: block;
+    margin-top: 10px;
+    color: #22354b;
+    font-size: clamp(22px, 2vw, 30px);
+    font-family: "Cormorant Garamond", serif;
+    line-height: 0.98;
+  }
+  .statistics-page .stats-detail-card p {
+    margin: 10px 0 0;
+    color: #748293;
+    line-height: 1.6;
+  }
+  .statistics-page .stats-detail-card--chart {
+    padding: 20px;
+  }
+  .statistics-page .stats-detail-chart-preview {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(35, 60, 92, 0.08);
+  }
+  .statistics-page .stats-detail-chart-note {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: rgba(91, 141, 239, 0.08);
+    color: #314861;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.65;
+  }
+  .statistics-page .stats-detail-points {
+    display: grid;
+    gap: 12px;
+  }
+  .statistics-page .stats-detail-point {
+    padding: 14px 16px;
+    border-radius: 18px;
+    background: rgba(91, 141, 239, 0.08);
+    color: #314861;
+    font-weight: 700;
+    line-height: 1.6;
+  }
+  .statistics-page .stats-projection-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .statistics-page .stats-projection-box {
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(35, 60, 92, 0.08);
+    background: linear-gradient(180deg, #ffffff, #fbfcff);
+  }
+  .statistics-page .stats-projection-box span {
+    display: block;
+    color: #8a96a5;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .statistics-page .stats-projection-box strong {
+    display: block;
+    margin-top: 10px;
+    color: #22354b;
+    font-size: clamp(22px, 2vw, 30px);
+    font-family: "Cormorant Garamond", serif;
+    line-height: 0.98;
+  }
+  .statistics-page .stats-projection-box p {
+    margin: 10px 0 0;
+    color: #748293;
+    line-height: 1.6;
+    font-size: 13px;
+  }
+  .statistics-page .stats-projection-help {
+    margin-top: 16px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    background: rgba(255, 180, 84, 0.1);
+    border: 1px solid rgba(255, 180, 84, 0.2);
+    color: #44576c;
+    line-height: 1.7;
+  }
+  @media (max-width: 1180px) {
+    .statistics-page .stats-board,
+    .statistics-page .stats-grid,
+    .statistics-page .stats-insights {
+      grid-template-columns: 1fr;
+    }
+    .statistics-page .stats-kpi-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .statistics-page .stats-projection-summary {
+      grid-template-columns: 1fr;
+    }
+    .statistics-page .stats-card--wide {
+      grid-column: auto;
+    }
+  }
+  @media (max-width: 720px) {
+    .statistics-page .stats-wrap {
+      width: min(100% - 18px, 1360px);
+      padding-top: 18px;
+    }
+    .statistics-page .stats-board-main,
+    .statistics-page .stats-board-side,
+    .statistics-page .stats-card {
+      padding: 18px;
+    }
+    .statistics-page .stats-kpi-grid {
+      grid-template-columns: 1fr;
+    }
+    .statistics-page .stats-detail-grid {
+      grid-template-columns: 1fr;
+    }
+    .statistics-page .stats-detail-card--chart {
+      padding: 18px;
+    }
+  }
+</style>
+
+<main>
+  <section class="stats-wrap">
+    <div class="stats-shell">
+      <div id="statsState" class="stats-state">Chargement du dashboard statistiques...</div>
+
+      <div id="statsContent" class="hidden">
+        <section class="stats-board">
+          <article class="stats-card stats-board-main">
+            <div class="stats-board-header">
+              <div>
+                <div class="stats-kicker">Global Investment Dashboard</div>
+                <h1>Vue globale de performance immobiliere</h1>
+                <p class="stats-board-copy">
+                  Tous les indicateurs cles sont regroupes dans un seul schema clair pour comprendre
+                  rapidement quel type de bien apporte le meilleur ROI et le meilleur revenu.
+                </p>
+              </div>
+              <div class="stats-mini-badge">Portfolio overview</div>
+            </div>
+            <div id="statsKpis" class="stats-kpi-grid"></div>
+          </article>
+
+          <aside class="stats-card stats-board-side">
+            <div class="stats-side-panel">
+              <div class="stats-kicker">Best choice</div>
+              <h3 class="stats-side-title">Recommendation</h3>
+              <strong id="statsSummaryTitle">Chargement...</strong>
+              <p id="statsSummaryCopy" class="stats-side-copy">Le dashboard prepare la recommandation globale.</p>
+            </div>
+
+            <div class="stats-side-panel">
+              <div class="stats-kicker">Key points</div>
+              <div id="statsSummaryPoints" class="stats-side-points"></div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stats-card">
+            <div class="stats-card__head">
+              <div>
+                <h3>Villas vs appartements</h3>
+                <p>Comparaison directe des deux grandes familles de biens.</p>
+              </div>
+              <div class="stats-legend">
+                <span><i style="background:#5b8def;"></i>ROI moyen</span>
+                <span><i style="background:#ff8f5a;"></i>Revenu annuel moyen</span>
+              </div>
+            </div>
+            <div id="statsBroadTypeChart" class="stats-chart"></div>
+          </article>
+
+          <article class="stats-card">
+            <div class="stats-card__head">
+              <div>
+                <h3>S+1 vs S+2 vs S+3 vs villas</h3>
+                <p>Le type le plus rentable ressort immediatement.</p>
+              </div>
+              <div class="stats-legend">
+                <span><i style="background:#5b8def;"></i>ROI moyen</span>
+                <span><i style="background:#ff8f5a;"></i>Revenu annuel moyen</span>
+              </div>
+            </div>
+            <div id="statsTypeChart" class="stats-chart"></div>
+          </article>
+
+          <article class="stats-card">
+            <div class="stats-card__head">
+              <div>
+                <h3>Distribution des biens</h3>
+                <p>Repartition globale des proprietes par type d investissement.</p>
+              </div>
+            </div>
+            <div id="statsPieChart" class="stats-chart"></div>
+          </article>
+
+          <article class="stats-card stats-card--wide">
+            <div class="stats-card__head">
+              <div>
+                <h3>Projection moyenne des prix sur 5 ans</h3>
+                <p>Une lecture simple de l evolution theorique du prix moyen du portefeuille sur 5 ans.</p>
+              </div>
+            </div>
+            <div id="statsProjectionChart" class="stats-chart"></div>
+            <div id="statsProjectionSummary" class="stats-projection-summary"></div>
+            <div id="statsProjectionHelp" class="stats-projection-help"></div>
+          </article>
+        </section>
+
+        <section class="stats-card">
+          <div class="stats-card__head">
+            <div>
+              <h3>Conclusions automatiques</h3>
+              <p>Des phrases courtes et faciles a comprendre pour lire l analyse rapidement.</p>
+            </div>
+          </div>
+          <div id="statsInsights" class="stats-insights"></div>
+        </section>
+
+        <section class="stats-card">
+          <div class="stats-card__head">
+            <div>
+              <h3>Top 5 proprietes par ROI</h3>
+              <p>Les cinq meilleures opportunites selon le rendement sur investissement.</p>
+            </div>
+          </div>
+          <div class="stats-table-wrap">
+            <table class="stats-table">
+              <thead>
+                <tr>
+                  <th>Nom / ID</th>
+                  <th>Type</th>
+                  <th>ROI</th>
+                  <th>Revenu annuel</th>
+                </tr>
+              </thead>
+              <tbody id="statsTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="statsDetailModal" class="stats-modal" aria-hidden="true">
+  <div class="stats-modal-panel">
+    <div class="stats-modal-head">
+      <div>
+        <div class="stats-kicker">Detail KPI</div>
+        <h3 id="statsDetailTitle">Detail</h3>
+        <p id="statsDetailCopy">Chargement du detail...</p>
+      </div>
+      <button id="statsDetailClose" type="button" class="stats-modal-close" aria-label="Fermer">×</button>
+    </div>
+    <div class="stats-modal-body">
+      <div id="statsDetailGrid" class="stats-detail-grid"></div>
+      <div class="stats-detail-card stats-detail-card--chart">
+        <span id="statsDetailChartLabel">Mini graphique</span>
+        <strong id="statsDetailChartTitle">Lecture visuelle du KPI</strong>
+        <div id="statsDetailChartPreview" class="stats-kpi-chart stats-detail-chart-preview"></div>
+        <div id="statsDetailChartExplain" class="stats-detail-chart-note">Le mini graphique aide a comprendre comment lire ce KPI.</div>
+      </div>
+      <div id="statsDetailPoints" class="stats-detail-points"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+  (function () {
+    const d3Ref = window.d3;
+    const stateNode = document.getElementById('statsState');
+    const contentNode = document.getElementById('statsContent');
+    const kpisNode = document.getElementById('statsKpis');
+    const insightsNode = document.getElementById('statsInsights');
+    const tableBodyNode = document.getElementById('statsTableBody');
+    const summaryTitleNode = document.getElementById('statsSummaryTitle');
+    const summaryCopyNode = document.getElementById('statsSummaryCopy');
+    const summaryPointsNode = document.getElementById('statsSummaryPoints');
+    const detailModalNode = document.getElementById('statsDetailModal');
+    const detailTitleNode = document.getElementById('statsDetailTitle');
+    const detailCopyNode = document.getElementById('statsDetailCopy');
+    const detailGridNode = document.getElementById('statsDetailGrid');
+    const detailPointsNode = document.getElementById('statsDetailPoints');
+    const detailCloseNode = document.getElementById('statsDetailClose');
+    const detailChartLabelNode = document.getElementById('statsDetailChartLabel');
+    const detailChartTitleNode = document.getElementById('statsDetailChartTitle');
+    const detailChartPreviewNode = document.getElementById('statsDetailChartPreview');
+    const detailChartExplainNode = document.getElementById('statsDetailChartExplain');
+    const projectionSummaryNode = document.getElementById('statsProjectionSummary');
+    const projectionHelpNode = document.getElementById('statsProjectionHelp');
+
+    const chartNodes = {
+      broadType: document.getElementById('statsBroadTypeChart'),
+      investmentType: document.getElementById('statsTypeChart'),
+      projection: document.getElementById('statsProjectionChart'),
+      pie: document.getElementById('statsPieChart')
+    };
+
+    if (!d3Ref) {
+      stateNode.textContent = 'Impossible de charger D3.js.';
+      stateNode.classList.add('stats-state--error');
+      return;
+    }
+
+    const TYPE_ORDER = ['S+1', 'S+2', 'S+3', 'Villa'];
+    const COLORS = {
+      roi: '#5b8def',
+      annual: '#ff8f5a',
+      line: '#ec6a7b',
+      point: '#ffb454',
+      pie: ['#5b8def', '#ff8f5a', '#f3c45d', '#8e67dd'],
+      grid: 'rgba(35, 60, 92, 0.12)',
+      text: '#21344a'
+    };
+    const APARTMENT_BASE = { 'S+1': 150, 'S+2': 200, 'S+3': 250 };
+    let normalizedPropertiesCache = [];
+    let currentModel = null;
+
+    function toNumber(value) {
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? numeric : 0;
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('fr-TN', {
+        style: 'currency',
+        currency: 'TND',
+        maximumFractionDigits: 0
+      }).format(Number(value || 0));
+    }
+
+    function formatPercent(value) {
+      return (Number(value || 0) * 100).toFixed(2) + '%';
+    }
+
+    function formatCompact(value) {
+      const numeric = Number(value || 0);
+      if (numeric >= 1000000) return (numeric / 1000000).toFixed(1) + 'M';
+      if (numeric >= 1000) return (numeric / 1000).toFixed(1) + 'k';
+      return Math.round(numeric).toString();
+    }
+
+    function average(items, accessor) {
+      if (!items.length) return 0;
+      return items.reduce(function (sum, item) { return sum + accessor(item); }, 0) / items.length;
+    }
+
+    function sum(items, accessor) {
+      return items.reduce(function (total, item) { return total + accessor(item); }, 0);
+    }
+
+    function groupBy(items, getKey) {
+      return items.reduce(function (acc, item) {
+        const key = getKey(item);
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(item);
+        return acc;
+      }, {});
+    }
+
+    function normalizeDistance(rawValue) {
+      if (rawValue === undefined || rawValue === null || rawValue === '') return null;
+      if (typeof rawValue === 'number' && Number.isFinite(rawValue)) return rawValue > 50 ? rawValue / 1000 : rawValue;
+
+      const text = String(rawValue).toLowerCase().trim();
+      if (!text) return null;
+      if (text === 'proche') return 0.4;
+      const match = text.match(/(\d+(?:[.,]\d+)?)/);
+      if (!match) return null;
+      const numeric = Number(match[1].replace(',', '.'));
+      if (!Number.isFinite(numeric)) return null;
+      if (text.includes('km')) return numeric;
+      if (text.includes('m')) return numeric / 1000;
+      return numeric > 50 ? numeric / 1000 : numeric;
+    }
+
+    function inferNearBeach(property) {
+      const explicit = property.distance_plage ?? property.distancePlage;
+      const normalized = normalizeDistance(explicit);
+      if (normalized !== null) return normalized <= 1;
+
+      const haystack = [
+        property.zone,
+        property.address,
+        property.city,
+        property.location,
+        property.locationShort
+      ].filter(Boolean).join(' ').toLowerCase();
+
+      return ['plage', 'mer', 'corniche', 'mansoura', 'beachfront'].some(function (token) {
+        return haystack.includes(token);
+      });
+    }
+
+    function hasPool(property) {
+      if (typeof property.piscine === 'boolean') return property.piscine;
+      if (typeof property.pool === 'boolean') return property.pool;
+      return Array.isArray(property.amenities)
+        ? property.amenities.some(function (item) { return String(item).toLowerCase().includes('piscine'); })
+        : false;
+    }
+
+    function normalizeProperties(rawList) {
+      return rawList.flatMap(function (property) {
+        const rawType = String(property.type || '').toLowerCase();
+        const nearBeach = inferNearBeach(property);
+        const rawDistance = property.distance_plage ?? property.distancePlage;
+        const distanceKm = normalizeDistance(rawDistance) ?? (nearBeach ? 0.4 : null);
+
+        if (rawType === 'villa') {
+          return [{
+            id: property.id,
+            name: property.title || property.headline || 'Villa',
+            investmentType: 'Villa',
+            broadType: 'Villas',
+            prix: toNumber(property.prix ?? property.price),
+            chambres: toNumber(property.chambres ?? property.bedrooms),
+            piscine: hasPool(property),
+            distanceKm: distanceKm
+          }];
+        }
+
+        if (property.units && typeof property.units === 'object') {
+          return Object.entries(property.units).flatMap(function (entry) {
+            const category = entry[0];
+            const units = Array.isArray(entry[1]) ? entry[1] : [];
+
+            return units.map(function (unit, index) {
+              return {
+                id: property.id + '-' + category + '-' + index,
+                name: (property.title || 'Residence') + ' ' + category,
+                investmentType: category,
+                broadType: 'Apartments',
+                prix: toNumber(unit.price ?? property.prix ?? property.price),
+                chambres: 0,
+                piscine: false,
+                distanceKm: distanceKm
+              };
+            });
+          });
+        }
+
+        return [{
+          id: property.id,
+          name: property.title || property.headline || 'Appartement',
+          investmentType: property.categorie || property.category || 'S+2',
+          broadType: 'Apartments',
+          prix: toNumber(property.prix ?? property.price),
+          chambres: 0,
+          piscine: false,
+          distanceKm: distanceKm
+        }];
+      }).map(function (property) {
+        if (property.investmentType === 'Villa') {
+          const priceNight = 250 + (property.chambres * 50) + (property.piscine ? 150 : 0);
+          const annualRevenue = (priceNight * 10) * 12;
+          const roi = property.prix > 0 ? annualRevenue / property.prix : 0;
+
+          return Object.assign({}, property, {
+            annualRevenue: annualRevenue,
+            roi: roi
+          });
+        }
+
+        let base = APARTMENT_BASE[property.investmentType] || APARTMENT_BASE['S+2'];
+        if (property.distanceKm !== null && property.distanceKm <= 1) {
+          base *= 1.25;
+        }
+        const annualRevenue = (base * 8) * 12;
+        const roi = property.prix > 0 ? annualRevenue / property.prix : 0;
+
+        return Object.assign({}, property, {
+          annualRevenue: annualRevenue,
+          roi: roi
+        });
+      }).sort(function (a, b) {
+        return b.roi - a.roi;
+      });
+    }
+
+    function buildAggregates(items, key, order) {
+      const grouped = groupBy(items, function (item) { return item[key]; });
+      return order.filter(function (label) {
+        return grouped[label] && grouped[label].length;
+      }).map(function (label) {
+        const rows = grouped[label];
+        return {
+          label: label,
+          count: rows.length,
+          averageROI: average(rows, function (item) { return item.roi; }),
+          averageAnnualRevenue: average(rows, function (item) { return item.annualRevenue; })
+        };
+      });
+    }
+
+    function buildViewModel(items) {
+      const byBroadType = buildAggregates(items, 'broadType', ['Villas', 'Apartments']);
+      const byInvestmentType = buildAggregates(items, 'investmentType', TYPE_ORDER);
+      const averagePrice = average(items, function (item) { return item.prix; });
+
+      return {
+        items: items,
+        bestProperty: items[0] || null,
+        totalProperties: items.length,
+        averageROI: average(items, function (item) { return item.roi; }),
+        averageAnnualRevenue: average(items, function (item) { return item.annualRevenue; }),
+        totalAnnualRevenue: sum(items, function (item) { return item.annualRevenue; }),
+        byBroadType: byBroadType,
+        byInvestmentType: byInvestmentType,
+        pie: byInvestmentType.map(function (item) { return { label: item.label, value: item.count }; }),
+        projection: Array.from({ length: 5 }, function (_, index) {
+          const year = index + 1;
+          return { year: 'Annee ' + year, value: averagePrice * Math.pow(1.05, year) };
+        })
+      };
+    }
+
+    function createSummary(model) {
+      const bestType = model.byInvestmentType.slice().sort(function (a, b) { return b.averageROI - a.averageROI; })[0];
+
+      if (!bestType) {
+        return {
+          title: 'Aucune recommandation disponible',
+          copy: 'Le dashboard ne dispose pas encore d assez de donnees pour recommander un type de bien.',
+          points: []
+        };
+      }
+
+      return {
+        title: bestType.label + ' est le meilleur type de bien',
+        copy: bestType.label + ' offre aujourd hui le meilleur equilibre entre prix d achat et revenu locatif annuel sur l ensemble du portefeuille.',
+        points: [
+          bestType.label + ' affiche ' + formatPercent(bestType.averageROI) + ' de ROI moyen.',
+          bestType.label + ' genere ' + formatCurrency(bestType.averageAnnualRevenue) + ' de revenu annuel moyen.',
+          'Le portefeuille total produit ' + formatCurrency(model.totalAnnualRevenue) + ' de revenu annuel estime.'
+        ]
+      };
+    }
+
+    function buildInsights(model) {
+      if (!model.items.length) {
+        return ['Aucun bien disponible pour construire une conclusion.'];
+      }
+
+      const insights = [];
+      const bestType = model.byInvestmentType.slice().sort(function (a, b) { return b.averageROI - a.averageROI; })[0];
+      const broadWinner = model.byBroadType.slice().sort(function (a, b) { return b.averageROI - a.averageROI; })[0];
+
+      if (bestType) {
+        insights.push(bestType.label + ' est la typologie la plus performante du portefeuille.');
+      }
+
+      if (broadWinner) {
+        insights.push(broadWinner.label + ' domine la comparaison villas vs appartements en rendement moyen.');
+      }
+
+      if (model.bestProperty) {
+        insights.push(model.bestProperty.name + ' est actuellement le bien le plus rentable avec ' + formatPercent(model.bestProperty.roi) + ' de ROI.');
+      }
+
+      return insights.slice(0, 3);
+    }
+
+    function ensureTooltip(node) {
+      let tooltip = node.querySelector('.stats-tooltip');
+      if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.className = 'stats-tooltip';
+        node.appendChild(tooltip);
+      }
+      return tooltip;
+    }
+
+    function showTooltip(tooltip, event, html) {
+      tooltip.innerHTML = html;
+      tooltip.style.opacity = '1';
+      tooltip.style.left = (event.offsetX + 18) + 'px';
+      tooltip.style.top = (event.offsetY + 18) + 'px';
+    }
+
+    function hideTooltip(tooltip) {
+      tooltip.style.opacity = '0';
+    }
+
+    function drawGroupedChart(node, data, labelOne, keyOne, labelTwo, keyTwo) {
+      if (!node) return;
+      node.innerHTML = '';
+      const tooltip = ensureTooltip(node);
+      if (!data.length) return;
+
+      const width = node.getBoundingClientRect().width || 560;
+      const height = 320;
+      const margin = { top: 22, right: 18, bottom: 58, left: 18 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+      const svg = d3Ref.select(node).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height);
+      const chart = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      const series = [{ key: keyOne, label: labelOne, color: COLORS.roi }, { key: keyTwo, label: labelTwo, color: COLORS.annual }];
+      const x0 = d3Ref.scaleBand().domain(data.map(function (item) { return item.label; })).range([0, innerWidth]).padding(0.24);
+      const x1 = d3Ref.scaleBand().domain(series.map(function (item) { return item.key; })).range([0, x0.bandwidth()]).padding(0.16);
+      const maxPerSeries = {};
+
+      series.forEach(function (serie) {
+        maxPerSeries[serie.key] = d3Ref.max(data, function (item) { return item[serie.key] || 0; }) || 1;
+      });
+
+      chart.append('g')
+        .call(d3Ref.axisLeft(d3Ref.scaleLinear().domain([0, 1]).range([innerHeight, 0])).ticks(5).tickFormat(function (value) {
+          return Math.round(value * 100) + '%';
+        }))
+        .call(function (g) { g.selectAll('.domain').remove(); })
+        .call(function (g) { g.selectAll('.tick line').clone().attr('x2', innerWidth).attr('stroke', COLORS.grid); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text); });
+
+      chart.append('g')
+        .attr('transform', 'translate(0,' + innerHeight + ')')
+        .call(d3Ref.axisBottom(x0))
+        .call(function (g) { g.selectAll('.domain').attr('stroke', COLORS.grid); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text).attr('font-size', 12); });
+
+      chart.selectAll('.stats-bar-group')
+        .data(data)
+        .join('g')
+        .attr('transform', function (item) { return 'translate(' + x0(item.label) + ',0)'; })
+        .selectAll('rect')
+        .data(function (item) {
+          return series.map(function (serie) {
+            return {
+              label: item.label,
+              key: serie.key,
+              title: serie.label,
+              color: serie.color,
+              value: item[serie.key],
+              normalized: (item[serie.key] || 0) / maxPerSeries[serie.key]
+            };
+          });
+        })
+        .join('rect')
+        .attr('x', function (item) { return x1(item.key); })
+        .attr('y', function (item) { return innerHeight - (item.normalized * (innerHeight - 10)); })
+        .attr('width', x1.bandwidth())
+        .attr('height', function (item) { return item.normalized * (innerHeight - 10); })
+        .attr('rx', 14)
+        .attr('fill', function (item) { return item.color; })
+        .on('mousemove', function (event, item) {
+          showTooltip(tooltip, event, '<strong>' + item.label + '</strong><br>' + item.title + ': ' + (item.key === 'averageROI' ? formatPercent(item.value) : formatCurrency(item.value)));
+        })
+        .on('mouseleave', function () { hideTooltip(tooltip); });
+    }
+
+    function drawLineChart(node, data) {
+      if (!node) return;
+      node.innerHTML = '';
+      const tooltip = ensureTooltip(node);
+      if (!data.length) return;
+
+      const width = node.getBoundingClientRect().width || 900;
+      const height = 320;
+      const margin = { top: 20, right: 20, bottom: 50, left: 72 };
+      const innerWidth = width - margin.left - margin.right;
+      const innerHeight = height - margin.top - margin.bottom;
+      const svg = d3Ref.select(node).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height);
+      const chart = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      const x = d3Ref.scalePoint().domain(data.map(function (item) { return item.year; })).range([0, innerWidth]);
+      const y = d3Ref.scaleLinear().domain([0, d3Ref.max(data, function (item) { return item.value; }) || 0]).nice().range([innerHeight, 0]);
+      const line = d3Ref.line().x(function (item) { return x(item.year); }).y(function (item) { return y(item.value); }).curve(d3Ref.curveMonotoneX);
+
+      chart.append('g')
+        .call(d3Ref.axisLeft(y).ticks(5).tickFormat(function (value) { return d3Ref.format('.2s')(value); }))
+        .call(function (g) { g.selectAll('.domain').remove(); })
+        .call(function (g) { g.selectAll('.tick line').clone().attr('x2', innerWidth).attr('stroke', COLORS.grid); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text); });
+
+      chart.append('g')
+        .attr('transform', 'translate(0,' + innerHeight + ')')
+        .call(d3Ref.axisBottom(x))
+        .call(function (g) { g.selectAll('.domain').attr('stroke', COLORS.grid); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text); });
+
+      chart.append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', COLORS.line)
+        .attr('stroke-width', 4)
+        .attr('d', line);
+
+      chart.selectAll('circle')
+        .data(data)
+        .join('circle')
+        .attr('cx', function (item) { return x(item.year); })
+        .attr('cy', function (item) { return y(item.value); })
+        .attr('r', 7)
+        .attr('fill', COLORS.point)
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 3)
+        .on('mousemove', function (event, item) {
+          showTooltip(tooltip, event, '<strong>' + item.year + '</strong><br>Projection: ' + formatCurrency(item.value));
+        })
+        .on('mouseleave', function () { hideTooltip(tooltip); });
+    }
+
+    function drawPieChart(node, data) {
+      if (!node) return;
+      node.innerHTML = '';
+      const tooltip = ensureTooltip(node);
+      if (!data.length) return;
+
+      const width = node.getBoundingClientRect().width || 560;
+      const height = 320;
+      const radius = Math.min(width, height) / 2 - 24;
+      const svg = d3Ref.select(node).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height);
+      const chart = svg.append('g').attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+      const pie = d3Ref.pie().value(function (item) { return item.value; }).sort(null);
+      const arc = d3Ref.arc().innerRadius(radius * 0.52).outerRadius(radius);
+      const color = d3Ref.scaleOrdinal().domain(data.map(function (item) { return item.label; })).range(COLORS.pie);
+
+      chart.selectAll('path')
+        .data(pie(data))
+        .join('path')
+        .attr('d', arc)
+        .attr('fill', function (item) { return color(item.data.label); })
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 3)
+        .on('mousemove', function (event, item) {
+          showTooltip(tooltip, event, '<strong>' + item.data.label + '</strong><br>' + item.data.value + ' biens');
+        })
+        .on('mouseleave', function () { hideTooltip(tooltip); });
+
+      chart.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '-0.2em')
+        .attr('fill', COLORS.text)
+        .style('font-size', '12px')
+        .text('Portfolio');
+
+      chart.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '1.4em')
+        .attr('fill', COLORS.text)
+        .style('font-size', '28px')
+        .style('font-weight', '800')
+        .text(d3Ref.sum(data, function (item) { return item.value; }));
+    }
+
+    function buildSparkBars(values, color) {
+      const safeValues = values.length ? values : [0, 0, 0, 0];
+      const width = 220;
+      const height = 54;
+      const gap = 10;
+      const barWidth = 22;
+      const maxValue = Math.max.apply(null, safeValues.concat([1]));
+
+      return '<svg viewBox="0 0 ' + width + ' ' + height + '" aria-hidden="true">'
+        + safeValues.map(function (value, index) {
+          const normalized = maxValue ? value / maxValue : 0;
+          const barHeight = 12 + (normalized * 34);
+          const x = 10 + index * (barWidth + gap);
+          const y = height - barHeight;
+          return '<rect x="' + x + '" y="' + y + '" width="' + barWidth + '" height="' + barHeight + '" rx="9" fill="' + color + '" opacity="' + (0.45 + (index * 0.12)) + '"></rect>';
+        }).join('')
+        + '</svg>';
+    }
+
+    function buildSparkLine(values, stroke, fill) {
+      const safeValues = values.length ? values : [0, 0, 0, 0];
+      const width = 220;
+      const height = 54;
+      const maxValue = Math.max.apply(null, safeValues.concat([1]));
+      const minValue = Math.min.apply(null, safeValues.concat([0]));
+      const range = Math.max(maxValue - minValue, 1);
+      const step = safeValues.length > 1 ? 200 / (safeValues.length - 1) : 0;
+
+      const points = safeValues.map(function (value, index) {
+        const x = 10 + step * index;
+        const y = 8 + (38 - (((value - minValue) / range) * 38));
+        return { x: x, y: y };
+      });
+
+      const linePath = points.map(function (point, index) {
+        return (index === 0 ? 'M ' : 'L ') + point.x + ' ' + point.y;
+      }).join(' ');
+
+      const areaPath = linePath + ' L ' + points[points.length - 1].x + ' 50 L ' + points[0].x + ' 50 Z';
+
+      return '<svg viewBox="0 0 ' + width + ' ' + height + '" aria-hidden="true">'
+        + '<path d="' + areaPath + '" fill="' + fill + '" opacity="0.18"></path>'
+        + '<path d="' + linePath + '" fill="none" stroke="' + stroke + '" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>'
+        + points.map(function (point) {
+          return '<circle cx="' + point.x + '" cy="' + point.y + '" r="4.5" fill="' + stroke + '" stroke="#fff" stroke-width="2"></circle>';
+        }).join('')
+        + '</svg>';
+    }
+
+    function renderKpis(model) {
+      const bestType = model.byInvestmentType.slice().sort(function (a, b) { return b.averageROI - a.averageROI; })[0];
+      const broadTypeROI = model.byBroadType.map(function (item) { return item.averageROI; });
+      const typeROI = model.byInvestmentType.map(function (item) { return item.averageROI; });
+      const typeRevenue = model.byInvestmentType.map(function (item) { return item.averageAnnualRevenue; });
+      const projectionValues = model.projection.map(function (item) { return item.value; });
+      const portfolioSplit = model.pie.map(function (item) { return item.value; });
+      const cards = [
+        {
+          key: 'totalProperties',
+          label: 'Total properties',
+          value: model.totalProperties,
+          copy: 'Tous les biens du portefeuille sont inclus dans l analyse.',
+          indicator: 'Full portfolio',
+          indicatorType: 'neutral',
+          chart: buildSparkBars(portfolioSplit, '#5b8def'),
+          footLeft: 'Portfolio scope',
+          footRight: model.pie.length + ' types'
+        },
+        {
+          key: 'averageROI',
+          label: 'Average ROI',
+          value: formatPercent(model.averageROI),
+          copy: 'Rendement locatif annuel moyen sur l ensemble des biens.',
+          indicator: bestType ? bestType.label + ' leads' : 'Stable',
+          indicatorType: 'up',
+          chart: buildSparkLine(typeROI, '#5b8def', '#5b8def'),
+          footLeft: 'Top ROI',
+          footRight: bestType ? formatPercent(bestType.averageROI) : 'N/A'
+        },
+        {
+          key: 'averageRevenue',
+          label: 'Average revenue',
+          value: formatCurrency(model.averageAnnualRevenue),
+          copy: 'Revenu annuel moyen genere par un bien.',
+          indicator: 'Annual metric',
+          indicatorType: 'neutral',
+          chart: buildSparkBars(typeRevenue, '#ff8f5a'),
+          footLeft: 'Revenue focus',
+          footRight: formatCompact(model.totalAnnualRevenue)
+        },
+        {
+          key: 'bestPropertyType',
+          label: 'Best property type',
+          value: bestType ? bestType.label : 'N/A',
+          copy: bestType ? formatPercent(bestType.averageROI) + ' de ROI moyen.' : 'Aucune donnee disponible.',
+          indicator: 'Best choice',
+          indicatorType: 'up',
+          chart: buildSparkBars(typeROI, '#f3c45d'),
+          footLeft: 'Type winner',
+          footRight: bestType ? bestType.label : 'N/A'
+        },
+        {
+          key: 'portfolioRevenue',
+          label: 'Portfolio revenue',
+          value: formatCurrency(model.totalAnnualRevenue),
+          copy: 'Revenu annuel total estime pour l ensemble du portefeuille.',
+          indicator: 'Scale',
+          indicatorType: 'neutral',
+          chart: buildSparkLine(projectionValues, '#ec6a7b', '#ec6a7b'),
+          footLeft: '5Y outlook',
+          footRight: formatCompact(model.projection[model.projection.length - 1].value)
+        },
+        {
+          key: 'topProperty',
+          label: 'Top property',
+          value: model.bestProperty ? model.bestProperty.name : 'N/A',
+          copy: model.bestProperty ? formatPercent(model.bestProperty.roi) + ' de ROI.' : 'Aucun bien disponible.',
+          indicator: model.bestProperty ? 'Highest ROI' : 'No data',
+          indicatorType: model.bestProperty ? 'up' : 'down',
+          chart: buildSparkLine(broadTypeROI, '#8e67dd', '#8e67dd'),
+          footLeft: 'Broad type peak',
+          footRight: model.bestProperty ? formatPercent(model.bestProperty.roi) : 'N/A'
+        }
+      ];
+
+      kpisNode.innerHTML = cards.map(function (card) {
+        return '<div class="stats-kpi" data-kpi-key="' + card.key + '" role="button" tabindex="0" aria-label="Voir le detail de ' + card.label + '">'
+          + '<div class="stats-kpi-top">'
+          + '<span>' + card.label + '</span>'
+          + '<div class="stats-kpi-indicator stats-kpi-indicator--' + card.indicatorType + '">' + card.indicator + '</div>'
+          + '</div>'
+          + '<strong>' + card.value + '</strong>'
+          + '<p>' + card.copy + '</p>'
+          + '<div class="stats-kpi-chart">' + card.chart + '</div>'
+          + '<div class="stats-kpi-foot"><span>' + card.footLeft + '</span><span>' + card.footRight + '</span></div>'
+          + '</div>';
+      }).join('');
+
+      kpisNode.querySelectorAll('.stats-kpi').forEach(function (cardNode) {
+        function openFromCard() {
+          openKpiDetail(cardNode.getAttribute('data-kpi-key'));
+        }
+
+        cardNode.addEventListener('click', openFromCard);
+        cardNode.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openFromCard();
+          }
+        });
+      });
+    }
+
+    function buildDetailConfig(key) {
+      if (!currentModel) {
+        return null;
+      }
+
+      const bestType = currentModel.byInvestmentType.slice().sort(function (a, b) { return b.averageROI - a.averageROI; })[0];
+      const broadWinner = currentModel.byBroadType.slice().sort(function (a, b) { return b.averageROI - a.averageROI; })[0];
+      const topFive = currentModel.items.slice(0, 5);
+
+      if (key === 'totalProperties') {
+        return {
+          title: 'Detail: Total properties',
+          copy: 'Ce KPI mesure combien de biens individuels sont analyses dans le portefeuille global, y compris chaque unite appartement et chaque villa.',
+          metrics: [
+            { label: 'Total assets', value: currentModel.totalProperties, copy: 'Nombre total de biens analyses.' },
+            { label: 'Investment types', value: currentModel.byInvestmentType.length, copy: 'Nombre de typologies presentes.' },
+            { label: 'Top family', value: broadWinner ? broadWinner.label : 'N/A', copy: 'Famille dominante par rendement.' }
+          ],
+          points: [
+            'Chaque unite S+1, S+2 et S+3 est comptabilisee separément pour refléter la realite du portefeuille.',
+            'Ce chiffre donne la profondeur de l analyse: plus il est large, plus la comparaison est fiable.',
+            'La distribution des types plus bas montre comment ce total se repartit.'
+          ]
+        };
+      }
+
+      if (key === 'averageROI') {
+        return {
+          title: 'Detail: Average ROI',
+          copy: 'Le ROI moyen compare le revenu locatif annuel estime au prix d acquisition de chaque bien, puis calcule une moyenne sur tout le portefeuille.',
+          metrics: [
+            { label: 'Average ROI', value: formatPercent(currentModel.averageROI), copy: 'Rendement moyen global.' },
+            { label: 'Best type ROI', value: bestType ? formatPercent(bestType.averageROI) : 'N/A', copy: bestType ? bestType.label + ' est en tete.' : 'Pas de type gagnant.' },
+            { label: 'Top property ROI', value: currentModel.bestProperty ? formatPercent(currentModel.bestProperty.roi) : 'N/A', copy: 'Meilleur rendement individuel.' }
+          ],
+          points: [
+            'Si le ROI moyen monte, cela signifie que le portefeuille transforme mieux le prix d achat en revenu annuel.',
+            'Le meilleur type de bien tire generalement ce KPI vers le haut.',
+            'Ce KPI doit se lire avec le revenu moyen pour arbitrer entre rendement et volume de cash.'
+          ]
+        };
+      }
+
+      if (key === 'averageRevenue') {
+        return {
+          title: 'Detail: Average revenue',
+          copy: 'Le revenu moyen montre combien un bien genere en moyenne par an selon les hypotheses de location appliquees aux villas et aux appartements.',
+          metrics: [
+            { label: 'Average annual revenue', value: formatCurrency(currentModel.averageAnnualRevenue), copy: 'Cash annuel moyen par bien.' },
+            { label: 'Portfolio revenue', value: formatCurrency(currentModel.totalAnnualRevenue), copy: 'Cash annuel total du portefeuille.' },
+            { label: 'Top property revenue', value: currentModel.bestProperty ? formatCurrency(currentModel.bestProperty.annualRevenue) : 'N/A', copy: 'Bien qui genere le plus.' }
+          ],
+          points: [
+            'Ce KPI aide a comprendre le potentiel de cash-flow, independamment du prix d achat.',
+            'Un revenu moyen eleve est interessant, mais il doit rester cohérent avec le ROI.',
+            'Les villas peuvent tirer le revenu vers le haut, alors que certains appartements gardent un meilleur rendement.'
+          ]
+        };
+      }
+
+      if (key === 'bestPropertyType') {
+        return {
+          title: 'Detail: Best property type',
+          copy: 'Ce KPI identifie la typologie la plus performante entre S+1, S+2, S+3 et villas en fonction du ROI moyen.',
+          metrics: [
+            { label: 'Winning type', value: bestType ? bestType.label : 'N/A', copy: 'Type de bien le plus performant.' },
+            { label: 'Winning ROI', value: bestType ? formatPercent(bestType.averageROI) : 'N/A', copy: 'ROI moyen du type gagnant.' },
+            { label: 'Winning revenue', value: bestType ? formatCurrency(bestType.averageAnnualRevenue) : 'N/A', copy: 'Revenu moyen du type gagnant.' }
+          ],
+          points: [
+            'Ce KPI repond directement a la question: quel type de bien faut-il privilegier aujourd hui ?',
+            'Le type gagnant offre le meilleur compromis entre ticket d entree et revenu annuel.',
+            'La comparaison detaillee juste en dessous permet de voir les autres types en parallele.'
+          ]
+        };
+      }
+
+      if (key === 'portfolioRevenue') {
+        return {
+          title: 'Detail: Portfolio revenue',
+          copy: 'Le revenu portefeuille additionne le revenu annuel estime de tous les biens analyses pour mesurer la puissance globale du parc immobilier.',
+          metrics: [
+            { label: 'Portfolio revenue', value: formatCurrency(currentModel.totalAnnualRevenue), copy: 'Somme de tous les revenus annuels.' },
+            { label: 'Average revenue', value: formatCurrency(currentModel.averageAnnualRevenue), copy: 'Moyenne par bien.' },
+            { label: '5Y projection', value: formatCurrency(currentModel.projection[currentModel.projection.length - 1].value), copy: 'Projection moyenne finale sur 5 ans.' }
+          ],
+          points: [
+            'Ce KPI donne une vision business: combien le portefeuille peut produire sur une annee.',
+            'Il aide a dimensionner la valeur economique totale du parc.',
+            'La courbe de projection montre comment la base de valeur evolue dans le temps.'
+          ]
+        };
+      }
+
+      if (key === 'topProperty') {
+        return {
+          title: 'Detail: Top property',
+          copy: 'Ce KPI met en avant le bien qui affiche le meilleur ROI sur l ensemble du portefeuille et montre pourquoi il ressort en tete.',
+          metrics: [
+            { label: 'Top property', value: currentModel.bestProperty ? currentModel.bestProperty.name : 'N/A', copy: 'Bien le plus performant.' },
+            { label: 'Top ROI', value: currentModel.bestProperty ? formatPercent(currentModel.bestProperty.roi) : 'N/A', copy: 'Rendement de reference.' },
+            { label: 'Top annual revenue', value: currentModel.bestProperty ? formatCurrency(currentModel.bestProperty.annualRevenue) : 'N/A', copy: 'Revenu annuel du meilleur bien.' }
+          ],
+          points: topFive.map(function (item, index) {
+            return 'Top ' + (index + 1) + ': ' + item.name + ' | ' + item.investmentType + ' | ' + formatPercent(item.roi);
+          })
+        };
+      }
+
+      return null;
+    }
+
+    function buildDetailChartConfig(key) {
+      if (!currentModel) {
+        return null;
+      }
+
+      const topFive = currentModel.items.slice(0, 5);
+
+      if (key === 'totalProperties') {
+        return {
+          label: 'Mini graphique',
+          title: 'Repartition du portefeuille par type de bien',
+          markup: buildSparkBars(currentModel.pie.map(function (item) { return item.value; }), '#5b8def'),
+          explain: 'Ces barres montrent combien de biens existent dans chaque categorie du portefeuille. Plus une barre est haute, plus ce type est present dans le total affiche.'
+        };
+      }
+
+      if (key === 'averageROI') {
+        return {
+          label: 'Mini graphique',
+          title: 'Comparaison du ROI moyen par type',
+          markup: buildSparkLine(currentModel.byInvestmentType.map(function (item) { return item.averageROI; }), '#5b8def', '#5b8def'),
+          explain: 'Cette courbe compare le ROI moyen des types S+1, S+2, S+3 et Villa. Elle sert a voir quel type pousse le ROI global vers le haut ou vers le bas.'
+        };
+      }
+
+      if (key === 'averageRevenue') {
+        return {
+          label: 'Mini graphique',
+          title: 'Revenu annuel moyen par type de bien',
+          markup: buildSparkBars(currentModel.byInvestmentType.map(function (item) { return item.averageAnnualRevenue; }), '#ff8f5a'),
+          explain: 'Ces barres montrent le revenu annuel moyen genere par chaque type de bien. Elles permettent de comparer rapidement quel type apporte le plus de cash sur une annee.'
+        };
+      }
+
+      if (key === 'bestPropertyType') {
+        return {
+          label: 'Mini graphique',
+          title: 'Pourquoi ce type est le meilleur',
+          markup: buildSparkBars(currentModel.byInvestmentType.map(function (item) { return item.averageROI; }), '#f3c45d'),
+          explain: 'Ces barres comparent le ROI moyen des grands types d investissement. La barre la plus haute correspond au type qui devient le meilleur choix dans le KPI.'
+        };
+      }
+
+      if (key === 'portfolioRevenue') {
+        return {
+          label: 'Mini graphique',
+          title: 'Evolution projetee de la valeur moyenne sur 5 ans',
+          markup: buildSparkLine(currentModel.projection.map(function (item) { return item.value; }), '#ec6a7b', '#ec6a7b'),
+          explain: 'Cette courbe montre la projection de la valeur moyenne du portefeuille sur 5 ans. Elle aide a comprendre si la base patrimoniale prend de la valeur au fil du temps.'
+        };
+      }
+
+      if (key === 'topProperty') {
+        return {
+          label: 'Mini graphique',
+          title: 'ROI des 5 meilleures proprietes',
+          markup: buildSparkLine(topFive.map(function (item) { return item.roi; }), '#8e67dd', '#8e67dd'),
+          explain: 'Cette courbe montre le niveau de ROI des 5 meilleures proprietes. Elle permet de voir si le bien numero 1 est juste legerement meilleur ou tres au-dessus du reste.'
+        };
+      }
+
+      return {
+        label: 'Mini graphique',
+        title: 'Lecture visuelle du KPI',
+        markup: '',
+        explain: 'Ce mini graphique montre la logique visuelle du KPI.'
+      };
+    }
+
+    function openKpiDetail(key) {
+      const detail = buildDetailConfig(key);
+      if (!detail) {
+        return;
+      }
+      const chartDetail = buildDetailChartConfig(key);
+
+      detailTitleNode.textContent = detail.title;
+      detailCopyNode.textContent = detail.copy;
+      detailGridNode.innerHTML = detail.metrics.map(function (metric) {
+        return '<div class="stats-detail-card">'
+          + '<span>' + metric.label + '</span>'
+          + '<strong>' + metric.value + '</strong>'
+          + '<p>' + metric.copy + '</p>'
+          + '</div>';
+      }).join('');
+      detailChartLabelNode.textContent = chartDetail && chartDetail.label ? chartDetail.label : 'Mini graphique';
+      detailChartTitleNode.textContent = chartDetail && chartDetail.title ? chartDetail.title : 'Lecture visuelle du KPI';
+      detailChartPreviewNode.innerHTML = chartDetail && chartDetail.markup ? chartDetail.markup : '';
+      detailChartExplainNode.textContent = chartDetail && chartDetail.explain ? chartDetail.explain : 'Ce mini graphique montre la logique visuelle du KPI.';
+      detailPointsNode.innerHTML = detail.points.map(function (point) {
+        return '<div class="stats-detail-point">' + point + '</div>';
+      }).join('');
+      detailModalNode.classList.add('is-open');
+      detailModalNode.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeKpiDetail() {
+      detailModalNode.classList.remove('is-open');
+      detailModalNode.setAttribute('aria-hidden', 'true');
+    }
+
+    function renderSummary(summary) {
+      summaryTitleNode.textContent = summary.title;
+      summaryCopyNode.textContent = summary.copy;
+      summaryPointsNode.innerHTML = summary.points.map(function (point) {
+        return '<div class="stats-side-point">' + point + '</div>';
+      }).join('');
+    }
+
+    function renderInsights(insights) {
+      insightsNode.innerHTML = insights.map(function (insight) {
+        return '<article class="stats-insight">'
+          + '<span>Simple insight</span>'
+          + '<p>' + insight + '</p>'
+          + '</article>';
+      }).join('');
+    }
+
+    function renderTable(items) {
+      tableBodyNode.innerHTML = items.slice(0, 5).map(function (item) {
+        return '<tr>'
+          + '<td><strong>' + item.name + '</strong><br><span>' + item.id + '</span></td>'
+          + '<td>' + item.investmentType + '</td>'
+          + '<td>' + formatPercent(item.roi) + '</td>'
+          + '<td>' + formatCurrency(item.annualRevenue) + '</td>'
+          + '</tr>';
+      }).join('');
+    }
+
+    function renderProjectionSummary(model) {
+      const startValue = model.projection[0] ? model.projection[0].value / 1.05 : 0;
+      const endValue = model.projection[model.projection.length - 1] ? model.projection[model.projection.length - 1].value : 0;
+      const totalGrowth = startValue > 0 ? ((endValue - startValue) / startValue) : 0;
+
+      projectionSummaryNode.innerHTML = [
+        {
+          label: 'Prix moyen de depart',
+          value: formatCurrency(startValue),
+          copy: 'Base actuelle moyenne estimee avant projection.'
+        },
+        {
+          label: 'Prix moyen a 5 ans',
+          value: formatCurrency(endValue),
+          copy: 'Valeur moyenne theorique apres 5 ans de croissance.'
+        },
+        {
+          label: 'Hausse totale',
+          value: formatPercent(totalGrowth),
+          copy: 'Progression cumulee entre aujourd hui et la 5e annee.'
+        }
+      ].map(function (item) {
+        return '<div class="stats-projection-box">'
+          + '<span>' + item.label + '</span>'
+          + '<strong>' + item.value + '</strong>'
+          + '<p>' + item.copy + '</p>'
+          + '</div>';
+      }).join('');
+
+      projectionHelpNode.innerHTML = 'Comment lire cette courbe : nous prenons le prix moyen actuel du portefeuille comme point de depart, puis nous appliquons une croissance annuelle fixe de 5%. '
+        + 'La courbe ne represente pas une prediction garantie, mais un scenario de lecture simple pour comprendre comment la valeur moyenne pourrait evoluer dans le temps.';
+    }
+
+    function render(items) {
+      if (!items.length) {
+        stateNode.textContent = 'Aucun bien disponible pour construire le dashboard.';
+        stateNode.classList.remove('hidden');
+        contentNode.classList.add('hidden');
+        return;
+      }
+
+      const model = buildViewModel(items);
+      currentModel = model;
+      stateNode.classList.add('hidden');
+      contentNode.classList.remove('hidden');
+      renderKpis(model);
+      renderSummary(createSummary(model));
+      renderInsights(buildInsights(model));
+      renderTable(model.items);
+      renderProjectionSummary(model);
+      drawGroupedChart(chartNodes.broadType, model.byBroadType, 'ROI moyen', 'averageROI', 'Revenu annuel moyen', 'averageAnnualRevenue');
+      drawGroupedChart(chartNodes.investmentType, model.byInvestmentType, 'ROI moyen', 'averageROI', 'Revenu annuel moyen', 'averageAnnualRevenue');
+      drawLineChart(chartNodes.projection, model.projection);
+      drawPieChart(chartNodes.pie, model.pie);
+    }
+
+    window.addEventListener('resize', function () {
+      if (!contentNode.classList.contains('hidden')) {
+        render(normalizedPropertiesCache);
+      }
+    });
+
+    detailCloseNode.addEventListener('click', closeKpiDetail);
+    detailModalNode.addEventListener('click', function (event) {
+      if (event.target === detailModalNode) {
+        closeKpiDetail();
+      }
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && detailModalNode.classList.contains('is-open')) {
+        closeKpiDetail();
+      }
+    });
+
+    fetch('/api/properties')
+      .then(function (response) {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .then(function (payload) {
+        const list = Array.isArray(payload) ? payload : (Array.isArray(payload.data) ? payload.data : payload.properties || []);
+        normalizedPropertiesCache = normalizeProperties(list);
+        render(normalizedPropertiesCache);
+      })
+      .catch(function () {
+        stateNode.textContent = 'Impossible de charger les statistiques depuis /api/properties.';
+        stateNode.classList.add('stats-state--error');
+      });
+  }());
+</script>
+
+<%- include('partials/footer') %>

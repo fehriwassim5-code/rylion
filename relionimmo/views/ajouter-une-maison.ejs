@@ -1,0 +1,102 @@
+<%- include('partials/head', { title: 'Ajouter un bien', bodyClass: 'add-property-page' }) %>
+<%- include('partials/navbar', { page: '', properties: [] }) %>
+
+<main class="bg-gradient-to-b from-white via-brand-sand to-white text-brand-ink min-h-screen">
+  <section class="py-10 bg-gradient-to-r from-white via-brand-sand to-white border-b border-brand-ink/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-3">
+      <p class="text-xs uppercase tracking-[0.25em] text-brand-ink/50">Proprietaires</p>
+      <h1 class="text-3xl sm:text-4xl font-bold text-brand-ink">Ajoutez votre bien</h1>
+      <p class="text-brand-ink/70">Deposez votre annonce et notre equipe vous recontacte rapidement.</p>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-6">
+      <div class="bg-white border border-brand-ink/10 rounded-3xl shadow p-6 space-y-4">
+        <h3 class="text-lg font-semibold text-brand-ink">Pourquoi publier ici ?</h3>
+        <ul class="space-y-3 text-brand-ink/70 text-sm">
+          <li class="flex items-start gap-2"><i class="bi bi-check-circle text-brand-gold"></i><span>Diffusion sur nos canaux et reseau d'acheteurs.</span></li>
+          <li class="flex items-start gap-2"><i class="bi bi-check-circle text-brand-gold"></i><span>Conseils pour valoriser votre bien.</span></li>
+          <li class="flex items-start gap-2"><i class="bi bi-check-circle text-brand-gold"></i><span>Visites qualifiees et suivi personnalise.</span></li>
+        </ul>
+        <div class="rounded-2xl border border-brand-ink/10 bg-brand-sand/60 p-4 text-sm text-brand-ink/80">
+          Besoin d'aide ? Contactez-nous au +216 50366111.
+        </div>
+      </div>
+
+      <div class="bg-white border border-brand-ink/10 rounded-3xl shadow p-6 space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <h3 class="text-lg font-semibold text-brand-ink">Votre bien</h3>
+          <% if (submitted) { %>
+            <span class="px-3 py-1 rounded-full text-xs bg-brand-sand text-brand-ink/80">Demande envoyee</span>
+          <% } %>
+        </div>
+        <% if (submitted) { %>
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-sm p-3">
+            Merci ! Votre demande a ete transmise. Nous revenons vers vous tres vite.
+          </div>
+        <% } %>
+        <form action="/owner-request" method="POST" class="space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Nom complet</label>
+              <input name="name" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Email</label>
+              <input name="email" type="email" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Telephone</label>
+              <input name="phone" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Type de publication</label>
+              <select name="listingType" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+                <option value="sale">A vendre</option>
+                <option value="rent">A louer</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Adresse</label>
+              <input name="address" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Ville</label>
+              <input name="city" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+          </div>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Prix</label>
+              <input name="price" type="number" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Chambres</label>
+              <input name="bedrooms" type="number" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Salles de bain</label>
+              <input name="bathrooms" type="number" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Surface (m2)</label>
+            <input name="area" type="number" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Message</label>
+            <textarea name="message" rows="4" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="Decrivez votre bien, disponibilites, etc."></textarea>
+          </div>
+          <button type="submit" class="tw-btn-primary">Envoyer la demande</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

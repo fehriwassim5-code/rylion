@@ -1,0 +1,165 @@
+<%- include('partials/head', { title: property ? property.title : 'Bien', bodyClass: 'property-page', description: 'Details du bien a Kelibia.' }) %>
+<%- include('partials/navbar', { page }) %>
+
+<main class="section">
+  <div class="container">
+    <% if (!property) { %>
+      <div class="panel">
+        <div class="eyebrow">Introuvable</div>
+        <h1 style="font-size: clamp(40px, 6vw, 68px);">Bien introuvable</h1>
+        <p class="subtitle">Cette annonce a peut-etre ete deplacee ou n'est plus disponible.</p>
+        <div style="margin-top: 26px;">
+          <a href="/properties?page=1" class="button button--primary">Retour au catalogue</a>
+        </div>
+      </div>
+    <% } else { %>
+      <% const images = Array.isArray(property.images) && property.images.length ? property.images : [property.thumbnail || '/assets/img/real-estate/property-exterior-3.webp']; %>
+      <% const locationLabel = [property.address, property.city].filter(Boolean).join(', ') || property.location || property.locationShort || 'Kelibia'; %>
+      <% const detailPrice = property.listingType === 'rent' && property.paymentTerm ? `${formatCurrency(property.price)}/${property.paymentTerm}` : formatCurrency(property.price || property.startingPrice || 0); %>
+      <% const isResidence = property.type === 'Residence' && property.distribution && property.units; %>
+      <div class="detail-layout">
+        <section>
+          <div class="gallery-main">
+            <img src="<%= images[0] %>" alt="<%= property.title %>">
+          </div>
+          <div class="gallery-strip">
+            <% images.slice(1).forEach(function(image) { %>
+              <div class="gallery-thumb">
+                <img src="<%= image %>" alt="<%= property.title %>">
+              </div>
+            <% }) %>
+          </div>
+
+          <% if (isResidence) { %>
+            <div class="panel" style="margin-top: 24px;">
+              <div class="eyebrow">Repartition</div>
+              <h2 style="font-size: clamp(34px, 4vw, 58px); margin-top: 16px;"><%= property.apartmentCount %> appartements avec une repartition claire</h2>
+              <div class="stats-bar">
+                <div class="stat-card">
+                  <strong><%= property.distribution['S+1'] %></strong>
+                  <span>Appartements S+1 entre 80 m2 et 120 m2</span>
+                </div>
+                <div class="stat-card">
+                  <strong><%= property.distribution['S+2'] %></strong>
+                  <span>Appartements S+2 entre 120 m2 et 149 m2</span>
+                </div>
+                <div class="stat-card">
+                  <strong>2</strong>
+                  <span>Exactement deux S+3 entre 170 m2 et 190 m2</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel" style="margin-top: 24px;">
+              <% ['S+1', 'S+2', 'S+3'].forEach(function(type) { %>
+                <section class="unit-section">
+                  <h3>Appartements <%= type %></h3>
+                  <p>Chaque surface et chaque prix varient pour offrir une presentation plus realiste et plus facile a comparer.</p>
+                  <div class="unit-table">
+                    <% property.units[type].forEach(function(unit, index) { %>
+                      <div class="unit-row">
+                        <strong><%= type %> - Unite <%= index + 1 %></strong>
+                        <span><%= unit.surface %> m2 - <%= formatCurrency(unit.price) %></span>
+                      </div>
+                    <% }) %>
+                  </div>
+                </section>
+              <% }) %>
+            </div>
+          <% } else { %>
+            <div class="panel" style="margin-top: 24px;">
+              <div class="eyebrow">Informations</div>
+              <h2 style="font-size: clamp(34px, 4vw, 58px); margin-top: 16px;">Details du bien</h2>
+              <div class="detail-list">
+                <div class="detail-row">
+                  <strong>Prix</strong>
+                  <span><%= detailPrice %></span>
+                </div>
+                <div class="detail-row">
+                  <strong>Adresse</strong>
+                  <span><%= locationLabel %></span>
+                </div>
+                <div class="detail-row">
+                  <strong>Surface</strong>
+                  <span><%= property.area || property.surface || 0 %> m2</span>
+                </div>
+                <div class="detail-row">
+                  <strong>Chambres</strong>
+                  <span><%= property.bedrooms || property.rooms || 0 %></span>
+                </div>
+                <div class="detail-row">
+                  <strong>Salles de bain</strong>
+                  <span><%= property.bathrooms || 0 %></span>
+                </div>
+                <div class="detail-row">
+                  <strong>Type</strong>
+                  <span><%= property.type || (property.listingType === 'rent' ? 'Location' : 'Vente') %></span>
+                </div>
+              </div>
+            </div>
+
+            <% if ((property.amenities || []).length) { %>
+              <div class="panel" style="margin-top: 24px;">
+                <div class="eyebrow">Equipements</div>
+                <div class="pill-row" style="margin-top: 18px;">
+                  <% (property.amenities || []).forEach(function(amenity) { %>
+                    <span class="meta-pill"><%= amenity %></span>
+                  <% }) %>
+                </div>
+              </div>
+            <% } %>
+          <% } %>
+        </section>
+
+        <aside class="detail-card">
+          <div class="eyebrow"><%= property.type || 'Bien' %></div>
+          <h1 style="font-size: clamp(40px, 5vw, 68px); margin-top: 16px;"><%= property.title %></h1>
+          <div class="detail-card__location"><%= locationLabel %></div>
+
+          <% if (isResidence) { %>
+            <div class="detail-card__price">A partir de <%= formatCurrency(property.startingPrice) %></div>
+            <div class="detail-list">
+              <div class="detail-row">
+                <strong>Total appartements</strong>
+                <span><%= property.apartmentCount %></span>
+              </div>
+              <div class="detail-row">
+                <strong>Repartition</strong>
+                <span><%= property.distribution['S+1'] %> x S+1 / <%= property.distribution['S+2'] %> x S+2 / 2 x S+3</span>
+              </div>
+              <div class="detail-row">
+                <strong>Plage de surface</strong>
+                <span><%= property.surfaceRange %></span>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="detail-card__price"><%= detailPrice %></div>
+            <div class="detail-list">
+              <div class="detail-row">
+                <strong>Reference</strong>
+                <span><%= property.ref || property.id %></span>
+              </div>
+              <div class="detail-row">
+                <strong>Annonce</strong>
+                <span><%= property.listingType === 'rent' ? 'Location' : 'Vente' %></span>
+              </div>
+              <div class="detail-row">
+                <strong>Zone</strong>
+                <span><%= property.zoneLabel || property.zone || property.city || 'Kelibia' %></span>
+              </div>
+            </div>
+          <% } %>
+
+          <div style="margin-top: 24px; display: grid; gap: 12px;">
+            <a href="/contact" class="button button--primary">Contacter l'agence</a>
+            <% if (property.googleMapsUrl) { %>
+              <a href="<%= property.googleMapsUrl %>" target="_blank" rel="noreferrer" class="button button--ghost">Voir sur la carte</a>
+            <% } %>
+          </div>
+        </aside>
+      </div>
+    <% } %>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

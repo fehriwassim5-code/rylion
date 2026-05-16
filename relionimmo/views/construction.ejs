@@ -1,0 +1,82 @@
+<%- include('partials/head', { title: 'Construction', bodyClass: 'construction-page' }) %>
+<%- include('partials/navbar', { page: 'construction', properties: [] }) %>
+
+<main class="bg-gradient-to-b from-white via-brand-sand to-white text-brand-ink min-h-screen">
+  <section class="py-10 bg-gradient-to-r from-white via-brand-sand to-white border-b border-brand-ink/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-3">
+      <p class="text-xs uppercase tracking-[0.25em] text-brand-ink/50">Construction</p>
+      <h1 class="text-3xl sm:text-4xl font-bold text-brand-ink">Parlez-nous de votre projet</h1>
+      <p class="text-brand-ink/70">Remplissez le formulaire et notre equipe vous recontacte rapidement.</p>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="bg-white border border-brand-ink/10 rounded-3xl shadow p-6 space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <h3 class="text-lg font-semibold text-brand-ink">Formulaire de construction</h3>
+          <% if (submitted) { %>
+            <span class="px-3 py-1 rounded-full text-xs bg-brand-sand text-brand-ink/80">Demande envoyee</span>
+          <% } %>
+        </div>
+        <% if (submitted) { %>
+          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-sm p-3">
+            Merci ! Votre demande a ete envoyee.
+          </div>
+        <% } %>
+        <form action="/construction-request" method="POST" class="space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Nom complet</label>
+              <input name="name" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Email</label>
+              <input name="email" type="email" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Telephone</label>
+              <input name="phone" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Type de projet</label>
+              <select name="projectType" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+                <option value="construction">Construction neuve</option>
+                <option value="renovation">Renovation</option>
+                <option value="extension">Extension</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Surface estimee (m2)</label>
+              <input name="area" type="number" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Budget approx.</label>
+              <input name="budget" type="number" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Delai</label>
+              <input name="timeline" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="3-6 mois">
+            </div>
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Adresse du terrain</label>
+            <input name="address" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Message</label>
+            <textarea name="message" rows="4" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="Decrivez votre projet..."></textarea>
+          </div>
+          <button type="submit" class="tw-btn-primary">Envoyer la demande</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>

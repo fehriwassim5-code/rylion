@@ -1,0 +1,754 @@
+<%- include('partials/head', { title, bodyClass: 'admin-page' }) %>
+<%- include('partials/navbar', { page: 'admin', properties: saleProperties.concat(rentProperties) }) %>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<main class="bg-gradient-to-b from-white via-brand-sand to-white text-brand-ink min-h-screen">
+  <% const fallbackImage = '/assets/img/real-estate/property-exterior-3.webp'; %>
+  <% const galleryImages = Array.isArray(property.images) ? property.images : []; %>
+  <% const statusOptions = ['featured', 'for-sale', 'for-rent', 'new', 'hot', 'price-drop']; %>
+  <section class="py-10 bg-gradient-to-r from-white via-brand-sand to-white border-b border-brand-ink/5">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-brand-ink/50">Tableau de bord</p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-brand-ink">Modifier le bien</h1>
+        <p class="text-brand-ink/70">Mettre a jour les informations, les images et l'emplacement.</p>
+      </div>
+      <div class="text-sm text-brand-ink/70 flex flex-col sm:items-end">
+        <span class="font-semibold text-brand-ink"><%= property.title %></span>
+        <span class="text-brand-ink/60">Type : <%= property.listingType === 'rent' ? 'Location' : 'Vente' %></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-6">
+      <a href="/admin/<%= property.listingType === 'rent' ? 'rent' : 'sale' %>" class="tw-btn-ghost text-sm w-fit">&larr; Retour</a>
+
+      <form action="/admin/update/<%= property.id %>" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <section id="media-files" class="bg-white border border-brand-ink/10 rounded-3xl shadow p-6 space-y-5">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-brand-ink/50">Photos</p>
+            <h3 class="text-2xl font-semibold text-brand-ink">Gerer les photos simplement</h3>
+            <p class="text-sm text-brand-ink/70 m-0">Ajoutez de nouvelles photos, choisissez la couverture ou cochez les images a retirer.</p>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs bg-brand-sand text-brand-ink/80"><%= galleryImages.length %> photos</span>
+        </div>
+
+        <% if (galleryImages.length) { %>
+          <div class="grid md:grid-cols-3 gap-4">
+            <% galleryImages.forEach(function(img, index){ const isCover = img === property.thumbnail || (!property.thumbnail && index === 0); %>
+              <div class="relative rounded-2xl border border-brand-ink/10 bg-brand-sand/30 p-2">
+                <img src="<%= img %>" alt="<%= property.title %>" class="h-44 w-full rounded-xl object-cover border border-brand-ink/10">
+                <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-brand-ink/80">
+                  <label class="inline-flex items-center gap-2">
+                    <input type="radio" name="coverImage" value="<%= img %>" <%= isCover ? 'checked' : '' %>>
+                    Photo principale
+                  </label>
+                  <label class="inline-flex items-center gap-2 text-red-700">
+                    <input type="checkbox" name="removeImages" value="<%= img %>">
+                    Supprimer
+                  </label>
+                </div>
+                <% if (isCover) { %>
+                  <span class="absolute left-4 top-4 rounded-full bg-brand-gold px-3 py-1 text-[11px] font-semibold text-brand-ink shadow">Couverture</span>
+                <% } %>
+              </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <div class="rounded-2xl border border-brand-ink/10 bg-brand-sand/40 p-5 text-sm text-brand-ink/70">
+            Aucune photo pour le moment. Ajoutez vos premieres images ci-dessous.
+          </div>
+        <% } %>
+
+        <div>
+          <label class="text-sm text-brand-ink/80">Ajouter des photos</label>
+          <label for="galleryFiles" id="galleryDrop" class="mt-1 flex flex-col items-center justify-center border-2 border-dashed border-brand-ink/20 rounded-xl bg-brand-sand/40 px-4 py-7 text-center cursor-pointer">
+            <i class="bi bi-images text-2xl text-brand-ink/60"></i>
+            <p class="text-sm text-brand-ink/70 m-0">Glissez vos photos ici ou cliquez pour choisir</p>
+            <p class="text-[11px] text-brand-ink/60 m-0">Jusqu'a 10 nouvelles images par enregistrement</p>
+            <input name="galleryFiles" id="galleryFiles" type="file" multiple accept="image/*" class="hidden">
+          </label>
+          <div id="galleryPreview" class="mt-3 grid grid-cols-3 gap-2">
+            <% galleryImages.forEach(function(img, index){ %>
+              <div class="relative">
+                <img src="<%= img %>" class="h-20 w-full object-cover rounded-lg border border-brand-ink/10">
+                <% if (img === property.thumbnail || (!property.thumbnail && index === 0)) { %>
+                  <span class="absolute left-2 top-2 rounded-full bg-brand-gold px-2 py-1 text-[10px] font-semibold text-brand-ink shadow">Couverture</span>
+                <% } %>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+        </section>
+
+        <section class="bg-white border border-brand-ink/10 rounded-3xl shadow p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-semibold text-brand-ink">Editer l'annonce</h3>
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-brand-ink/80">Type</label>
+            <select name="listingType" class="rounded-xl border border-brand-ink/10 px-3 py-2">
+              <option value="sale" <%= property.listingType === 'sale' ? 'selected' : '' %>>Vente</option>
+              <option value="rent" <%= property.listingType === 'rent' ? 'selected' : '' %>>Location</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="md:col-span-2">
+            <label class="text-sm text-brand-ink/80">Titre</label>
+            <input name="title" value="<%= property.title %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+          </div>
+          <input name="ref" value="<%= property.ref || '' %>" type="hidden">
+          <div class="md:col-span-2">
+            <label class="text-sm text-brand-ink/80">Description</label>
+            <textarea name="headline" rows="3" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2"><%= property.headline || '' %></textarea>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <div id="priceFieldWrapper">
+            <label class="text-sm text-brand-ink/80"><%= property.listingType === 'rent' ? 'Loyer' : 'Prix' %></label>
+            <input id="priceInput" name="price" type="number" value="<%= property.price %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Statuts</label>
+            <input id="statusValue" name="status" type="hidden" value="<%= (property.status || []).join(',') %>">
+            <input id="statusInput" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="A louer, A vendre">
+            <div id="statusTags" class="mt-2 flex flex-wrap gap-2"></div>
+          </div>
+          <div id="paymentTermWrapper">
+            <label class="text-sm text-brand-ink/80">Terme de paiement</label>
+            <input id="paymentTermInput" name="paymentTerm" value="<%= property.paymentTerm || '' %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2">
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm text-brand-ink/80">Type de bien</label>
+            <select id="propertyTypeSelect" name="type" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+              <option value="" disabled>Choisir un type</option>
+              <option value="Residence" <%= property.type === 'Residence' ? 'selected' : '' %>>Residence</option>
+              <option value="Maison" <%= property.type === 'Maison' ? 'selected' : '' %>>Maison</option>
+              <option value="Maison de ville" <%= property.type === 'Maison de ville' ? 'selected' : '' %>>Maison de ville</option>
+              <option value="Villa" <%= property.type === 'Villa' ? 'selected' : '' %>>Villa</option>
+              <option value="Appartement" <%= property.type === 'Appartement' ? 'selected' : '' %>>Appartement</option>
+              <option value="Studio" <%= property.type === 'Studio' ? 'selected' : '' %>>Studio</option>
+              <option value="Duplex" <%= property.type === 'Duplex' ? 'selected' : '' %>>Duplex</option>
+              <option value="Loft" <%= property.type === 'Loft' ? 'selected' : '' %>>Loft</option>
+              <option value="Rez-de-chaussee" <%= property.type === 'Rez-de-chaussee' ? 'selected' : '' %>>Rez-de-chaussee</option>
+              <option value="Terrain" <%= property.type === 'Terrain' ? 'selected' : '' %>>Terrain</option>
+              <option value="Local commercial" <%= property.type === 'Local commercial' ? 'selected' : '' %>>Local commercial</option>
+              <option value="Bureau" <%= property.type === 'Bureau' ? 'selected' : '' %>>Bureau</option>
+              <option value="Entrepot" <%= property.type === 'Entrepot' ? 'selected' : '' %>>Entrepot</option>
+              <option value="Immeuble" <%= property.type === 'Immeuble' ? 'selected' : '' %>>Immeuble</option>
+              <option value="Ferme" <%= property.type === 'Ferme' ? 'selected' : '' %>>Ferme</option>
+              <option value="Garage" <%= property.type === 'Garage' ? 'selected' : '' %>>Garage</option>
+              <option value="Autre" <%= property.type === 'Autre' ? 'selected' : '' %>>Autre</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Adresse / Ville</label>
+            <input id="addressInput" name="address" value="<%= property.address %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+            <input id="cityInput" name="city" value="<%= property.city %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+          </div>
+          <div class="md:col-span-2">
+            <label class="text-sm text-brand-ink/80">Google Maps URL</label>
+            <input id="googleMapsUrl" name="googleMapsUrl" type="url" value="<%= property.googleMapsUrl || '' %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+            <input id="mapLat" name="mapLat" type="hidden" value="<%= property.mapLat || '' %>">
+            <input id="mapLng" name="mapLng" type="hidden" value="<%= property.mapLng || '' %>">
+            <div class="mt-4">
+              <div class="text-xs text-brand-ink/60 mb-2">Rechercher une adresse exacte</div>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input id="mapSearchInput" type="search" class="w-full rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="Ex: 10 Rue de Marseille, Tunis">
+                <button id="mapSearchButton" type="button" class="tw-btn-ghost whitespace-nowrap">Rechercher</button>
+              </div>
+              <div id="mapSearchStatus" class="mt-2 text-xs text-brand-ink/60 hidden"></div>
+              <div id="mapSearchResults" class="mt-3 space-y-2"></div>
+            </div>
+            <div class="mt-4">
+              <div class="text-xs text-brand-ink/60 mb-2">Choisir l'emplacement sur la carte</div>
+              <div id="mapPicker" class="h-96 w-full rounded-xl border border-brand-ink/10"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="residenceAutoSection" class="<%= property.type === 'Residence' ? '' : 'hidden' %> rounded-2xl border border-brand-ink/10 bg-brand-sand/30 p-4 space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm text-brand-ink/80">Nombre d'appartements</label>
+              <input id="apartmentCountInput" name="apartmentCount" type="number" min="4" step="1" value="<%= property.apartmentCount || '' %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="8">
+            </div>
+            <div>
+              <label class="text-sm text-brand-ink/80">Prix par m2 (TND)</label>
+              <input id="pricePerSquareMeterInput" name="pricePerSquareMeter" type="number" min="1" step="1" value="<%= property.pricePerSquareMeter || 1600 %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="1600">
+            </div>
+            <div class="md:col-span-2 rounded-xl border border-brand-ink/10 bg-white px-4 py-3 text-sm text-brand-ink/70">
+              Si vous changez seulement les photos, le nom ou la localisation, les appartements et les prix restent tels quels.
+            </div>
+          </div>
+        </div>
+
+        <div id="standardPropertyFields" class="grid md:grid-cols-3 gap-4 <%= property.type === 'Residence' ? 'hidden' : '' %>">
+          <div>
+            <label class="text-sm text-brand-ink/80">Chambres</label>
+            <input id="bedroomsInput" name="bedrooms" type="number" value="<%= property.bedrooms %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Salles de bain</label>
+            <input id="bathroomsInput" name="bathrooms" type="number" value="<%= property.bathrooms %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+          </div>
+          <div>
+            <label class="text-sm text-brand-ink/80">Surface (m2)</label>
+            <input id="areaInput" name="area" type="number" value="<%= property.area %>" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" required>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm text-brand-ink/80">Vignette (upload)</label>
+          <label for="thumbnailFile" id="thumbnailDrop" class="mt-1 flex flex-col items-center justify-center border-2 border-dashed border-brand-ink/20 rounded-xl bg-brand-sand/40 px-4 py-6 text-center cursor-pointer">
+            <i class="bi bi-cloud-arrow-up text-2xl text-brand-ink/60"></i>
+            <p class="text-sm text-brand-ink/70 m-0">Glissez-deposez ou cliquez pour choisir</p>
+            <p class="text-[11px] text-brand-ink/60 m-0">Formats image, max 10 Mo</p>
+            <input name="thumbnailFile" id="thumbnailFile" type="file" accept="image/*" class="hidden">
+          </label>
+          <div id="thumbnailPreview" class="mt-2">
+            <p class="text-xs text-brand-ink/60 mb-1">Apercu vignette</p>
+            <div class="relative">
+              <img src="<%= property.thumbnail || fallbackImage %>" class="h-28 w-full rounded-xl object-cover border border-brand-ink/10">
+              <button type="button" id="thumbnailRemove" class="absolute -top-2 -right-2 h-6 w-6 rounded-md bg-red-600 text-white flex items-center justify-center shadow">
+                <i class="bi bi-trash text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm text-brand-ink/80">Equipements</label>
+          <input id="amenitiesValue" name="amenities" type="hidden" value="<%= (property.amenities || []).join(',') %>">
+          <input id="amenitiesInput" class="w-full mt-1 rounded-xl border border-brand-ink/10 px-3 py-2" placeholder="Piscine, Terrasse, Parking">
+          <div id="amenitiesTags" class="mt-2 flex flex-wrap gap-2"></div>
+        </div>
+
+        <div class="pt-2 flex gap-3">
+          <button type="submit" class="tw-btn-primary">Tout enregistrer</button>
+          <a href="/admin/<%= property.listingType === 'rent' ? 'rent' : 'sale' %>" class="tw-btn-ghost">Annuler</a>
+        </div>
+        </section>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  (function () {
+    const statusInput = document.getElementById('statusInput');
+    const statusValue = document.getElementById('statusValue');
+    const statusTags = document.getElementById('statusTags');
+    const amenitiesInput = document.getElementById('amenitiesInput');
+    const amenitiesValue = document.getElementById('amenitiesValue');
+    const amenitiesTags = document.getElementById('amenitiesTags');
+    const mapsInput = document.getElementById('googleMapsUrl');
+    const propertyTypeSelect = document.getElementById('propertyTypeSelect');
+    const apartmentCountInput = document.getElementById('apartmentCountInput');
+    const pricePerSquareMeterInput = document.getElementById('pricePerSquareMeterInput');
+    const residenceAutoSection = document.getElementById('residenceAutoSection');
+    const standardPropertyFields = document.getElementById('standardPropertyFields');
+    const bedroomsInput = document.getElementById('bedroomsInput');
+    const bathroomsInput = document.getElementById('bathroomsInput');
+    const areaInput = document.getElementById('areaInput');
+    const priceInput = document.getElementById('priceInput');
+    const priceFieldWrapper = document.getElementById('priceFieldWrapper');
+    const paymentTermInput = document.getElementById('paymentTermInput');
+    const paymentTermWrapper = document.getElementById('paymentTermWrapper');
+    const addressInput = document.getElementById('addressInput');
+    const cityInput = document.getElementById('cityInput');
+    const mapLat = document.getElementById('mapLat');
+    const mapLng = document.getElementById('mapLng');
+    const mapPicker = document.getElementById('mapPicker');
+    const mapSearchInput = document.getElementById('mapSearchInput');
+    const mapSearchButton = document.getElementById('mapSearchButton');
+    const mapSearchResults = document.getElementById('mapSearchResults');
+    const mapSearchStatus = document.getElementById('mapSearchStatus');
+    const adminForm = document.querySelector('form[action^=\"/admin/update/\"]');
+    const thumbInput = document.getElementById('thumbnailFile');
+    const thumbPreview = document.getElementById('thumbnailPreview');
+    const thumbImg = thumbPreview ? thumbPreview.querySelector('img') : null;
+    const thumbRemove = document.getElementById('thumbnailRemove');
+    const galleryInput = document.getElementById('galleryFiles');
+    const galleryPreview = document.getElementById('galleryPreview');
+    const thumbDrop = document.getElementById('thumbnailDrop');
+    const galleryDrop = document.getElementById('galleryDrop');
+
+    function syncResidenceFormMode() {
+      const isResidence = propertyTypeSelect && propertyTypeSelect.value === 'Residence';
+      if (residenceAutoSection) {
+        residenceAutoSection.classList.toggle('hidden', !isResidence);
+      }
+      if (standardPropertyFields) {
+        standardPropertyFields.classList.toggle('hidden', isResidence);
+      }
+      if (priceFieldWrapper) {
+        priceFieldWrapper.classList.toggle('opacity-70', isResidence);
+      }
+      if (paymentTermWrapper) {
+        paymentTermWrapper.classList.toggle('opacity-70', isResidence);
+      }
+      if (bedroomsInput) {
+        bedroomsInput.required = !isResidence;
+        bedroomsInput.disabled = isResidence;
+      }
+      if (bathroomsInput) {
+        bathroomsInput.required = !isResidence;
+        bathroomsInput.disabled = isResidence;
+      }
+      if (areaInput) {
+        areaInput.required = !isResidence;
+        areaInput.disabled = isResidence;
+      }
+      if (apartmentCountInput) {
+        apartmentCountInput.required = isResidence;
+        apartmentCountInput.disabled = !isResidence;
+        if (!apartmentCountInput.value && isResidence) {
+          apartmentCountInput.value = '8';
+        }
+      }
+      if (pricePerSquareMeterInput) {
+        pricePerSquareMeterInput.required = isResidence;
+        pricePerSquareMeterInput.disabled = !isResidence;
+        if (!pricePerSquareMeterInput.value && isResidence) {
+          pricePerSquareMeterInput.value = '1600';
+        }
+      }
+      if (priceInput) {
+        priceInput.readOnly = isResidence;
+      }
+      if (paymentTermInput) {
+        paymentTermInput.disabled = isResidence;
+        if (isResidence) paymentTermInput.value = '';
+      }
+    }
+
+    if (propertyTypeSelect) {
+      propertyTypeSelect.addEventListener('change', syncResidenceFormMode);
+      syncResidenceFormMode();
+    }
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    function highlight(el, on) {
+      if (!el) return;
+      el.classList.toggle('border-brand-gold', on);
+      el.classList.toggle('border-brand-ink/20', !on);
+    }
+
+    function handleDropFile(el, input, cb) {
+      if (!el || !input) return;
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
+        el.addEventListener(eventName, preventDefaults, false);
+      });
+      ['dragenter', 'dragover'].forEach((eventName) => {
+        el.addEventListener(eventName, () => highlight(el, true), false);
+      });
+      ['dragleave', 'drop'].forEach((eventName) => {
+        el.addEventListener(eventName, () => highlight(el, false), false);
+      });
+      if (el.tagName !== 'LABEL') {
+        el.addEventListener('click', () => input.click());
+      }
+      el.addEventListener('drop', (e) => {
+        const files = e.dataTransfer?.files;
+        if (files && files.length) {
+          input.files = files;
+          cb(files);
+        }
+      });
+    }
+
+    if (statusInput && statusValue && statusTags) {
+      const tags = statusValue.value ? statusValue.value.split(',').map((t) => t.trim()).filter(Boolean) : [];
+
+      function syncTags() {
+        statusValue.value = tags.join(',');
+      }
+
+      function renderTag(tag) {
+        const chip = document.createElement('span');
+        chip.className = 'inline-flex items-center gap-2 rounded-full bg-brand-sand px-3 py-1 text-xs text-brand-ink/80';
+        chip.textContent = tag;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'text-brand-ink/60 hover:text-brand-ink';
+        btn.textContent = 'x';
+        btn.addEventListener('click', () => {
+          const index = tags.indexOf(tag);
+          if (index > -1) tags.splice(index, 1);
+          chip.remove();
+          syncTags();
+        });
+        chip.appendChild(btn);
+        statusTags.appendChild(chip);
+      }
+
+      function addTag(raw) {
+        const tag = raw.trim().replace(/,+$/, '');
+        if (!tag || tags.includes(tag)) return;
+        tags.push(tag);
+        renderTag(tag);
+        syncTags();
+      }
+
+      tags.forEach(renderTag);
+
+      statusInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          addTag(statusInput.value);
+          statusInput.value = '';
+        }
+      });
+
+      statusInput.addEventListener('blur', () => {
+        if (statusInput.value.trim()) {
+          addTag(statusInput.value);
+          statusInput.value = '';
+        }
+      });
+    }
+
+    if (amenitiesInput && amenitiesValue && amenitiesTags) {
+      const tags = amenitiesValue.value ? amenitiesValue.value.split(',').map((t) => t.trim()).filter(Boolean) : [];
+
+      function syncAmenities() {
+        amenitiesValue.value = tags.join(',');
+      }
+
+      function renderAmenity(tag) {
+        const chip = document.createElement('span');
+        chip.className = 'inline-flex items-center gap-2 rounded-full bg-brand-sand px-3 py-1 text-xs text-brand-ink/80';
+        chip.textContent = tag;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'text-brand-ink/60 hover:text-brand-ink';
+        btn.textContent = 'x';
+        btn.addEventListener('click', () => {
+          const index = tags.indexOf(tag);
+          if (index > -1) tags.splice(index, 1);
+          chip.remove();
+          syncAmenities();
+        });
+        chip.appendChild(btn);
+        amenitiesTags.appendChild(chip);
+      }
+
+      function addAmenity(raw) {
+        const tag = raw.trim().replace(/,+$/, '');
+        if (!tag || tags.includes(tag)) return;
+        tags.push(tag);
+        renderAmenity(tag);
+        syncAmenities();
+      }
+
+      tags.forEach(renderAmenity);
+
+      amenitiesInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          addAmenity(amenitiesInput.value);
+          amenitiesInput.value = '';
+        }
+      });
+
+      amenitiesInput.addEventListener('blur', () => {
+        if (amenitiesInput.value.trim()) {
+          addAmenity(amenitiesInput.value);
+          amenitiesInput.value = '';
+        }
+      });
+    }
+
+    if (mapPicker && window.L) {
+      const map = L.map(mapPicker).setView([36.8065, 10.1815], 12);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      let marker = null;
+      function setMarker(lat, lng) {
+        if (!marker) {
+          marker = L.marker([lat, lng]).addTo(map);
+        } else {
+          marker.setLatLng([lat, lng]);
+        }
+        if (mapLat) mapLat.value = lat.toFixed(6);
+        if (mapLng) mapLng.value = lng.toFixed(6);
+        if (mapsInput) {
+          mapsInput.value = `https://www.google.com/maps?q=${lat},${lng}`;
+        }
+      }
+
+      function updateAddressFields(address) {
+        if (!address) return;
+        const streetParts = [
+          address.house_number,
+          address.road || address.pedestrian || address.footway || address.residential || address.path
+        ].filter(Boolean);
+        const fallbackStreet = [
+          address.suburb,
+          address.neighbourhood,
+          address.hamlet,
+          address.quarter
+        ].filter(Boolean);
+        const cityValue = address.city || address.town || address.village || address.municipality || address.county || '';
+
+        if (addressInput) {
+          const nextAddress = streetParts.join(' ').trim() || fallbackStreet.join(', ').trim() || addressInput.value;
+          if (nextAddress) addressInput.value = nextAddress;
+        }
+
+        if (cityInput && cityValue) {
+          cityInput.value = cityValue;
+        }
+      }
+
+      async function reverseGeocode(lat, lng) {
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}`, {
+            headers: {
+              Accept: 'application/json'
+            }
+          });
+          if (!response.ok) return;
+          const result = await response.json();
+          updateAddressFields(result.address);
+        } catch (error) {
+          // Keep the selected coordinates even if address lookup fails.
+        }
+      }
+
+      function clearSearchResults() {
+        if (mapSearchResults) mapSearchResults.innerHTML = '';
+      }
+
+      function setSearchStatus(message, isError) {
+        if (!mapSearchStatus) return;
+        if (!message) {
+          mapSearchStatus.classList.add('hidden');
+          mapSearchStatus.textContent = '';
+          mapSearchStatus.classList.remove('text-red-600');
+          return;
+        }
+        mapSearchStatus.textContent = message;
+        mapSearchStatus.classList.remove('hidden');
+        mapSearchStatus.classList.toggle('text-red-600', Boolean(isError));
+      }
+
+      function renderSearchResults(results) {
+        clearSearchResults();
+        if (!mapSearchResults) return;
+        results.forEach((result) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'w-full rounded-xl border border-brand-ink/10 bg-white px-3 py-3 text-left text-sm text-brand-ink/80 hover:border-brand-ink/25 hover:bg-brand-sand/30';
+          button.textContent = result.display_name;
+          button.addEventListener('click', () => {
+            const lat = parseFloat(result.lat);
+            const lng = parseFloat(result.lon);
+            if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+            setMarker(lat, lng);
+            map.setView([lat, lng], 16);
+            if (mapSearchInput) {
+              mapSearchInput.value = result.display_name;
+            }
+            updateAddressFields(result.address || {});
+            clearSearchResults();
+            setSearchStatus('Emplacement trouve et place sur la carte.');
+          });
+          mapSearchResults.appendChild(button);
+        });
+      }
+
+      async function searchLocation() {
+        const query = mapSearchInput ? mapSearchInput.value.trim() : '';
+        if (!query) {
+          setSearchStatus('Saisissez une adresse ou un lieu a rechercher.', true);
+          clearSearchResults();
+          return;
+        }
+
+        setSearchStatus('Recherche en cours...');
+        clearSearchResults();
+
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=5&q=${encodeURIComponent(query)}`, {
+            headers: {
+              Accept: 'application/json'
+            }
+          });
+          if (!response.ok) {
+            throw new Error('search_failed');
+          }
+          const results = await response.json();
+          if (!Array.isArray(results) || !results.length) {
+            setSearchStatus('Aucun resultat trouve pour cette recherche.', true);
+            return;
+          }
+          setSearchStatus('Choisissez le bon resultat pour definir l emplacement exact.');
+          renderSearchResults(results);
+        } catch (error) {
+          setSearchStatus('La recherche du lieu a echoue. Verifiez la connexion puis reessayez.', true);
+        }
+      }
+
+      const startLat = mapLat && mapLat.value ? parseFloat(mapLat.value) : NaN;
+      const startLng = mapLng && mapLng.value ? parseFloat(mapLng.value) : NaN;
+      if (Number.isFinite(startLat) && Number.isFinite(startLng)) {
+        setMarker(startLat, startLng);
+        map.setView([startLat, startLng], 14);
+      } else if (mapsInput && mapsInput.value) {
+        const match = mapsInput.value.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/) || mapsInput.value.match(/[?&]q=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/i);
+        if (match) {
+          const lat = parseFloat(match[1]);
+          const lng = parseFloat(match[2]);
+          if (Number.isFinite(lat) && Number.isFinite(lng)) {
+            setMarker(lat, lng);
+            map.setView([lat, lng], 14);
+          }
+        }
+      }
+
+      map.on('click', (e) => {
+        const { lat, lng } = e.latlng;
+        setMarker(lat, lng);
+        reverseGeocode(lat, lng);
+        setSearchStatus('Emplacement mis a jour depuis la carte.');
+      });
+
+      if (mapSearchButton) {
+        mapSearchButton.addEventListener('click', searchLocation);
+      }
+
+      if (mapSearchInput) {
+        mapSearchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            searchLocation();
+          }
+        });
+      }
+    }
+
+    if (mapsInput && mapLat && mapLng) {
+      mapsInput.addEventListener('change', () => {
+        mapLat.value = '';
+        mapLng.value = '';
+      });
+    }
+
+    if (adminForm && mapsInput && mapLat && mapLng) {
+      adminForm.addEventListener('submit', () => {
+        if (!mapsInput.value && mapLat.value && mapLng.value) {
+          mapsInput.value = `https://www.google.com/maps?q=${mapLat.value},${mapLng.value}`;
+        }
+      });
+    }
+
+    const originalThumbSrc = thumbImg ? thumbImg.src : '';
+    const originalGalleryHTML = galleryPreview ? galleryPreview.innerHTML : '';
+
+    function showThumb(src) {
+      if (!thumbPreview || !thumbImg || !src) return;
+      thumbImg.src = src;
+    }
+
+    function clearThumb() {
+      if (!thumbInput || !thumbImg) return;
+      thumbInput.value = '';
+      thumbImg.src = originalThumbSrc || '';
+    }
+
+    if (thumbInput) {
+      thumbInput.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+          const url = URL.createObjectURL(file);
+          showThumb(url);
+          setTimeout(() => URL.revokeObjectURL(url), 0);
+        }
+      });
+      handleDropFile(thumbDrop, thumbInput, (files) => {
+        const file = files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        showThumb(url);
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+      });
+    }
+    if (thumbRemove) {
+      thumbRemove.addEventListener('click', clearThumb);
+    }
+
+    if (galleryInput && galleryPreview) {
+      let currentGalleryFiles = [];
+
+      function syncGalleryInput() {
+        const dt = new DataTransfer();
+        currentGalleryFiles.forEach((file) => dt.items.add(file));
+        galleryInput.files = dt.files;
+      }
+
+      function renderGallery() {
+        galleryPreview.innerHTML = '';
+        if (!currentGalleryFiles.length) {
+          galleryPreview.innerHTML = originalGalleryHTML;
+          return;
+        }
+        currentGalleryFiles.forEach((file, index) => {
+          const url = URL.createObjectURL(file);
+          const wrap = document.createElement('div');
+          wrap.className = 'relative';
+          const img = document.createElement('img');
+          img.src = url;
+          img.className = 'h-20 w-full object-cover rounded-lg border border-brand-ink/10';
+          img.onload = () => URL.revokeObjectURL(url);
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'absolute -top-2 -right-2 h-6 w-6 rounded-md bg-red-600 text-white flex items-center justify-center shadow';
+          btn.innerHTML = '<i class=\"bi bi-trash text-[10px]\"></i>';
+          btn.addEventListener('click', () => {
+            currentGalleryFiles.splice(index, 1);
+            syncGalleryInput();
+            renderGallery();
+          });
+          wrap.appendChild(img);
+          wrap.appendChild(btn);
+          galleryPreview.appendChild(wrap);
+        });
+      }
+
+      function setGalleryFiles(files) {
+        currentGalleryFiles = Array.from(files || []).slice(0, 10);
+        syncGalleryInput();
+        renderGallery();
+      }
+
+      galleryInput.addEventListener('change', (e) => {
+        setGalleryFiles(e.target.files || []);
+      });
+      handleDropFile(galleryDrop, galleryInput, (files) => {
+        setGalleryFiles(files || []);
+      });
+    }
+
+  })();
+</script>
+
+<%- include('partials/footer') %>

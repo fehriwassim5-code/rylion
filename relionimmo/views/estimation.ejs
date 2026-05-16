@@ -1,0 +1,157 @@
+<%- include('partials/head', { title: 'Estimation ML', bodyClass: 'estimation-page', description: 'Linear regression price estimation for Kelibia properties.' }) %>
+<%- include('partials/navbar', { page }) %>
+
+<main class="section">
+  <div class="container">
+    <div class="listing-head" style="margin-bottom: 28px;">
+      <div>
+        <div class="eyebrow">Machine Learning</div>
+        <h1 class="title" style="font-size: clamp(34px, 4vw, 54px);">Linear Regression Price Estimator</h1>
+        <p class="subtitle">Estimate the selling price of a villa or residence from the historical data in `data/properties.json`.</p>
+      </div>
+      <article class="panel" style="min-width: 280px;">
+        <strong style="display:block;font-family:'Outfit',sans-serif;font-size:28px;letter-spacing:-0.03em;">2 models</strong>
+        <span style="display:block;margin-top:8px;color:var(--muted);">One model for villas and one for residences.</span>
+      </article>
+    </div>
+
+    <div class="contact-grid">
+      <section class="contact-card">
+        <div class="eyebrow">Test Prediction</div>
+        <h2 style="margin: 12px 0 0; font-family: 'Outfit', sans-serif; font-size: 32px;">Enter property data</h2>
+
+        <form id="ml-estimation-form" class="contact-form">
+          <select name="type" class="field" required>
+            <option value="Villa">Villa</option>
+            <option value="Residence">Residence</option>
+          </select>
+
+          <select name="zone" class="field" required>
+            <option value="Beachfront">Beachfront</option>
+            <option value="City Center">City Center</option>
+            <option value="Quiet Areas">Quiet Areas</option>
+          </select>
+
+          <div id="villa-fields" style="display: grid; gap: 16px;">
+            <input class="field" type="number" name="area" min="0" step="1" placeholder="Area in m2" value="220">
+            <input class="field" type="number" name="bedrooms" min="0" step="1" placeholder="Bedrooms" value="4">
+            <input class="field" type="number" name="bathrooms" min="0" step="1" placeholder="Bathrooms" value="3">
+            <input class="field" type="number" name="lotSize" min="0" step="1" placeholder="Lot size in m2" value="330">
+          </div>
+
+          <div id="residence-fields" style="display: none; gap: 16px;">
+            <input class="field" type="number" name="apartmentCount" min="1" step="1" placeholder="Apartment count" value="12">
+          </div>
+
+          <input class="field" type="number" name="yearBuilt" min="1950" max="2100" step="1" placeholder="Year built" value="2021">
+
+          <button type="submit" class="button button--primary">Estimate price</button>
+        </form>
+
+        <div id="ml-result" class="panel" style="margin-top: 22px; display: none;"></div>
+      </section>
+
+      <aside class="contact-card">
+        <div class="eyebrow">Model Info</div>
+        <h2 style="margin: 12px 0 0; font-family: 'Outfit', sans-serif; font-size: 32px;">Integrated into the project</h2>
+        <p class="subtitle" style="margin-top: 12px;">The algorithm is trained at server startup, then exposed through an Express API for live estimation.</p>
+
+        <div class="contact-list">
+          <div>
+            <strong>Villa model</strong>
+            <div style="margin-top: 8px; color: var(--muted);">
+              Samples: <%= modelSummary.villa.sampleSize %><br>
+              Features: <%= modelSummary.villa.featuresUsed.join(', ') %><br>
+              RMSE: <%= Math.round(modelSummary.villa.metrics.rmse).toLocaleString('en-US') %> TND
+            </div>
+          </div>
+          <div>
+            <strong>Residence model</strong>
+            <div style="margin-top: 8px; color: var(--muted);">
+              Samples: <%= modelSummary.residence.sampleSize %><br>
+              Features: <%= modelSummary.residence.featuresUsed.join(', ') %><br>
+              RMSE: <%= Math.round(modelSummary.residence.metrics.rmse).toLocaleString('en-US') %> TND
+            </div>
+          </div>
+          <div>
+            <strong>API endpoint</strong>
+            <div style="margin-top: 8px; color: var(--muted);">
+              <code>POST /api/ml/predict-price</code>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<script>
+  (function () {
+    const form = document.getElementById('ml-estimation-form');
+    const result = document.getElementById('ml-result');
+    const typeField = form.elements.type;
+    const villaFields = document.getElementById('villa-fields');
+    const residenceFields = document.getElementById('residence-fields');
+
+    function formatCurrency(value) {
+      return Number(value || 0).toLocaleString('en-US') + ' TND';
+    }
+
+    function syncFields() {
+      const isVilla = typeField.value === 'Villa';
+      villaFields.style.display = isVilla ? 'grid' : 'none';
+      residenceFields.style.display = isVilla ? 'none' : 'grid';
+    }
+
+    async function submitForm(event) {
+      event.preventDefault();
+
+      const payload = {
+        type: form.elements.type.value,
+        zone: form.elements.zone.value,
+        area: Number(form.elements.area.value || 0),
+        bedrooms: Number(form.elements.bedrooms.value || 0),
+        bathrooms: Number(form.elements.bathrooms.value || 0),
+        lotSize: Number(form.elements.lotSize.value || 0),
+        apartmentCount: Number(form.elements.apartmentCount.value || 0),
+        yearBuilt: Number(form.elements.yearBuilt.value || 0)
+      };
+
+      result.style.display = 'block';
+      result.innerHTML = 'Calculating prediction...';
+
+      const response = await fetch('/api/ml/predict-price', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        result.innerHTML = '<div class="alert">' + (json.error || 'Unable to estimate the price.') + '</div>';
+        return;
+      }
+
+      const prediction = json.data;
+      result.innerHTML = [
+        '<div class="eyebrow">Prediction Ready</div>',
+        '<h3 style="margin: 12px 0 0; font-family: Outfit, sans-serif; font-size: 34px;">' + formatCurrency(prediction.estimatedPrice) + '</h3>',
+        '<p style="margin-top: 10px; color: var(--muted);">Estimated selling price for a ' + prediction.propertyType + ' based on linear regression.</p>',
+        '<div class="contact-list" style="margin-top: 18px;">',
+        '<div><strong>Features used</strong><div style="margin-top: 8px; color: var(--muted);">' + prediction.featuresUsed.join(', ') + '</div></div>',
+        '<div><strong>RMSE</strong><div style="margin-top: 8px; color: var(--muted);">' + formatCurrency(Math.round(prediction.metrics.rmse)) + '</div></div>',
+        '<div><strong>R²</strong><div style="margin-top: 8px; color: var(--muted);">' + Number(prediction.metrics.r2 || 0).toFixed(3) + '</div></div>',
+        '</div>'
+      ].join('');
+    }
+
+    typeField.addEventListener('change', syncFields);
+    form.addEventListener('submit', submitForm);
+    syncFields();
+  })();
+</script>
+
+<%- include('partials/footer') %>

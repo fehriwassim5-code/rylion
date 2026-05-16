@@ -1,0 +1,602 @@
+<%- include('partials/head', { title: 'Accueil', bodyClass: 'home-page', description: 'Residences et villas premium a Kelibia, Tunisie.' }) %>
+<%- include('partials/navbar', { page }) %>
+
+<main>
+  <% const hs = typeof homeSettings !== 'undefined' && homeSettings ? homeSettings : {}; %>
+  <% const heroEyebrow = hs.heroEyebrow || 'Kelibia, Tunisie'; %>
+  <% const heroTitle = hs.heroTitle || 'Trouvez votre bien a Kelibia'; %>
+  <% const heroSubtitle = hs.heroSubtitle || "Residences et villas pensees pour le confort, l'emplacement et la valeur."; %>
+  <% const heroMicrocopy = Array.isArray(hs.heroMicrocopy) && hs.heroMicrocopy.length ? hs.heroMicrocopy : ['Front de mer', 'Centre-ville', 'Quartiers calmes']; %>
+  <% const heroCtaLabel = hs.heroCtaLabel || 'Explorer les biens'; %>
+  <% const heroCtaHref = hs.heroCtaHref || '/properties?page=1'; %>
+  <% const sceneCaptionTitle = hs.sceneCaptionTitle || 'Rylion\nImmobilière'; %>
+  <% const sceneCaptionSubtitle = hs.sceneCaptionSubtitle || 'Art de vivre cotier'; %>
+  <section class="hero-shell">
+    <div class="container">
+      <div class="hero" id="hero-3d-scene">
+        <img class="hero__image" src="<%= heroImage %>" alt="Kelibia beach">
+        <div class="hero__overlay"></div>
+
+        <div class="hero__content">
+          <div class="hero__panel">
+            <div class="eyebrow"><%= heroEyebrow %></div>
+            <h1 class="title"><%= heroTitle %></h1>
+            <p class="subtitle"><%= heroSubtitle %></p>
+            <div class="hero-microcopy">
+              <% heroMicrocopy.forEach(function(item) { %>
+                <span><%= item %></span>
+              <% }); %>
+            </div>
+            <div class="hero__cta">
+              <a href="<%= heroCtaHref %>" class="button button--hero"><%= heroCtaLabel %></a>
+            </div>
+          </div>
+
+          <div class="hero-scene" aria-hidden="true">
+            <div class="hero-orb hero-orb--gold"></div>
+            <div class="hero-orb hero-orb--blue"></div>
+            <div class="scene-frame"></div>
+
+            <div class="scene-card scene-card--main" data-depth="14">
+              <img src="<%= heroImage %>" alt="">
+              <div class="scene-caption">
+                <strong><%- String(sceneCaptionTitle).replace(/\n/g, '<br>') %></strong>
+                <span><%= sceneCaptionSubtitle %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-section">
+    <div class="container">
+      <div class="dashboard-shell">
+        <div class="dashboard-head">
+          <div>
+            <div class="eyebrow">Dashboard D3</div>
+            <h2 style="font-size: clamp(38px, 6vw, 68px);">Performance locative en temps reel</h2>
+            <p>
+              Le dashboard charge les donnees depuis <code>/api/properties</code>, transforme villas et appartements,
+              puis calcule le revenu ete, le revenu annuel et le ROI pour afficher les tendances d'investissement.
+            </p>
+          </div>
+          <div class="dashboard-legend" aria-hidden="true">
+            <span><i style="background:#ff7a59;"></i>Revenu ete</span>
+            <span><i style="background:#145374;"></i>Revenu annuel</span>
+            <span><i style="background:#0f8b8d;"></i>Villa</span>
+            <span><i style="background:#f4b942;"></i>Appartement</span>
+          </div>
+        </div>
+
+        <div id="investmentDashboardState" class="dashboard-state">Chargement du dashboard...</div>
+
+        <div id="investmentDashboardContent" class="hidden">
+          <div id="investmentDashboardKpis" class="dashboard-kpis"></div>
+
+          <div class="dashboard-grid">
+            <article class="dashboard-chart-card">
+              <div class="dashboard-chart-copy">
+                <h3>Revenu ete vs annuel</h3>
+                <p>Lecture immediate des revenus moyens par type de bien selon les regles business fournies.</p>
+              </div>
+              <div id="dashboardBarChart" class="dashboard-chart"></div>
+            </article>
+
+            <article class="dashboard-chart-card">
+              <div class="dashboard-chart-copy">
+                <h3>Mix villa vs appartement</h3>
+                <p>Vue d'ensemble de la repartition entre villas et appartements normalises.</p>
+              </div>
+              <div id="dashboardPieChart" class="dashboard-chart"></div>
+            </article>
+
+            <article class="dashboard-chart-card dashboard-chart-card--wide">
+              <div class="dashboard-chart-copy">
+                <h3>Projection de prix sur 5 ans</h3>
+                <p>Projection basee sur le prix moyen actuel avec une croissance annuelle de 6%.</p>
+              </div>
+              <div id="dashboardLineChart" class="dashboard-chart"></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+  (function () {
+    const scene = document.getElementById('hero-3d-scene');
+    if (!scene || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    const layers = scene.querySelectorAll('[data-depth]');
+
+    scene.addEventListener('mousemove', function (event) {
+      const rect = scene.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+      layers.forEach(function (layer) {
+        const depth = Number(layer.getAttribute('data-depth')) || 0;
+        const rotateY = x * depth * 0.35;
+        const rotateX = y * depth * -0.28;
+        layer.style.transform += '';
+
+        if (layer.classList.contains('scene-card--main')) {
+          layer.style.transform = 'rotateY(' + (-13 + rotateY) + 'deg) rotateX(' + (7 + rotateX) + 'deg) translateZ(30px)';
+        }
+      });
+    });
+
+    scene.addEventListener('mouseleave', function () {
+      layers.forEach(function (layer) {
+        if (layer.classList.contains('scene-card--main')) {
+          layer.style.transform = 'rotateY(-13deg) rotateX(7deg) translateZ(30px)';
+        }
+      });
+    });
+  }());
+</script>
+
+<script>
+  (function () {
+    const d3Ref = window.d3;
+    const stateNode = document.getElementById('investmentDashboardState');
+    const contentNode = document.getElementById('investmentDashboardContent');
+    const kpiNode = document.getElementById('investmentDashboardKpis');
+    const barNode = document.getElementById('dashboardBarChart');
+    const pieNode = document.getElementById('dashboardPieChart');
+    const lineNode = document.getElementById('dashboardLineChart');
+
+    if (!stateNode || !contentNode || !kpiNode || !barNode || !pieNode || !lineNode) {
+      return;
+    }
+
+    if (!d3Ref) {
+      stateNode.textContent = 'Impossible de charger D3.js pour le dashboard.';
+      return;
+    }
+
+    const COLORS = {
+      summer: '#ff7a59',
+      annual: '#145374',
+      villa: '#0f8b8d',
+      apartment: '#f4b942',
+      line: '#7c3aed',
+      grid: 'rgba(18, 53, 74, 0.12)',
+      text: '#17324d'
+    };
+
+    const BASE_APARTMENT_PRICES = {
+      'S+1': 150,
+      'S+2': 200,
+      'S+3': 250
+    };
+
+    function toNumber(value) {
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? numeric : 0;
+    }
+
+    function isNearBeach(property) {
+      const distance = property.distance_plage ?? property.distancePlage;
+      if (distance !== undefined && distance !== null) {
+        return toNumber(distance) <= 1;
+      }
+
+      const zone = String(property.zone || property.address || '').toLowerCase();
+      return zone.includes('beachfront') || zone.includes('plage') || zone.includes('mer') || zone.includes('corniche');
+    }
+
+    function hasPool(property) {
+      if (typeof property.piscine === 'boolean') {
+        return property.piscine;
+      }
+
+      return Array.isArray(property.amenities)
+        ? property.amenities.some((item) => String(item).toLowerCase().includes('piscine'))
+        : false;
+    }
+
+    function normalizeProperties(rawList) {
+      return rawList.flatMap(function (property) {
+        const rawType = String(property.type || '').toLowerCase();
+
+        if (rawType === 'villa') {
+          return [{
+            id: property.id,
+            title: property.title || property.headline || 'Villa',
+            type: 'Villa',
+            chambres: toNumber(property.chambres ?? property.bedrooms),
+            piscine: hasPool(property),
+            categorie: null,
+            distance_plage: toNumber(property.distance_plage ?? property.distancePlage ?? (isNearBeach(property) ? 0.5 : 3)),
+            prix: toNumber(property.prix ?? property.price)
+          }];
+        }
+
+        if (property.units && typeof property.units === 'object') {
+          return Object.entries(property.units).flatMap(function (entry) {
+            const categorie = entry[0];
+            const units = Array.isArray(entry[1]) ? entry[1] : [];
+
+            return units.map(function (unit, index) {
+              return {
+                id: property.id + '-' + categorie + '-' + index,
+                title: (property.title || 'Appartement') + ' ' + categorie,
+                type: 'Appartement',
+                chambres: 0,
+                piscine: false,
+                categorie: categorie,
+                distance_plage: toNumber(property.distance_plage ?? property.distancePlage ?? (isNearBeach(property) ? 0.5 : 3)),
+                prix: toNumber(unit.price ?? property.price)
+              };
+            });
+          });
+        }
+
+        return [{
+          id: property.id,
+          title: property.title || property.headline || 'Appartement',
+          type: 'Appartement',
+          chambres: 0,
+          piscine: false,
+          categorie: property.categorie || property.category || 'S+2',
+          distance_plage: toNumber(property.distance_plage ?? property.distancePlage ?? (isNearBeach(property) ? 0.5 : 3)),
+          prix: toNumber(property.prix ?? property.price)
+        }];
+      });
+    }
+
+    function enrichProperty(property) {
+      if (property.type === 'Villa') {
+        const priceNight = 250 + (property.chambres * 50) + (property.piscine ? 150 : 0);
+        const revenu_ete = priceNight * 90 * 0.75;
+        const revenu_annuel = (priceNight * 10) * 12;
+        const ROI = property.prix > 0 ? (revenu_annuel / property.prix) * 100 : 0;
+        return Object.assign({}, property, {
+          revenu_ete: revenu_ete,
+          revenu_annuel: revenu_annuel,
+          ROI: ROI
+        });
+      }
+
+      const category = Object.prototype.hasOwnProperty.call(BASE_APARTMENT_PRICES, property.categorie) ? property.categorie : 'S+2';
+      const base = BASE_APARTMENT_PRICES[category] * (property.distance_plage <= 1 ? 1.25 : 1);
+      const revenu_ete = base * 90 * 0.6;
+      const revenu_annuel = (base * 8) * 12;
+      const ROI = property.prix > 0 ? (revenu_annuel / property.prix) * 100 : 0;
+      return Object.assign({}, property, {
+        revenu_ete: revenu_ete,
+        revenu_annuel: revenu_annuel,
+        ROI: ROI
+      });
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'TND',
+        maximumFractionDigits: 0
+      }).format(value || 0);
+    }
+
+    function formatPercent(value) {
+      return (value || 0).toFixed(2) + '%';
+    }
+
+    function ensureTooltip(container) {
+      let tooltip = container.querySelector('.dashboard-tooltip');
+      if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.className = 'dashboard-tooltip';
+        container.appendChild(tooltip);
+      }
+      return tooltip;
+    }
+
+    function showTooltip(tooltip, event, html) {
+      const rect = tooltip.parentElement.getBoundingClientRect();
+      tooltip.innerHTML = html;
+      tooltip.style.left = (event.clientX - rect.left + 18) + 'px';
+      tooltip.style.top = (event.clientY - rect.top + 18) + 'px';
+      tooltip.style.opacity = '1';
+    }
+
+    function hideTooltip(tooltip) {
+      tooltip.style.opacity = '0';
+    }
+
+    function drawBarChart(data) {
+      const width = barNode.clientWidth || 520;
+      const height = 360;
+      const margin = { top: 18, right: 20, bottom: 48, left: 74 };
+      const chartWidth = width - margin.left - margin.right;
+      const chartHeight = height - margin.top - margin.bottom;
+      const tooltip = ensureTooltip(barNode);
+      barNode.innerHTML = '';
+      barNode.appendChild(tooltip);
+
+      const svg = d3Ref.select(barNode).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height);
+      const chart = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      const keys = ['revenu_ete', 'revenu_annuel'];
+      const x0 = d3Ref.scaleBand().domain(data.map(function (d) { return d.label; })).range([0, chartWidth]).padding(0.28);
+      const x1 = d3Ref.scaleBand().domain(keys).range([0, x0.bandwidth()]).padding(0.14);
+      const y = d3Ref.scaleLinear()
+        .domain([0, d3Ref.max(data, function (d) { return Math.max(d.revenu_ete, d.revenu_annuel); }) || 0])
+        .nice()
+        .range([chartHeight, 0]);
+      const color = d3Ref.scaleOrdinal().domain(keys).range([COLORS.summer, COLORS.annual]);
+
+      chart.append('g')
+        .call(d3Ref.axisLeft(y).ticks(5).tickFormat(function (value) { return d3Ref.format('.2s')(value); }))
+        .call(function (g) { g.selectAll('.domain').remove(); })
+        .call(function (g) { g.selectAll('.tick line').clone().attr('x2', chartWidth).attr('stroke', COLORS.grid); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text); });
+
+      chart.append('g')
+        .attr('transform', 'translate(0,' + chartHeight + ')')
+        .call(d3Ref.axisBottom(x0))
+        .call(function (g) { g.selectAll('.domain').attr('stroke', 'rgba(18, 53, 74, 0.2)'); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text); });
+
+      const groups = chart.selectAll('.bar-group')
+        .data(data)
+        .enter()
+        .append('g')
+        .attr('transform', function (d) { return 'translate(' + x0(d.label) + ',0)'; });
+
+      groups.selectAll('rect')
+        .data(function (d) {
+          return keys.map(function (key) {
+            return { key: key, value: d[key], label: d.label };
+          });
+        })
+        .enter()
+        .append('rect')
+        .attr('x', function (d) { return x1(d.key); })
+        .attr('y', chartHeight)
+        .attr('width', x1.bandwidth())
+        .attr('height', 0)
+        .attr('rx', 14)
+        .attr('fill', function (d) { return color(d.key); })
+        .on('mousemove', function (event, d) {
+          d3Ref.select(this).attr('opacity', 0.86);
+          showTooltip(tooltip, event, '<strong>' + d.label + '</strong><br>' + (d.key === 'revenu_ete' ? 'Revenu ete' : 'Revenu annuel') + ': ' + formatCurrency(d.value));
+        })
+        .on('mouseleave', function () {
+          d3Ref.select(this).attr('opacity', 1);
+          hideTooltip(tooltip);
+        })
+        .transition()
+        .duration(900)
+        .delay(function (_, index) { return index * 110; })
+        .ease(d3Ref.easeCubicOut)
+        .attr('y', function (d) { return y(d.value); })
+        .attr('height', function (d) { return chartHeight - y(d.value); });
+    }
+
+    function drawPieChart(data) {
+      const width = pieNode.clientWidth || 520;
+      const height = 360;
+      const radius = Math.min(width, height) / 2 - 24;
+      const tooltip = ensureTooltip(pieNode);
+      pieNode.innerHTML = '';
+      pieNode.appendChild(tooltip);
+
+      const svg = d3Ref.select(pieNode).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height);
+      const chart = svg.append('g').attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+      const pie = d3Ref.pie().value(function (d) { return d.value; }).sort(null);
+      const arc = d3Ref.arc().innerRadius(radius * 0.52).outerRadius(radius);
+      const hoverArc = d3Ref.arc().innerRadius(radius * 0.52).outerRadius(radius + 10);
+      const color = d3Ref.scaleOrdinal().domain(data.map(function (d) { return d.label; })).range([COLORS.villa, COLORS.apartment]);
+
+      chart.selectAll('path')
+        .data(pie(data))
+        .enter()
+        .append('path')
+        .attr('fill', function (d) { return color(d.data.label); })
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 3)
+        .on('mousemove', function (event, d) {
+          d3Ref.select(this).transition().duration(180).attr('d', hoverArc(d));
+          showTooltip(tooltip, event, '<strong>' + d.data.label + '</strong><br>' + d.data.value + ' biens');
+        })
+        .on('mouseleave', function (event, d) {
+          d3Ref.select(this).transition().duration(180).attr('d', arc(d));
+          hideTooltip(tooltip);
+        })
+        .transition()
+        .duration(950)
+        .attrTween('d', function (d) {
+          const interpolate = d3Ref.interpolate({ startAngle: 0, endAngle: 0 }, d);
+          return function (t) {
+            return arc(interpolate(t));
+          };
+        });
+
+      chart.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '-0.2em')
+        .attr('fill', COLORS.text)
+        .attr('font-size', 14)
+        .text('Mix');
+
+      chart.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '1.2em')
+        .attr('fill', COLORS.text)
+        .attr('font-size', 24)
+        .attr('font-weight', 700)
+        .text(d3Ref.sum(data, function (d) { return d.value; }));
+    }
+
+    function drawLineChart(data) {
+      const width = lineNode.clientWidth || 900;
+      const height = 360;
+      const margin = { top: 18, right: 24, bottom: 42, left: 74 };
+      const chartWidth = width - margin.left - margin.right;
+      const chartHeight = height - margin.top - margin.bottom;
+      const tooltip = ensureTooltip(lineNode);
+      lineNode.innerHTML = '';
+      lineNode.appendChild(tooltip);
+
+      const svg = d3Ref.select(lineNode).append('svg').attr('viewBox', '0 0 ' + width + ' ' + height);
+      const chart = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      const minValue = d3Ref.min(data, function (d) { return d.value; }) || 0;
+      const maxValue = d3Ref.max(data, function (d) { return d.value; }) || 0;
+      const x = d3Ref.scalePoint().domain(data.map(function (d) { return d.year; })).range([0, chartWidth]);
+      const y = d3Ref.scaleLinear().domain([minValue * 0.92, maxValue * 1.06]).nice().range([chartHeight, 0]);
+
+      chart.append('g')
+        .call(d3Ref.axisLeft(y).ticks(5).tickFormat(function (value) { return d3Ref.format('.2s')(value); }))
+        .call(function (g) { g.selectAll('.domain').remove(); })
+        .call(function (g) { g.selectAll('.tick line').clone().attr('x2', chartWidth).attr('stroke', COLORS.grid); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text); });
+
+      chart.append('g')
+        .attr('transform', 'translate(0,' + chartHeight + ')')
+        .call(d3Ref.axisBottom(x))
+        .call(function (g) { g.selectAll('.domain').attr('stroke', 'rgba(18, 53, 74, 0.2)'); })
+        .call(function (g) { g.selectAll('text').attr('fill', COLORS.text); });
+
+      const line = d3Ref.line()
+        .x(function (d) { return x(d.year); })
+        .y(function (d) { return y(d.value); })
+        .curve(d3Ref.curveMonotoneX);
+
+      const path = chart.append('path')
+        .datum(data)
+        .attr('fill', 'none')
+        .attr('stroke', COLORS.line)
+        .attr('stroke-width', 4)
+        .attr('d', line);
+
+      const length = path.node().getTotalLength();
+      path
+        .attr('stroke-dasharray', length + ' ' + length)
+        .attr('stroke-dashoffset', length)
+        .transition()
+        .duration(1200)
+        .ease(d3Ref.easeCubicInOut)
+        .attr('stroke-dashoffset', 0);
+
+      chart.selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', function (d) { return x(d.year); })
+        .attr('cy', function (d) { return y(d.value); })
+        .attr('r', 0)
+        .attr('fill', '#fff')
+        .attr('stroke', COLORS.line)
+        .attr('stroke-width', 3)
+        .on('mousemove', function (event, d) {
+          d3Ref.select(this).attr('fill', COLORS.line);
+          showTooltip(tooltip, event, '<strong>' + d.year + '</strong><br>Prix projete: ' + formatCurrency(d.value));
+        })
+        .on('mouseleave', function () {
+          d3Ref.select(this).attr('fill', '#fff');
+          hideTooltip(tooltip);
+        })
+        .transition()
+        .duration(500)
+        .delay(function (_, index) { return 620 + (index * 120); })
+        .attr('r', 6);
+    }
+
+    function renderKpis(summary) {
+      kpiNode.innerHTML = [
+        '<article class="dashboard-kpi"><span>ROI moyen</span><strong>' + formatPercent(summary.averageROI) + '</strong><p>Rendement annuel theorique sur le portefeuille actuel.</p></article>',
+        '<article class="dashboard-kpi"><span>Prix moyen</span><strong>' + formatCurrency(summary.averagePrice) + '</strong><p>Prix d acquisition moyen tous biens normalises confondus.</p></article>',
+        '<article class="dashboard-kpi"><span>Meilleur bien</span><strong>' + summary.bestProperty.title + '</strong><p>' + formatPercent(summary.bestProperty.ROI) + ' de ROI annuel estime.</p></article>',
+        '<article class="dashboard-kpi"><span>Revenu ete moyen</span><strong>' + formatCurrency(summary.averageSummer) + '</strong><p>' + formatCurrency(summary.averageAnnual) + ' de revenu annuel moyen.</p></article>'
+      ].join('');
+    }
+
+    function computeDashboardData(properties) {
+      const villas = properties.filter(function (item) { return item.type === 'Villa'; });
+      const apartments = properties.filter(function (item) { return item.type === 'Appartement'; });
+      const averageSummer = d3Ref.mean(properties, function (item) { return item.revenu_ete; }) || 0;
+      const averageAnnual = d3Ref.mean(properties, function (item) { return item.revenu_annuel; }) || 0;
+      const averagePrice = d3Ref.mean(properties, function (item) { return item.prix; }) || 0;
+      const averageROI = d3Ref.mean(properties, function (item) { return item.ROI; }) || 0;
+      const bestProperty = properties.reduce(function (best, current) {
+        return current.ROI > best.ROI ? current : best;
+      }, properties[0]);
+
+      return {
+        summary: {
+          averageSummer: averageSummer,
+          averageAnnual: averageAnnual,
+          averagePrice: averagePrice,
+          averageROI: averageROI,
+          bestProperty: bestProperty
+        },
+        bar: [
+          {
+            label: 'Villa',
+            revenu_ete: d3Ref.mean(villas, function (item) { return item.revenu_ete; }) || 0,
+            revenu_annuel: d3Ref.mean(villas, function (item) { return item.revenu_annuel; }) || 0
+          },
+          {
+            label: 'Appartement',
+            revenu_ete: d3Ref.mean(apartments, function (item) { return item.revenu_ete; }) || 0,
+            revenu_annuel: d3Ref.mean(apartments, function (item) { return item.revenu_annuel; }) || 0
+          }
+        ],
+        pie: [
+          { label: 'Villa', value: villas.length },
+          { label: 'Appartement', value: apartments.length }
+        ],
+        line: Array.from({ length: 6 }, function (_, index) {
+          return {
+            year: String(new Date().getFullYear() + index),
+            value: averagePrice * Math.pow(1.06, index)
+          };
+        })
+      };
+    }
+
+    function renderDashboard(data) {
+      renderKpis(data.summary);
+      drawBarChart(data.bar);
+      drawPieChart(data.pie);
+      drawLineChart(data.line);
+      stateNode.classList.add('hidden');
+      contentNode.classList.remove('hidden');
+    }
+
+    fetch('/api/properties')
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+        return response.json();
+      })
+      .then(function (payload) {
+        const rawList = Array.isArray(payload) ? payload : payload.data;
+        const normalized = normalizeProperties(Array.isArray(rawList) ? rawList : []).map(enrichProperty);
+
+        if (!normalized.length) {
+          stateNode.textContent = 'Aucune donnee disponible pour construire le dashboard.';
+          return;
+        }
+
+        renderDashboard(computeDashboardData(normalized));
+        window.addEventListener('resize', function () {
+          renderDashboard(computeDashboardData(normalized));
+        });
+      })
+      .catch(function () {
+        stateNode.textContent = 'Impossible de charger le dashboard depuis /api/properties.';
+      });
+  }());
+</script>
+
+<%- include('partials/footer') %>
